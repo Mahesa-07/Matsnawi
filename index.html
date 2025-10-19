@@ -4,48 +4,56 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Matsnawi Jilid 1</title>
-  <link href="style.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <script src="script.js" defer></script>
 </head>
-<body class="bg-base text-base-text">
+<body>
   <header class="header">
     <h1 class="title">📜 Matsnawi Jilid 1</h1>
-    <nav class="nav">
-      <button id="tocBtn" class="nav-btn" title="Daftar Isi">☰</button>
-      <button id="prevBtn" class="nav-btn" title="Sebelumnya">⟨</button>
-      <button id="nextBtn" class="nav-btn" title="Berikutnya">⟩</button>
-    </nav>
+    <div class="nav-buttons">
+      <button id="tocBtn" title="Daftar Isi">☰</button>
+      <button id="searchBtn" title="Cari">🔍</button>
+      <button id="themeBtn" title="Mode">🌗</button>
+    </div>
   </header>
 
-  <aside id="toc" class="toc hidden">
-    <h3>Daftar Isi</h3>
+  <aside id="toc" class="toc">
+    <h2>Daftar Isi</h2>
     <ul>
       <li><a href="#bab1">Bab 1 — Pendahuluan</a></li>
       <li><a href="#bab2">Bab 2 — Di Antara Sunyi</a></li>
-      <li><a href="#bab3">Bab 3 — Jalan Cinta</a></li>
+      <li><a href="#bab3">Bab 3 — Tentang Cinta</a></li>
     </ul>
   </aside>
 
   <main class="content">
     <article id="bab1" class="chapter active">
       <h2>Bab 1 — Pendahuluan</h2>
-      <p>Wahai sahabat, ini hanyalah pengantar menuju lautan makna.<sup>1</sup></p>
-      <p>Setiap kata laksana debur ombak di samudra hikmah.<sup>2</sup></p>
+      <p>
+        Wahai sahabat, ini hanyalah pengantar menuju lautan makna. <span class="footnote">[1]</span><br>
+        Setiap kata laksana debur ombak di samudra hikmah. <span class="footnote">[2]</span>
+      </p>
     </article>
 
     <article id="bab2" class="chapter">
       <h2>Bab 2 — Di Antara Sunyi</h2>
-      <p>Sunyi bukanlah hampa, melainkan ruang di mana hati berdialog dengan cahaya.<sup>3</sup></p>
+      <p>
+        Sunyi bukanlah hampa, melainkan ruang di mana hati berdialog dengan cahaya. <span class="footnote">[3]</span>
+      </p>
     </article>
 
     <article id="bab3" class="chapter">
-      <h2>Bab 3 — Jalan Cinta</h2>
-      <p>Cinta adalah api yang membakar tanpa asap,<sup>4</sup> menerangi tanpa kata.</p>
+      <h2>Bab 3 — Tentang Cinta</h2>
+      <p>
+        Cinta adalah nyala yang tak padam, meski terhantam badai waktu. <span class="footnote">[4]</span><br>
+        Ia menyinari bahkan kegelapan paling dalam. <span class="footnote">[5]</span>
+      </p>
     </article>
   </main>
 
   <footer class="footer">
-    <small>© Matsnawi Jilid 1 — Desain oleh Novia</small>
+    <p>Disusun oleh <strong>Novia</strong> — versi klasik elegan 💫</p>
   </footer>
 </body>
 </html>
