@@ -1,0 +1,178 @@
+:root{
+  --base-font-size: 18px;
+  --gold: #c7a25a;
+  --bg: #0f1113;
+  --panel: #121316;
+  --muted: #bfb7a8;
+}
+
+/* Respect user prefers-color-scheme (we keep dark as default) */
+@media (prefers-color-scheme: light) {
+  :root {
+    --bg: #f8f7f4;
+    --panel: #ffffff;
+    --muted: #333;
+  }
+}
+
+/* Base */
+html,body{
+  height:100%;
+  font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, rgba(5,7,8,1) 0%, rgba(13,15,17,1) 100%);
+  margin:0;
+  color: #eae6df;
+  font-size: var(--base-font-size);
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+/* navbar */
+.navbar{
+  background: transparent;
+  padding: .6rem 1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+}
+
+/* gold buttons */
+.btn-outline-gold {
+  color: var(--gold);
+  border-color: rgba(199,162,90,0.18);
+  background: transparent;
+}
+.btn-gold {
+  background: linear-gradient(90deg, rgba(199,162,90,1), rgba(174,140,70,1));
+  color: #0b0b0b;
+  border: none;
+}
+
+/* content area */
+.content-wrap{
+  padding: 1.2rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* hero */
+.hero .title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+.hero .subtitle{
+  color: var(--muted);
+}
+
+/* kitab text */
+.kitab{
+  margin-top: 1rem;
+  padding: .8rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border-radius: 12px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+}
+
+/* bait (each line) */
+.baits .bait {
+  padding: .9rem .8rem;
+  border-left: 3px solid transparent;
+  margin-bottom: .4rem;
+  transition: background .28s, transform .18s, border-color .2s;
+  display: block;
+  border-radius: 8px;
+}
+.baits .bait:hover {
+  background: rgba(255,255,255,0.015);
+  transform: translateY(-2px);
+}
+
+/* row inside line */
+.line-row{
+  display:flex;
+  justify-content: space-between;
+  gap: .75rem;
+  align-items: center;
+}
+.line-text{
+  flex:1;
+  line-height:1.8;
+  font-size: 1rem;
+  color: #efeae0;
+}
+
+/* actions */
+.line-actions{ display:flex; gap:.45rem; align-items:center; margin-left: .5rem; }
+.btn-action{
+  background:transparent;
+  border: none;
+  color: var(--muted);
+  width:36px;
+  height:36px;
+  border-radius:8px;
+  display:inline-grid;
+  place-items:center;
+  cursor:pointer;
+}
+.btn-action.bookmark.bookmarked {
+  color: var(--gold);
+  background: rgba(199,162,90,0.08);
+  border: 1px solid rgba(199,162,90,0.12);
+}
+.btn-action.note.has-note {
+  color: #79b7ff;
+  background: rgba(121,183,255,0.06);
+  border: 1px solid rgba(121,183,255,0.06);
+}
+
+/* search bar */
+.search-bar{
+  position: sticky;
+  top: 0.6rem;
+  z-index: 40;
+  padding: .5rem;
+  max-width: 900px;
+  margin: .6rem auto;
+  display:none;
+}
+
+/* modal style tweaks */
+.modal-content { background: var(--panel); border-radius: 12px; }
+
+/* transitions between pages */
+.page-enter {
+  animation: pageFadeIn .28s ease both;
+}
+.page-exit {
+  animation: pageFadeOut .28s ease both;
+}
+@keyframes pageFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+@keyframes pageFadeOut { from { opacity: 1; } to { opacity:0; transform: translateY(8px); } }
+
+/* responsive */
+@media (max-width:600px){
+  .line-text{ font-size: .98rem; }
+  :root{ --base-font-size: 16px; }
+}
+
+./* ======== Perataan teks penuh tanpa pecah baris berlebihan ======== */
+.card-body {
+  text-align: justify;        /* ratakan kiri-kanan */
+  text-justify: inter-word;   /* atur jarak antar kata */
+}
+
+.line-text {
+  display: inline-block;      /* supaya baris tidak dianggap blok terpisah */
+  width: 100%;                /* isi lebar kartu penuh */
+  white-space: normal;        /* biarkan teks membungkus alami */
+  font-size: 1.08rem;
+  line-height: 1.9;
+  color: #f6eddc;
+  word-spacing: 0.07em;
+  letter-spacing: 0.03em;
+  margin-bottom: 1.2rem;
+}
+
+/* Sedikit padding agar tampak lega */
+.card {
+  padding: 0.8rem 1rem;
+}
