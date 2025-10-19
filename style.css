@@ -1,178 +1,94 @@
+/* Matsnawi01 — mobile-first, krem-keemasan theme */
 :root{
-  --base-font-size: 18px;
-  --gold: #c7a25a;
-  --bg: #0f1113;
-  --panel: #121316;
-  --muted: #bfb7a8;
+  --krem: #d8bf84;        /* krem keemasan */
+  --bg: #070607;
+  --panel: rgba(20,20,18,0.44);
+  --muted: #d9d0b8;
+  --glass-blur: 6px;
+  --radius: 14px;
+  --accent: #f5e8c3;
 }
 
-/* Respect user prefers-color-scheme (we keep dark as default) */
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: #f8f7f4;
-    --panel: #ffffff;
-    --muted: #333;
-  }
-}
-
-/* Base */
-html,body{
-  height:100%;
-  font-family: "Noto Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-  background: linear-gradient(180deg, rgba(5,7,8,1) 0%, rgba(13,15,17,1) 100%);
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
   margin:0;
-  color: #eae6df;
-  font-size: var(--base-font-size);
+  font-family:'Noto Sans',system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  background: linear-gradient(180deg,#040404 0%,#0f0f10 100%);
+  color:var(--accent);
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
 }
 
-/* navbar */
-.navbar{
-  background: transparent;
-  padding: .6rem 1rem;
-  border-bottom: 1px solid rgba(255,255,255,0.03);
+/* header */
+.header{
+  position:sticky; top:0; z-index:40;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:12px 14px; gap:8px;
+  background: rgba(6,6,6,0.6);
+  backdrop-filter: blur(var(--glass-blur));
+  border-bottom: 1px solid rgba(216,191,132,0.06);
 }
+.left{display:flex;align-items:center;gap:10px}
+.brand{margin:0;color:var(--krem);font-weight:700;font-size:1.05rem}
 
-/* gold buttons */
-.btn-outline-gold {
-  color: var(--gold);
-  border-color: rgba(199,162,90,0.18);
-  background: transparent;
+/* buttons */
+.icon-btn{
+  width:40px;height:40px;border-radius:10px;border:none;
+  display:inline-grid;place-items:center;cursor:pointer;background:transparent;color:var(--krem);
+  transition:transform .12s, background .12s;
 }
-.btn-gold {
-  background: linear-gradient(90deg, rgba(199,162,90,1), rgba(174,140,70,1));
-  color: #0b0b0b;
-  border: none;
-}
+.icon-btn:hover{transform:translateY(-3px);background:rgba(255,255,255,0.02);color:#fff}
+.icon-btn svg{width:20px;height:20px}
 
-/* content area */
-.content-wrap{
-  padding: 1.2rem;
-  max-width: 900px;
-  margin: 0 auto;
-}
+/* search */
+.search-box{display:flex;gap:8px;padding:10px;background:var(--panel);backdrop-filter:blur(var(--glass-blur));align-items:center}
+.search-box input{flex:1;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:rgba(255,255,255,0.02);color:var(--accent);outline:none}
+.btn-outline-small{background:transparent;border:1px solid rgba(255,255,255,0.04);padding:8px 10px;border-radius:8px;color:var(--krem)}
 
-/* hero */
-.hero .title {
-  font-size: 2.2rem;
-  font-weight: 700;
-  color: var(--gold);
+/* drawer */
+.drawer{
+  position:fixed; left:calc(-1 * 78%); top:0; height:100%; width:78%; max-width:320px;
+  padding:14px; z-index:50; transition:left .34s cubic-bezier(.2,.9,.2,1);
+  border-top-right-radius:16px; border-bottom-right-radius:16px;
+  background:var(--panel); backdrop-filter:blur(var(--glass-blur)); border:1px solid rgba(255,255,255,0.03);
 }
-.hero .subtitle{
-  color: var(--muted);
-}
+.drawer.open{left:0}
+.drawer-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.toc ul{list-style:none;padding:0;margin:6px 0 40px 0}
+.toc a{display:block;padding:10px;border-radius:10px;color:var(--accent);text-decoration:none}
+.toc a:hover{background:rgba(255,255,255,0.02);color:var(--krem);transform:translateX(6px)}
 
-/* kitab text */
-.kitab{
-  margin-top: 1rem;
-  padding: .8rem;
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius: 12px;
-  box-shadow: 0 6px 20px rgba(0,0,0,0.5);
-}
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.5);opacity:0;visibility:hidden;transition:opacity .24s;z-index:45}
+.overlay.show{opacity:1;visibility:visible}
 
-/* bait (each line) */
-.baits .bait {
-  padding: .9rem .8rem;
-  border-left: 3px solid transparent;
-  margin-bottom: .4rem;
-  transition: background .28s, transform .18s, border-color .2s;
-  display: block;
-  border-radius: 8px;
-}
-.baits .bait:hover {
-  background: rgba(255,255,255,0.015);
-  transform: translateY(-2px);
-}
+/* main content */
+.main{padding:16px;min-height:calc(100vh - 160px)}
+.chapter{margin-bottom:28px;padding:16px;border-radius:12px;background:rgba(12,12,13,0.36);border:1px solid rgba(255,255,255,0.02)}
+.chapter h2{margin:0 0 8px 0;color:var(--krem)}
+.poem{margin-top:8px}
+.line{position:relative;padding-right:36px;margin:8px 0;color:var(--muted);line-height:1.7;font-size:1rem}
 
-/* row inside line */
-.line-row{
-  display:flex;
-  justify-content: space-between;
-  gap: .75rem;
-  align-items: center;
-}
-.line-text{
-  flex:1;
-  line-height:1.8;
-  font-size: 1rem;
-  color: #efeae0;
-}
+/* footnote small button */
+.fn{position:absolute;right:6px;top:0;border:none;background:transparent;color:var(--krem);font-weight:700;cursor:pointer;padding:4px 6px;border-radius:8px;opacity:0.85}
+.fn:hover{transform:translateY(-2px);opacity:1}
 
-/* actions */
-.line-actions{ display:flex; gap:.45rem; align-items:center; margin-left: .5rem; }
-.btn-action{
-  background:transparent;
-  border: none;
-  color: var(--muted);
-  width:36px;
-  height:36px;
-  border-radius:8px;
-  display:inline-grid;
-  place-items:center;
-  cursor:pointer;
-}
-.btn-action.bookmark.bookmarked {
-  color: var(--gold);
-  background: rgba(199,162,90,0.08);
-  border: 1px solid rgba(199,162,90,0.12);
-}
-.btn-action.note.has-note {
-  color: #79b7ff;
-  background: rgba(121,183,255,0.06);
-  border: 1px solid rgba(121,183,255,0.06);
-}
+/* navigation within chapters */
+.nav-chapter{text-align:center;margin-top:18px}
+.btn-next,.btn-prev{background:linear-gradient(180deg,var(--krem),#e6c98c);color:#111;border:none;padding:9px 14px;border-radius:12px;cursor:pointer;font-weight:600}
+.btn-prev{background:transparent;color:var(--krem);border:1px solid rgba(216,191,132,0.12)}
 
-/* search bar */
-.search-bar{
-  position: sticky;
-  top: 0.6rem;
-  z-index: 40;
-  padding: .5rem;
-  max-width: 900px;
-  margin: .6rem auto;
-  display:none;
-}
+/* footnote popup */
+.fn-popup{position:fixed;left:50%;top:60%;transform:translate(-50%,-50%);max-width:92%;background:var(--panel);padding:14px;border-radius:12px;border:1px solid rgba(255,255,255,0.03);z-index:60;text-align:center}
+.fn-close{margin-top:10px;padding:8px 12px;border-radius:10px;border:none;background:rgba(255,255,255,0.03);color:var(--krem);cursor:pointer}
 
-/* modal style tweaks */
-.modal-content { background: var(--panel); border-radius: 12px; }
-
-/* transitions between pages */
-.page-enter {
-  animation: pageFadeIn .28s ease both;
-}
-.page-exit {
-  animation: pageFadeOut .28s ease both;
-}
-@keyframes pageFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity:1; transform:none; } }
-@keyframes pageFadeOut { from { opacity: 1; } to { opacity:0; transform: translateY(8px); } }
+/* footer */
+.footer{padding:12px;text-align:center;color:var(--krem);font-size:0.86rem;position:sticky;bottom:0;background:rgba(6,6,6,0.5);backdrop-filter:blur(var(--glass-blur));}
 
 /* responsive */
-@media (max-width:600px){
-  .line-text{ font-size: .98rem; }
-  :root{ --base-font-size: 16px; }
-}
-
-./* ======== Perataan teks penuh tanpa pecah baris berlebihan ======== */
-.card-body {
-  text-align: justify;        /* ratakan kiri-kanan */
-  text-justify: inter-word;   /* atur jarak antar kata */
-}
-
-.line-text {
-  display: inline-block;      /* supaya baris tidak dianggap blok terpisah */
-  width: 100%;                /* isi lebar kartu penuh */
-  white-space: normal;        /* biarkan teks membungkus alami */
-  font-size: 1.08rem;
-  line-height: 1.9;
-  color: #f6eddc;
-  word-spacing: 0.07em;
-  letter-spacing: 0.03em;
-  margin-bottom: 1.2rem;
-}
-
-/* Sedikit padding agar tampak lega */
-.card {
-  padding: 0.8rem 1rem;
+@media (min-width:900px){
+  .drawer{width:320px;left:calc(-320px)}
+  .main{padding:28px}
+  .line{font-size:1.03rem}
 }
