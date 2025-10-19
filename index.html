@@ -3,79 +3,107 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Matsnawi — Daftar Bab</title>
+  <title>Matsnawi01 — Karya Tulis</title>
 
-  <!-- Bootstrap 5 -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Noto Sans -->
+  <!-- Font -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Custom -->
-  <link rel="stylesheet" href="style.css" />
-
+  <link rel="stylesheet" href="style.css">
 </head>
-<body class="page page-enter">
-
-  <!-- Offcanvas / Sidebar -->
-  <nav class="navbar navbar-dark">
-    <div class="container-fluid">
-      <button class="btn btn-outline-gold" data-bs-toggle="offcanvas" data-bs-target="#offcanvasMenu" aria-controls="offcanvasMenu">
-        ☰
+<body>
+  <!-- Header -->
+  <header class="header blur">
+    <div class="left">
+      <button id="btnDrawer" class="icon-btn" aria-label="Daftar Isi" title="Daftar Isi">
+        <!-- Heroicon: Bars -->
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3.75 6.75h16.5M3.75 12.75h16.5M3.75 18.75h16.5"></path></svg>
       </button>
-      <div class="navbar-brand ms-2">Matsnawi — Buku 1</div>
+      <h1 class="brand">Matsnawi01</h1>
+    </div>
 
-      <div class="d-flex gap-2">
-        <button id="btn-font-minus" class="btn btn-sm btn-outline-gold">A−</button>
-        <button id="btn-font-plus" class="btn btn-sm btn-outline-gold">A+</button>
-        <button class="btn btn-sm btn-outline-gold" id="open-search">🔎</button>
-      </div>
+    <div class="right">
+      <button id="btnSearch" class="icon-btn" aria-label="Cari" title="Cari"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 21l-4.35-4.35"></path><path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"></path></svg></button>
+      <button id="btnBookmark" class="icon-btn" aria-label="Bookmark" title="Simpan posisi"><svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17.25 6.75V21L12 17.25 6.75 21V6.75A2.25 2.25 0 0 1 9 4.5h6a2.25 2.25 0 0 1 2.25 2.25z"></path></svg></button>
     </div>
-  </nav>
-
-  <div class="offcanvas offcanvas-start text-bg-dark" tabindex="-1" id="offcanvasMenu" aria-labelledby="offcanvasMenuLabel">
-    <div class="offcanvas-header">
-      <h5 id="offcanvasMenuLabel">Daftar Isi</h5>
-      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body">
-      <ul class="list-unstyled">
-        <li><a class="nav-link" href="bab1.html">Bab 1 — Pendahuluan</a></li>
-        <li><a class="nav-link" href="bab2.html">Bab 2 — Di Antara Sunyi</a></li>
-        <li><a class="nav-link" href="bab3.html">Bab 3 — Perjalanan</a></li>
-      </ul>
-    </div>
-  </div>
+  </header>
 
   <!-- Search bar (toggle) -->
-  <div id="searchBar" class="search-bar shadow">
-    <div class="input-group">
-      <input id="searchInput" type="search" class="form-control" placeholder="Cari kata / bait..." />
-      <button id="clearSearch" class="btn btn-outline-gold">✕</button>
-    </div>
+  <div id="searchBox" class="search-box">
+    <input id="searchInput" type="search" placeholder="Cari kata atau bab..." aria-label="Cari" />
+    <button id="clearSearch" class="btn-outline-small" title="Kosongkan">✕</button>
   </div>
 
-  <main class="container content-wrap">
-    <section class="hero text-center">
-      <h1 class="title">Matsnawi — Buku 1</h1>
-      <p class="subtitle">Terjemahan bebas — Koleksi pribadi</p>
-      <a class="btn btn-gold btn-lg mt-3" href="bab1.html">Buka Bab 1</a>
-    </section>
+  <!-- Drawer / TOC -->
+  <aside id="drawer" class="drawer blur" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Daftar Isi</h3>
+      <button id="closeDrawer" class="icon-btn" aria-label="Tutup">✕</button>
+    </div>
 
-    <section class="cards mt-4">
-      <div class="card card-dark mb-3">
-        <div class="card-body">
-          <h5 class="card-title">Daftar Bab</h5>
-          <p class="card-text small text-muted">klik daftar isi untuk melihat bab</p>
-        </div>
+    <nav class="toc">
+      <ul>
+        <li><a href="#bab1" data-target="bab1">Bab 1 — Pendahuluan</a></li>
+        <li><a href="#bab2" data-target="bab2">Bab 2 — Di Antara Sunyi</a></li>
+        <li><a href="#bab3" data-target="bab3">Bab 3 — Tentang Cahaya</a></li>
+      </ul>
+    </nav>
+
+    <div class="drawer-foot">
+      <button id="goTop" class="btn-outline-small">Ke Atas</button>
+    </div>
+  </aside>
+  <div id="overlay" class="overlay" hidden></div>
+
+  <!-- Main content -->
+  <main id="main" class="main">
+    <!-- Bab 1 -->
+    <article id="bab1" class="chapter active" data-title="Bab 1 — Pendahuluan">
+      <h2>Bab 1 — Pendahuluan</h2>
+      <div class="poem">
+        <div class="line">Wahai sahabat, <button class="fn" data-note="¹ Ajakan lembut pada pembaca">¹</button> ini hanyalah pengantar menuju lautan makna.</div>
+        <div class="line">Setiap kata laksana debur ombak di samudra hikmah. <button class="fn" data-note="² Simbol ombak = arus kehidupan">²</button></div>
       </div>
-    </section>
+      <div class="nav-chapter">
+        <button class="btn-next" data-target="bab2">Lanjut ➜</button>
+      </div>
+    </article>
+
+    <!-- Bab 2 -->
+    <article id="bab2" class="chapter" data-title="Bab 2 — Di Antara Sunyi">
+      <h2>Bab 2 — Di Antara Sunyi</h2>
+      <div class="poem">
+        <div class="line">Sunyi bukanlah hampa, <button class="fn" data-note="¹ Sunyi = ruang batin">¹</button> melainkan ruang di mana hati berdialog dengan cahaya.</div>
+        <div class="line">Belajar mendengarkan yang tak bersuara adalah seni yang halus. <button class="fn" data-note="² Seni mendengar = latihan kesabaran">²</button></div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-prev" data-target="bab1">⬅ Kembali</button>
+        <button class="btn-next" data-target="bab3">Lanjut ➜</button>
+      </div>
+    </article>
+
+    <!-- Bab 3 -->
+    <article id="bab3" class="chapter" data-title="Bab 3 — Tentang Cahaya">
+      <h2>Bab 3 — Tentang Cahaya</h2>
+      <div class="poem">
+        <div class="line">Cahaya sejati tak pernah memaksa untuk dilihat. <button class="fn" data-note="¹ Cahaya = petunjuk lembut">¹</button></div>
+        <div class="line">Ia hanya hadir, menyingkap tirai gelap bagi yang ingin memandang. <button class="fn" data-note="² Pembuka tirai = kejujuran hati">²</button></div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-prev" data-target="bab2">⬅ Kembali</button>
+      </div>
+    </article>
   </main>
 
-  <!-- Bootstrap & dependencies -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Footnote popup -->
+  <div id="fnPopup" class="fn-popup" hidden>
+    <div id="fnText"></div>
+    <button id="fnClose" class="fn-close" aria-label="Tutup">OK</button>
+  </div>
 
-  <!-- App script -->
+  <!-- Footer -->
+  <footer class="footer blur">
+    <small>© 2025 — Disusun oleh <strong>Novia Nurmala</strong></small>
+  </footer>
+
   <script src="script.js"></script>
 </body>
 </html>
