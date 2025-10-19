@@ -1,174 +1,196 @@
-<!doctype html>  
-<html lang="id">  
-<head>  
-  <!-- Menentukan format dokumen HTML modern (HTML5) -->
-  <meta charset="utf-8" />  
-  <!-- Mengatur agar tampilan responsif sesuai ukuran layar perangkat -->
-  <meta name="viewport" content="width=device-width,initial-scale=1" />  
-  <!-- Judul halaman yang muncul di tab browser -->
-  <title>Matsnawi01 — Karya Tulis</title>  
-  
-  <!-- Memuat font "Noto Sans" dari Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet"> 
-    <!-- icon tab web -->
-  <link rel="icon" type="image/png" href="favicon.png">
-  <!-- Menghubungkan file CSS utama -->
-  <link rel="stylesheet" href="style.css">  
-</head>  
+<!doctype html>
+<html lang="id">
+<head>
+  <!-- ============================= -->
+  <!-- 🕯️ PENGATURAN DASAR HALAMAN -->
+  <!-- ============================= -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Matsnawi Jilid 1 — Rumi</title>
 
-<body>  
-  <!-- ========================= -->
-  <!-- HEADER BAGIAN ATAS -->
-  <!-- ========================= -->
-  <header class="header blur">  
-    <div class="left">  
-      <!-- Tombol untuk membuka daftar isi (drawer) -->
-      <button id="btnDrawer" class="icon-btn" aria-label="Daftar Isi" title="Daftar Isi">  
-        <!-- Ikon "menu" (3 garis) menggunakan SVG -->
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Memuat font utama -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <!-- Gaya utama -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- ============================= -->
+  <!-- 🔱 HEADER -->
+  <!-- ============================= -->
+  <header class="header blur">
+    <div class="left">
+      <button id="btnDrawer" class="icon-btn" aria-label="Daftar Isi" title="Daftar Isi">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M3.75 6.75h16.5M3.75 12.75h16.5M3.75 18.75h16.5"></path>
-        </svg>  
-      </button>  
-      <!-- Judul / nama aplikasi di bagian header -->
-      <h1 class="brand">Matsnawi Jilid 1</h1>  
-    </div>  
-  
-    <div class="right">  
+        </svg>
+      </button>
+      <h1 class="brand">Matsnawi Jilid 1</h1>
+    </div>
+    <div class="right">
       <!-- Tombol pencarian -->
       <button id="btnSearch" class="icon-btn" aria-label="Cari" title="Cari">
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 21l-4.35-4.35"></path>
           <path d="M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15z"></path>
         </svg>
-      </button>  
-
-      <!-- Tombol untuk menyimpan posisi bacaan (bookmark) -->
+      </button>
+      <!-- Tombol bookmark -->
       <button id="btnBookmark" class="icon-btn" aria-label="Bookmark" title="Simpan posisi">
-        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <svg viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="1.6"
+          stroke-linecap="round" stroke-linejoin="round">
           <path d="M17.25 6.75V21L12 17.25 6.75 21V6.75A2.25 2.25 0 0 1 9 4.5h6a2.25 2.25 0 0 1 2.25 2.25z"></path>
         </svg>
-      </button>  
-    </div>  
-  </header>  
-  
-  <!-- ========================= -->
-  <!-- KOTAK PENCARIAN (muncul saat diaktifkan) -->
-  <!-- ========================= -->
-  <div id="searchBox" class="search-box">  
-    <!-- Input untuk mengetik kata yang ingin dicari -->
-    <input id="searchInput" type="search" placeholder="Cari kata atau bab..." aria-label="Cari" />  
-    <!-- Tombol untuk menghapus teks pencarian -->
-    <button id="clearSearch" class="btn-outline-small" title="Kosongkan">✕</button>  
-  </div>  
-  
-  <!-- ========================= -->
-  <!-- DRAWER = DAFTAR ISI SAMPING -->
-  <!-- ========================= -->
-  <aside id="drawer" class="drawer blur" aria-hidden="true">  
-    <div class="drawer-head">  
-      <h3>Daftar Isi</h3>  
-      <!-- Tombol menutup daftar isi -->
-      <button id="closeDrawer" class="icon-btn" aria-label="Tutup">✕</button>  
-    </div>  
-  
-    <!-- Navigasi daftar bab -->
-    <nav class="toc">  
-      <ul>  
-        <li><a href="#bab1" data-target="bab1">Bab 1 — Pendahuluan</a></li>  
-        <li><a href="#bab2" data-target="bab2">Bab 2 — Suoing Bambu</a></li>  
-        <li><a href="#bab3" data-target="bab3">Bab 3 — Tentang Raja ysng jatuh cinta pada budak wanits</a></li>  
-      </ul>  
-    </nav>  
-  
-    <!-- Bagian bawah drawer (misalnya tombol ke atas) -->
-    <div class="drawer-foot">  
-      <button id="goTop" class="btn-outline-small">Ke Atas</button>  
-    </div>  
-  </aside>  
-  <!-- Latar belakang transparan saat drawer terbuka -->
-  <div id="overlay" class="overlay" hidden></div>  
-  
-  <!-- ========================= -->
-  <!-- ISI UTAMA -->
-  <!-- ========================= -->
-  <main id="main" class="main">  
-    <!-- ===== BAB 1 ===== -->
-    <article id="bab1" class="chapter active" data-title="Bab 1 — Pendahuluan">  
-      <h2>Bab 1 — Pendahuluan</h2>  
-      <!-- Bagian puisi / isi bab -->
-      <div class="poem">  
-        <div class="line">
-          Wahai sahabat, 
-          <button class="fn" data-note="¹ Ajakan lembut pada pembaca">¹</button> 
-          ini hanyalah pengantar menuju lautan makna.
-        </div>  
-        <div class="line">
-          Setiap kata laksana debur ombak di samudra hikmah. 
-          <button class="fn" data-note="² Simbol ombak = arus kehidupan">²</button>
-        </div>  
-      </div>  
+      </button>
+    </div>
+  </header>
 
-      <!-- Navigasi antar bab -->
-      <div class="nav-chapter">  
-        <button class="btn-next" data-target="bab2">Lanjut ➜</button>  
-      </div>  
-    </article>  
-  
-    <!-- ===== BAB 2 ===== -->
-    <article id="bab2" class="chapter" data-title="Bab 2 — Di Antara Sunyi">  
-      <h2>Bab 2 — Di Antara Sunyi</h2>  
-      <div class="poem">  
-        <div class="line">
-          Sunyi bukanlah hampa, 
-          <button class="fn" data-note="¹ Sunyi = ruang batin">¹</button> 
-          melainkan ruang di mana hati berdialog dengan cahaya.
-        </div>  
-        <div class="line">
-          Belajar mendengarkan yang tak bersuara adalah seni yang halus. 
-          <button class="fn" data-note="² Seni mendengar = latihan kesabaran">²</button>
-        </div>  
-      </div>  
-      <div class="nav-chapter">  
-        <button class="btn-prev" data-target="bab1">⬅ Kembali</button>  
-        <button class="btn-next" data-target="bab3">Lanjut ➜</button>  
-      </div>  
-    </article>  
-  
-    <!-- ===== BAB 3 ===== -->
-    <article id="bab3" class="chapter" data-title="Bab 3 — Tentang Cahaya">  
-      <h2>Bab 3 — Tentang Cahaya</h2>  
-      <div class="poem">  
-        <div class="line">
-          Cahaya sejati tak pernah memaksa untuk dilihat. 
-          <button class="fn" data-note="¹ Cahaya = petunjuk lembut">¹</button>
-        </div>  
-        <div class="line">
-          Ia hanya hadir, menyingkap tirai gelap bagi yang ingin memandang. 
-          <button class="fn" data-note="² Pembuka tirai = kejujuran hati">²</button>
-        </div>  
-      </div>  
-      <div class="nav-chapter">  
-        <button class="btn-prev" data-target="bab2">⬅ Kembali</button>  
-      </div>  
-    </article>  
-  </main>  
-  
-  <!-- ========================= -->
-  <!-- POPUP CATATAN KAKI -->
-  <!-- ========================= -->
-  <div id="fnPopup" class="fn-popup" hidden>  
-    <div id="fnText"></div>  
-    <button id="fnClose" class="fn-close" aria-label="Tutup">OK</button>  
-  </div>  
-  
-  <!-- ========================= -->
-  <!-- FOOTER (BAGIAN BAWAH) -->
-  <!-- ========================= -->
-  <footer class="footer blur">  
-    <small>© 2025 — Disusun oleh <strong>Novia Nurmala</strong></small>  
-  </footer>  
-  
-  <!-- File JavaScript eksternal -->
-  <script src="script.js"></script>  
-</body>  
+  <!-- ============================= -->
+  <!-- 🔖 DRAWER / DAFTAR ISI -->
+  <!-- ============================= -->
+  <aside id="drawer" class="drawer blur" aria-hidden="true">
+    <div class="drawer-head">
+      <h3>Daftar Isi</h3>
+      <button id="closeDrawer" class="icon-btn" aria-label="Tutup">✕</button>
+    </div>
+    <nav class="toc">
+      <ul>
+        <li><a href="#bio" data-target="bio">Biografi Rumi</a></li>
+        <li><a href="#bab1" data-target="bab1">Bab 1 — Pendahuluan</a></li>
+        <li><a href="#bab2" data-target="bab2">Bab 2 — Di Antara Sunyi</a></li>
+        <li><a href="#bab3" data-target="bab3">Bab 3 — Tentang Cahaya</a></li>
+      </ul>
+    </nav>
+  </aside>
+
+  <div id="overlay" class="overlay" hidden></div>
+
+  <!-- ============================= -->
+  <!-- 📖 ISI UTAMA -->
+  <!-- ============================= -->
+  <main id="main" class="main">
+
+    <!-- 🌿 BIOGRAFI RUMI -->
+    <article id="bio" class="chapter active" data-title="Biografi Rumi">
+      <h2>Biografi Singkat Jalaluddin Rumi</h2>
+      <div class="poem">
+        <div class="line">Jalaluddin Muhammad Rumi lahir di Balkh, sekitar tahun 1207 Masehi.</div>
+        <div class="line">Ia dikenal bukan hanya sebagai penyair, tetapi juga seorang sufi yang dalam pandangannya, cinta adalah jalan menuju Tuhan.</div>
+        <div class="line">Puisi-puisinya tidak sekadar rangkaian kata indah, melainkan perjalanan ruhani menuju kesempurnaan jiwa.</div>
+        <div class="line">Rumi percaya bahwa keheningan dan kehilangan adalah jembatan menuju pertemuan sejati dengan Sang Kekasih Ilahi.</div>
+      </div>
+      <div class="quote-box">
+        <button class="toggle-quote">Tampilkan Kutipan ✨</button>
+        <div class="quote" hidden>
+          “Lepaskanlah dirimu dari bentuk luar cinta, agar engkau menemukan cinta yang sejati di dalam jiwa.”  
+        </div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-next" data-target="bab1">Mulai Bab 1 ➜</button>
+      </div>
+    </article>
+
+    <!-- 🌊 BAB 1 -->
+    <article id="bab1" class="chapter" data-title="Bab 1 — Pendahuluan">
+      <h2>Bab 1 — Pendahuluan</h2>
+      <div class="poem">
+        <div class="line">Wahai sahabat, setiap kata adalah jendela menuju samudra makna.</div>
+        <div class="line">Bacalah bukan dengan mata, tetapi dengan hati yang terbuka.</div>
+      </div>
+      <div class="quote-box">
+        <button class="toggle-quote">Tampilkan Kutipan ✨</button>
+        <div class="quote" hidden>“Jangan takut tenggelam dalam makna — di sanalah engkau belajar berenang di samudra hikmah.”</div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-prev" data-target="bio">⬅ Biografi</button>
+        <button class="btn-next" data-target="bab2">Lanjut ➜</button>
+      </div>
+    </article>
+
+    <!-- 🌌 BAB 2 -->
+    <article id="bab2" class="chapter" data-title="Bab 2 — Di Antara Sunyi">
+      <h2>Bab 2 — Di Antara Sunyi</h2>
+      <div class="poem">
+        <div class="line">Sunyi bukanlah ketiadaan suara, tetapi tempat di mana kalbu berbicara.</div>
+        <div class="line">Dalam diam, cinta berbisik dan menyucikan niat yang kusut.</div>
+      </div>
+      <div class="quote-box">
+        <button class="toggle-quote">Tampilkan Kutipan ✨</button>
+        <div class="quote" hidden>“Keheningan adalah bahasa Tuhan, semua yang lain hanyalah terjemahan yang keliru.”</div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-prev" data-target="bab1">⬅ Kembali</button>
+        <button class="btn-next" data-target="bab3">Lanjut ➜</button>
+      </div>
+    </article>
+
+    <!-- ☀️ BAB 3 -->
+    <article id="bab3" class="chapter" data-title="Bab 3 — Tentang Cahaya">
+      <h2>Bab 3 — Tentang Cahaya</h2>
+      <div class="poem">
+        <div class="line">Cahaya tidak memaksa, ia hanya menyingkap bagi yang ingin melihat.</div>
+        <div class="line">Dalam terang, segala bayangan kehilangan maknanya.</div>
+      </div>
+      <div class="quote-box">
+        <button class="toggle-quote">Tampilkan Kutipan ✨</button>
+        <div class="quote" hidden>“Cahaya bukan datang dari luar, ia menyala dari dalam ketika tabir hati disingkap.”</div>
+      </div>
+      <div class="nav-chapter">
+        <button class="btn-prev" data-target="bab2">⬅ Kembali</button>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- ============================= -->
+  <!-- 🌙 FOOTER -->
+  <!-- ============================= -->
+  <footer class="footer blur">
+    <small>© 2025 — Disusun oleh <strong>Novia Nurmala</strong></small>
+  </footer>
+
+  <!-- ============================= -->
+  <!-- ⚙️ SCRIPT -->
+  <!-- ============================= -->
+  <script>
+    // =========================
+    // Navigasi antar bab
+    // =========================
+    const buttons = document.querySelectorAll(".btn-next, .btn-prev");
+    const chapters = document.querySelectorAll(".chapter");
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.getAttribute("data-target");
+        chapters.forEach(ch => ch.classList.remove("active"));
+        document.getElementById(target).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      });
+    });
+
+    // =========================
+    // Tampilkan / sembunyikan kutipan
+    // =========================
+    document.querySelectorAll(".toggle-quote").forEach(button => {
+      button.addEventListener("click", () => {
+        const quote = button.nextElementSibling;
+        quote.hidden = !quote.hidden;
+        if (!quote.hidden) {
+          quote.style.opacity = "0";
+          quote.style.display = "block";
+          quote.animate([{ opacity: 0, transform: "translateY(10px)" },
+                         { opacity: 1, transform: "translateY(0)" }],
+                         { duration: 500, easing: "ease" });
+        } else {
+          quote.animate([{ opacity: 1, transform: "translateY(0)" },
+                         { opacity: 0, transform: "translateY(-10px)" }],
+                         { duration: 400, easing: "ease" }).onfinish = () => {
+            quote.style.display = "none";
+          };
+        }
+      });
+    });
+  </script>
+</body>
 </html>
