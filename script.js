@@ -1,177 +1,123 @@
-/* Minimal interactive features:
- - search toggle + filtering
- - bookmark per line (localStorage)
- - notes modal per line (localStorage)
- - font size controls
- - page transition on internal links
-*/
-
+/* Matsnawi01 — interaksi: drawer, search, nav, bookmark, footnote */
 document.addEventListener('DOMContentLoaded', () => {
-  // helpers
-  const qs = s => document.querySelector(s);
-  const qsa = s => Array.from(document.querySelectorAll(s));
+  const btnDrawer = document.getElementById('btnDrawer');
+  const drawer = document.getElementById('drawer');
+  const closeDrawer = document.getElementById('closeDrawer');
+  const overlay = document.getElementById('overlay');
+  const toc = document.querySelector('.toc');
 
-  // search UI
-  const openSearchBtns = qsa('#open-search');
-  const searchBar = qs('#searchBar');
-  const searchInput = qs('#searchInput');
-  const clearSearch = qs('#clearSearch');
+  const btnSearch = document.getElementById('btnSearch');
+  const searchBox = document.getElementById('searchBox');
+  const searchInput = document.getElementById('searchInput');
+  const clearSearch = document.getElementById('clearSearch');
 
-  openSearchBtns.forEach(b => b && b.addEventListener('click', () => {
-    searchBar.style.display = (searchBar.style.display === 'block') ? 'none' : 'block';
-    searchInput?.focus();
-  }));
+  const btnBookmark = document.getElementById('btnBookmark');
 
-  clearSearch?.addEventListener('click', () => {
-    searchInput.value = '';
-    applySearch('');
+  const chapters = Array.from(document.querySelectorAll('.chapter'));
+
+  const fnPopup = document.getElementById('fnPopup');
+  const fnText = document.getElementById('fnText');
+  const fnClose = document.getElementById('fnClose');
+
+  // Drawer open/close
+  function openDrawer(){ drawer.classList.add('open'); overlay.classList.add('show'); drawer.setAttribute('aria-hidden','false'); }
+  function closeDrawerFn(){ drawer.classList.remove('open'); overlay.classList.remove('show'); drawer.setAttribute('aria-hidden','true'); }
+  btnDrawer.addEventListener('click', openDrawer);
+  closeDrawer.addEventListener('click', closeDrawerFn);
+  overlay.addEventListener('click', closeDrawerFn);
+
+  // TOC navigation (smooth)
+  toc.addEventListener('click', e => {
+    const a = e.target.closest('a[data-target]');
+    if(!a) return;
+    e.preventDefault();
+    const id = a.dataset.target;
+    showChapter(id);
+    closeDrawerFn();
   });
 
-  searchInput?.addEventListener('input', e => applySearch(e.target.value));
+  // Show chapter by id
+  function showChapter(id){
+    chapters.forEach(c => c.classList.remove('active'));
+    const target = document.getElementById(id);
+    if(!target) return;
+    target.classList.add('active');
+    window.scrollTo({top:0, behavior:'smooth'});
+    // update location hash without jumping
+    history.replaceState(null, '', '#' + id);
+  }
 
-  function applySearch(q) {
-    const lines = qsa('.baits .bait');
-    const qlow = (q || '').toLowerCase().trim();
-    lines.forEach(li => {
-      const text = li.querySelector('.line-text')?.innerText.toLowerCase() || '';
-      if (!qlow || text.indexOf(qlow) !== -1) {
-        li.style.display = '';
-        // simple highlight
-        const html = li.querySelector('.line-text').innerText;
-        if (qlow) {
-          const re = new RegExp(escapeRegExp(qlow), 'ig');
-          li.querySelector('.line-text').innerHTML = html.replace(re, m => `<mark class="search-mark">${m}</mark>`);
-        } else {
-          li.querySelector('.line-text').innerText = html;
-        }
-      } else {
-        li.style.display = 'none';
+  // Search toggle & search behavior
+  btnSearch.addEventListener('click', () => {
+    const visible = searchBox.style.display === 'flex';
+    searchBox.style.display = visible ? 'none' : 'flex';
+    if(!visible) setTimeout(()=> searchInput.focus(), 120);
+  });
+  clearSearch.addEventListener('click', () => {
+    searchInput.value = ''; filterChapters(''); searchBox.style.display = 'none';
+  });
+  function filterChapters(q){
+    q = (q||'').trim().toLowerCase();
+    chapters.forEach(ch => {
+      const text = ch.textContent.toLowerCase();
+      ch.style.display = q ? (text.includes(q) ? 'block' : 'none') : 'block';
+    });
+  }
+  searchInput.addEventListener('input', e => filterChapters(e.target.value));
+
+  // Chapter nav buttons (prev/next)
+  document.querySelectorAll('.nav-chapter button').forEach(btn => {
+    btn.addEventListener('click', e => {
+      const id = btn.dataset.target;
+      showChapter(id);
+    });
+  });
+
+  // Bookmark (store active chapter id + inner scroll)
+  btnBookmark.addEventListener('click', () => {
+    const active = document.querySelector('.chapter.active') || chapters[0];
+    const payload = { id: active.id, y: active.scrollTop || 0 };
+    localStorage.setItem('matsnawi_bookmark', JSON.stringify(payload));
+    btnBookmark.animate([{transform:'scale(1.06)'},{transform:'scale(1)'}], {duration:160});
+    alert('📍 Posisi bacaan tersimpan: ' + active.dataset.title);
+  });
+
+  // Restore bookmark
+  const raw = localStorage.getItem('matsnawi_bookmark');
+  if(raw){
+    try{
+      const obj = JSON.parse(raw);
+      if(obj && obj.id && document.getElementById(obj.id)){
+        showChapter(obj.id);
+        setTimeout(()=> { const ch = document.getElementById(obj.id); if(ch) ch.scrollTop = obj.y || 0; }, 220);
       }
-    });
-  }
-  function escapeRegExp(s){ return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
-
-  // bookmarks
-  const BOOK_KEY = 'bookapp_bookmarks_v1';
-  function loadBookmarks(){ try { return JSON.parse(localStorage.getItem(BOOK_KEY) || '[]'); } catch(e){ return []; } }
-  function saveBookmarks(arr){ localStorage.setItem(BOOK_KEY, JSON.stringify(arr)); }
-
-  function updateBookmarkUI() {
-    const list = loadBookmarks();
-    qsa('.baits .bait').forEach(li => {
-      const id = li.dataset.lineId;
-      const btn = li.querySelector('.btn-action.bookmark');
-      if (list.includes(id)) btn.classList.add('bookmarked'); else btn.classList.remove('bookmarked');
-    });
+    }catch(e){}
   }
 
-  qsa('.btn-action.bookmark').forEach(btn => {
+  // Footnote: open popup on tap/click
+  document.querySelectorAll('.fn').forEach(btn => {
     btn.addEventListener('click', (e) => {
-      const li = e.currentTarget.closest('.bait');
-      const id = li.dataset.lineId;
-      let list = loadBookmarks();
-      if (list.includes(id)) {
-        list = list.filter(x => x !== id);
-      } else {
-        list.push(id);
-      }
-      saveBookmarks(list);
-      updateBookmarkUI();
+      const note = btn.dataset.note || '';
+      fnText.textContent = note;
+      fnPopup.hidden = false;
+      overlay.classList.add('show');
+      // prevent drawer overlay confusion
+      overlay.addEventListener('click', closeFnPopupOnce);
     });
   });
-
-  // notes
-  const NOTE_KEY = 'bookapp_notes_v1';
-  function loadNotes(){ try { return JSON.parse(localStorage.getItem(NOTE_KEY) || '{}'); } catch(e){ return {}; } }
-  function saveNotes(obj){ localStorage.setItem(NOTE_KEY, JSON.stringify(obj)); }
-
-  let currentNoteLine = null;
-  const noteModal = qs('#noteModal');
-  const noteInput = qs('#noteInput');
-  const noteLinePreview = qs('#noteLinePreview');
-  const saveNoteBtn = qs('#saveNote');
-  const deleteNoteBtn = qs('#deleteNote');
-
-  // attach note buttons
-  qsa('.btn-action.note').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const li = e.currentTarget.closest('.bait');
-      const id = li.dataset.lineId;
-      currentNoteLine = id;
-      const notes = loadNotes();
-      noteInput.value = notes[id] || '';
-      noteLinePreview.textContent = li.querySelector('.line-text')?.innerText || '';
-      const bs = new bootstrap.Modal(noteModal);
-      bs.show();
-      // mark UI
-      updateNoteUI();
-    });
-  });
-
-  saveNoteBtn?.addEventListener('click', () => {
-    if (!currentNoteLine) return;
-    const notes = loadNotes();
-    const val = noteInput.value.trim();
-    if (val) notes[currentNoteLine] = val;
-    else delete notes[currentNoteLine];
-    saveNotes(notes);
-    updateNoteUI();
-    bootstrap.Modal.getInstance(noteModal)?.hide();
-  });
-
-  deleteNoteBtn?.addEventListener('click', () => {
-    if (!currentNoteLine) return;
-    const notes = loadNotes();
-    delete notes[currentNoteLine];
-    saveNotes(notes);
-    noteInput.value = '';
-    updateNoteUI();
-    bootstrap.Modal.getInstance(noteModal)?.hide();
-  });
-
-  function updateNoteUI(){
-    const notes = loadNotes();
-    qsa('.baits .bait').forEach(li => {
-      const id = li.dataset.lineId;
-      const btn = li.querySelector('.btn-action.note');
-      if (notes[id]) btn.classList.add('has-note'); else btn.classList.remove('has-note');
-    });
+  function closeFnPopupOnce(){
+    fnPopup.hidden = true;
+    overlay.classList.remove('show');
+    overlay.removeEventListener('click', closeFnPopupOnce);
   }
+  fnClose.addEventListener('click', () => { fnPopup.hidden = true; overlay.classList.remove('show'); });
 
-  // font size controls
-  const btnPlus = qs('#btn-font-plus');
-  const btnMinus = qs('#btn-font-minus');
-  const FONT_KEY = 'bookapp_fontsize_v1';
-  function getFontSize(){ return parseInt(localStorage.getItem(FONT_KEY) || '18', 10); }
-  function applyFontSize(size){ document.documentElement.style.setProperty('--base-font-size', size + 'px'); localStorage.setItem(FONT_KEY, String(size)); }
-  btnPlus?.addEventListener('click', () => applyFontSize(getFontSize() + 1));
-  btnMinus?.addEventListener('click', () => applyFontSize(Math.max(12, getFontSize() - 1)));
+  // small helpers: goTop button
+  document.getElementById('goTop').addEventListener('click', () => { window.scrollTo({top:0,behavior:'smooth'}); closeDrawerFn(); });
 
-  // page transition for internal links
-  document.body.addEventListener('click', (e) => {
-    const a = e.target.closest('a');
-    if (!a) return;
-    const href = a.getAttribute('href');
-    if (!href) return;
-    // only intercept local html links
-    if (href.endsWith('.html') || href.startsWith('./') || href === 'index.html' || href.startsWith('#')) {
-      // allow normal anchors
-      e.preventDefault();
-      document.body.classList.remove('page-enter');
-      document.body.classList.add('page-exit');
-      setTimeout(() => { window.location.href = href; }, 260);
-    }
-  });
-
-  // initial setup
-  updateBookmarkUI();
-  updateNoteUI();
-  applyFontSize( getFontSize() );
-
-  // reveal enter animation (remove then add to retrigger)
-  requestAnimationFrame(() => {
-    document.body.classList.remove('page-enter');
-    void document.body.offsetWidth;
-    document.body.classList.add('page-enter');
-  });
+  // Hash navigation (open chapter if hash present)
+  if(location.hash){
+    const id = location.hash.replace('#','');
+    if(document.getElementById(id)) setTimeout(()=> showChapter(id), 120);
+  }
 });
