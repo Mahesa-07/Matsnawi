@@ -1,23 +1,21 @@
+// Toggle TOC (Daftar Isi)
+const tocBtn = document.getElementById('tocBtn');
+const toc = document.getElementById('toc');
+tocBtn.addEventListener('click', () => toc.classList.toggle('active'));
 
-const chapters = document.querySelectorAll('.chapter');
-let current = 0;
+// Mode terang/gelap
+const themeBtn = document.getElementById('themeBtn');
+themeBtn.addEventListener('click', () => {
+  document.body.classList.toggle('light');
+});
 
-function showChapter(index) {
-  chapters.forEach((ch, i) => {
-    ch.classList.toggle('active', i === index);
+// Navigasi antar bab otomatis via daftar isi
+document.querySelectorAll('.toc a').forEach(link => {
+  link.addEventListener('click', e => {
+    e.preventDefault();
+    const id = link.getAttribute('href').substring(1);
+    document.querySelectorAll('.chapter').forEach(ch => ch.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    toc.classList.remove('active');
   });
-}
-
-document.getElementById('nextBtn').addEventListener('click', () => {
-  current = (current + 1) % chapters.length;
-  showChapter(current);
-});
-
-document.getElementById('prevBtn').addEventListener('click', () => {
-  current = (current - 1 + chapters.length) % chapters.length;
-  showChapter(current);
-});
-
-document.getElementById('tocBtn').addEventListener('click', () => {
-  document.getElementById('toc').classList.toggle('hidden');
 });
