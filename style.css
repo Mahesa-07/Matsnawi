@@ -216,3 +216,52 @@ body {
     left: 1.2rem;
   }
 }
+
+
+
+/* Tombol menu */
+
+.menu-btn {
+  position: fixed;
+  top: 80px;
+  left: 10px;
+  z-index: 1001;
+  background-color: #c7a25a;
+  color: #fff;
+  border: none;
+  font-size: 22px;
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px;
+  width: 240px;
+  height: 100%;
+  background-color: #121316;
+  color: #fff;
+  padding: 20px;
+  transition: left 0.3s ease;
+  z-index: 1002;
+}
+.sidebar.active {
+  left: 0;
+}
+
+/* Overlay */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: none;
+  z-index: 1000;
+}
+.overlay.show {
+  display: block;
+}
