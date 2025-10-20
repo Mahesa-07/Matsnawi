@@ -1,85 +1,3 @@
-:root {
-  --bg: #fdf6e3;
-  --text: #3b2f2f;
-  --gold: #c7a25a;
-}
-
-/* 🌿 DASAR */
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Noto Sans', sans-serif;
-  transition: background 0.5s ease;
-}
-
-/* 🔸 HEADER */
-.header {
-  background: linear-gradient(to right, #c7a25a, #e3c891);
-  color: #1b1b1b;
-  text-align: center;
-  padding: 1rem;
-  border-bottom: 2px solid #bfa45a;
-}
-
-.title {
-  margin: 0;
-  font-size: 1.6rem;
-}
-
-/* 🔸 KONTEN */
-.content {
-  padding: 1.5rem;
-  line-height: 1.7;
-  animation: fadeIn 0.8s ease;
-}
-
-.nav-bottom {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 2rem;
-}
-
-.btn {
-  background: var(--gold);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: #b18a44;
-}
-
-/* 🔸 ANIMASI */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* ==========================================================
-   SIDEBAR DAFTAR ISI
-========================================================== */
-
-/* Tombol Menu */
-.menu-btn {
-  position: fixed;
-  top: 80px;
-  left: 10px;
-  z-index: 1001;
-  background-color: var(--gold);
-  color: #fff;
-  border: none;
-  font-size: 22px;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-}
-
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -87,63 +5,47 @@ body {
   left: -260px;
   width: 240px;
   height: 100%;
-  background-color: #121316;
+  background: #121316;
   color: #fff;
-  padding: 20px;
-  transition: left 0.3s ease;
+  padding: 1.5rem;
+  box-shadow: 3px 0 12px rgba(0,0,0,0.4);
+  transition: left 0.4s ease;
   z-index: 1002;
 }
-
-.sidebar h3 {
-  color: var(--gold);
-  margin-top: 0;
-  text-align: center;
-  border-bottom: 1px solid var(--gold);
-  padding-bottom: 0.5rem;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin-top: 1rem;
-}
-
-.sidebar li {
-  margin: 0.6rem 0;
-}
-
-.sidebar a {
-  color: #fff;
-  text-decoration: none;
-  display: block;
-  padding: 0.4rem 0.8rem;
-  border-left: 4px solid transparent;
-  transition: 0.3s;
-}
-
-.sidebar a:hover,
-.sidebar a.active {
-  background: rgba(199,162,90,0.15);
-  border-left: 4px solid var(--gold);
-}
-
-/* Sidebar aktif */
 .sidebar.active {
   left: 0;
 }
 
-/* Overlay */
-.overlay {
+/* Tombol menu */
+.menu-btn {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0,0,0,0.5);
-  display: none;
-  z-index: 1000;
+  top: 1rem;
+  left: 1rem;
+  z-index: 1100;
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  font-size: 1.2rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: opacity 0.3s ease, background 0.3s ease;
+}
+.menu-btn:hover {
+  background: #b18a44;
 }
 
+/* Overlay (halus fade) */
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
 .overlay.show {
-  display: block;
+  opacity: 1;
+  pointer-events: auto;
 }
