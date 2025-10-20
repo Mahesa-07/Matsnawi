@@ -34,14 +34,17 @@ header, main, aside, button {
   bottom: 1rem;
   right: 1rem;
   background: var(--gold);
-  border: none;
+  border: 2px solid var(--gold);
   color: #fff;
   font-size: 1.4rem;
-  border-radius: 8px;
+  border-radius: 50%;
   padding: 6px 10px;
   cursor: pointer;
   z-index: 1100;
   transition: transform 0.3s ease, box-shadow 0.3s;
+box-shadow: 0 0 10px rgba(199,162,90,0.4);
+  animation: pulseGlow 3s ease-in-out infinite; /* ✨ efek napas lembut */
+  transition: all 0.3s ease;
 }
 .menu-btn:hover {
   transform: scale(1.1);
