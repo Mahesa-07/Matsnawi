@@ -1,74 +1,29 @@
-:root {
-  --bg: #fdf6e3;
-  --text: #3b2f2f;
-  --gold: #c7a25a;
-}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bab 1 — Pendahuluan</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body class="bg-base text-base-text">
+  <header class="header">
+    <h1>Bab 1 — Pendahuluan</h1>
+  </header>
+  <main class="content">
+    <p>Wahai sahabat, ini hanyalah pengantar menuju lautan makna.<br>
+    Setiap kata laksana debur ombak di samudra hikmah.</p>
 
-body {
-  margin: 0;
-  padding: 0;
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Noto Sans', sans-serif;
-  transition: background 0.5s ease;
-}
+    <div class="quote-box">
+      <button class="toggle-quote">💫 Tampilkan Kutipan</button>
+      <blockquote class="quote hidden">"Setiap langkah kecil yang tulus adalah doa yang disampaikan tanpa suara."</blockquote>
+    </div>
 
-.header {
-  background: linear-gradient(to right, #c7a25a, #e3c891);
-  color: #1b1b1b;
-  text-align: center;
-  padding: 1rem;
-  border-bottom: 2px solid #bfa45a;
-}
-
-.title {
-  margin: 0;
-  font-size: 1.5rem;
-}
-
-.content {
-  padding: 1.5rem;
-  line-height: 1.7;
-  animation: fadeIn 1s ease;
-}
-
-.nav-bottom {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
-}
-
-.btn {
-  background: var(--gold);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background: #b18a44;
-}
-
-.quote-box {
-  margin-top: 1.5rem;
-}
-
-.quote {
-  margin-top: 0.8rem;
-  padding: 0.7rem;
-  border-left: 4px solid var(--gold);
-  background: rgba(199, 162, 90, 0.1);
-  font-style: italic;
-  display: none;
-}
-
-.hidden {
-  display: none;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    <div class="nav-bottom">
+      <a href="index.html" class="btn btn-prev">⟨ Kembali</a>
+      <a href="bab2.html" class="btn btn-next">Selanjutnya ⟩</a>
+    </div>
+  </main>
+</body>
+</html>
