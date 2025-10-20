@@ -1,5 +1,34 @@
-// Event untuk tombol tampil/sembunyi kutipan
 document.addEventListener("DOMContentLoaded", () => {
+  const sidebar = document.getElementById("sidebar");
+  const overlay = document.getElementById("overlay");
+  const menuBtn = document.getElementById("menu-btn");
+
+  // === Sidebar Toggle ===
+  menuBtn.addEventListener("click", () => {
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("show");
+
+    // Hilangkan tombol saat sidebar muncul
+    if (sidebar.classList.contains("active")) {
+      menuBtn.style.opacity = "0";
+      menuBtn.style.pointerEvents = "none";
+    } else {
+      menuBtn.style.opacity = "1";
+      menuBtn.style.pointerEvents = "auto";
+    }
+  });
+
+  // Tutup sidebar saat klik overlay
+  overlay.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+    overlay.classList.remove("show");
+
+    // Tampilkan kembali tombol menu
+    menuBtn.style.opacity = "1";
+    menuBtn.style.pointerEvents = "auto";
+  });
+
+  // === Kutipan Toggle ===
   const toggleButtons = document.querySelectorAll(".toggle-quote");
 
   toggleButtons.forEach(button => {
@@ -9,29 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (isHidden) {
         button.textContent = "💫 Tampilkan Kutipan";
-        quote.style.display = "none";
       } else {
         button.textContent = "🔒 Sembunyikan Kutipan";
-        quote.style.display = "block";
         quote.style.animation = "fadeIn 0.6s ease";
       }
     });
   });
 });
-
-// === Sidebar Toggle ===
-if (sidebar.classList.contains("active")) {
-    menuBtn.style.display = "none";
-  } else {
-    menuBtn.style.display = "block";
-  }
-});
-
-overlay.addEventListener("click", () => {
-  sidebar.classList.remove("active");
-  overlay.classList.remove("show");
-
-  // 🔹 Tampilkan kembali tombol menu
-  menuBtn.style.display = "block";
-});
-</script>
