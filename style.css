@@ -30,14 +30,14 @@ header, main, aside, {
   animation: slideDown 0.8s ease;
 }
 
-/* Tombol tiga titik di pojok paragraf */
+/* Tombol tiga titik di pojok kanan atas paragraf */
 p {
   position: relative;
 }
 
 .options-btn {
   position: absolute;
-  top: 4px;
+  top: 6px;
   right: 6px;
   background: transparent;
   border: none;
@@ -52,9 +52,13 @@ p {
   color: #fff;
 }
 
-.options-btn:hover {
-  transform: scale(1.2);
-  color: #fff;
+/* (Opsional) Biar muncul saat disentuh saja */
+p .options-btn {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+p:hover .options-btn {
+  opacity: 1;
 }
 .menu-btn {
   position: fixed;
