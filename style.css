@@ -17,8 +17,12 @@ body {
   inset: 0;
   z-index: 0;
 }
-header, main, aside, {
+header{
   position: fixed;
+  z-index: 2;
+}
+main, aside {
+  position: relative;
   z-index: 2;
 }
 .header {
