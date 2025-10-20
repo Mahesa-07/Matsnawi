@@ -20,23 +20,18 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // === Sidebar Toggle ===
-const sidebar = document.getElementById('sidebar');
-const openBtn = document.querySelector('.nav-toggle');
-const closeBtn = document.getElementById('closeBtn');
-
-// Buka sidebar
-openBtn.addEventListener('click', () => {
-  sidebar.classList.add('show');
+if (sidebar.classList.contains("active")) {
+    menuBtn.style.display = "none";
+  } else {
+    menuBtn.style.display = "block";
+  }
 });
 
-// Tutup sidebar
-closeBtn.addEventListener('click', () => {
-  sidebar.classList.remove('show');
-});
+overlay.addEventListener("click", () => {
+  sidebar.classList.remove("active");
+  overlay.classList.remove("show");
 
-// Tutup otomatis setelah klik link
-document.querySelectorAll('.sidebar-links a').forEach(link => {
-  link.addEventListener('click', () => {
-    sidebar.classList.remove('show');
-  });
+  // 🔹 Tampilkan kembali tombol menu
+  menuBtn.style.display = "block";
 });
+</script>
