@@ -19,21 +19,23 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-// Toggle navigasi untuk mobile
-const toggle = document.querySelector('.nav-toggle');
-const links = document.querySelector('.nav-links');
+const sidebar = document.getElementById('sidebar');
+const openBtn = document.querySelector('.nav-toggle');
+const closeBtn = document.getElementById('closeBtn');
 
-if (toggle) {
-  toggle.addEventListener('click', () => {
-    links.classList.toggle('show');
-  });
-}
+// Buka sidebar
+openBtn.addEventListener('click', () => {
+  sidebar.classList.add('show');
+});
 
-// Scroll halus ke elemen saat klik tautan internal
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
+// Tutup sidebar
+closeBtn.addEventListener('click', () => {
+  sidebar.classList.remove('show');
+});
+
+// Tutup otomatis setelah klik tautan
+document.querySelectorAll('.sidebar-links a').forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('show');
   });
 });
