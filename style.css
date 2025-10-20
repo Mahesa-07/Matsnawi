@@ -4,7 +4,6 @@
   --gold: #c7a25a;
   --panel: #181a1f;
 }
-
 body {
   margin: 0;
   font-family: 'Noto Sans', sans-serif;
@@ -13,21 +12,15 @@ body {
   overflow-x: hidden;
   position: relative;
 }
-
-/* 🌌 Canvas bokeh */
 #bokeh-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
-
-/* Elemen di atas latar */
 header, main, aside, button {
   position: relative;
   z-index: 2;
 }
-
-/* Header */
 .header {
   text-align: center;
   background: linear-gradient(to right, #c7a25a, #e3c891);
@@ -36,8 +29,6 @@ header, main, aside, button {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   animation: slideDown 0.8s ease;
 }
-
-/* Tombol Menu */
 .menu-btn {
   position: fixed;
   top: 1rem;
@@ -51,8 +42,11 @@ header, main, aside, button {
   cursor: pointer;
   z-index: 1100;
   transition: transform 0.3s ease, box-shadow 0.3s;
-
-/* Sidebar */
+}
+.menu-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px var(--gold);
+}
 .sidebar {
   position: fixed;
   top: 0;
@@ -92,8 +86,6 @@ header, main, aside, button {
   background: rgba(199,162,90,0.15);
   border-left: 3px solid var(--gold);
 }
-
-/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
@@ -107,8 +99,6 @@ header, main, aside, button {
   opacity: 1;
   pointer-events: auto;
 }
-
-/* Konten */
 .content {
   padding: 2rem 1rem;
   line-height: 1.7;
@@ -127,8 +117,6 @@ header, main, aside, button {
   margin-bottom: 1rem;
   text-shadow: 0 0 6px rgba(199,162,90,0.3);
 }
-
-/* Tombol Kutipan */
 .toggle-quote {
   background: var(--gold);
   border: none;
@@ -144,7 +132,6 @@ header, main, aside, button {
   transform: scale(1.1);
   box-shadow: 0 0 6px var(--gold);
 }
-
 .quote {
   display: block;
   background: rgba(199,162,90,0.1);
@@ -156,8 +143,6 @@ header, main, aside, button {
   animation: fadeIn 0.6s ease;
 }
 .hidden { display: none; }
-
-/* Animasi */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
