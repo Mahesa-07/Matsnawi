@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebar.classList.toggle("active");
     overlay.classList.toggle("show");
 
-    // Hilangkan tombol saat sidebar muncul
+    // Tombol memudar saat sidebar muncul
     if (sidebar.classList.contains("active")) {
       menuBtn.style.opacity = "0";
       menuBtn.style.pointerEvents = "none";
@@ -23,12 +23,12 @@ document.addEventListener("DOMContentLoaded", () => {
     sidebar.classList.remove("active");
     overlay.classList.remove("show");
 
-    // Tampilkan kembali tombol menu
+    // Tampilkan kembali tombol
     menuBtn.style.opacity = "1";
     menuBtn.style.pointerEvents = "auto";
   });
 
-  // === Kutipan Toggle ===
+  // === Tombol Kutipan ===
   const toggleButtons = document.querySelectorAll(".toggle-quote");
 
   toggleButtons.forEach(button => {
