@@ -58,7 +58,7 @@ p .options-btn {
   transition: opacity 0.3s ease;
 }
 p:hover .options-btn {
-  opacity: 1;
+  opacity: 0.5;
 }
 .menu-btn {
   position: fixed;
