@@ -55,7 +55,7 @@ header, main, aside, button {
 /*Bagian sideBar samping*/
 .sidebar {
   position: fixed;
-  top: 1rem;
+  top: 0;
   left: -260px;
   width: 220px;
   height: 100%;
