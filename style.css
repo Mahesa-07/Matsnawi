@@ -146,3 +146,41 @@ header, main, aside, button {
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.menu-btn {
+  position: fixed;
+  bottom: 1rem;        /* 🔹 jarak dari bawah layar */
+  left: 1rem;          /* 🔹 jarak dari kiri layar */
+  background: var(--gold);
+  color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  border-radius: 50%;  /* 🔹 bentuk bulat */
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 1100;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.8s ease; /* ✨ efek muncul lembut */
+}
+
+.menu-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px var(--gold);
+}
+
+/* ✨ Animasi halus saat muncul */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
