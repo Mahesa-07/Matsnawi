@@ -51,28 +51,23 @@ header, main, aside, button {
   transform: scale(1.1);
   box-shadow: 0 0 8px var(--gold);
 }
+
+/*Bagian sideBar samping*/
 .sidebar {
   position: fixed;
-  top: 0;
+  top: 1rem;
   left: -260px;
-  width: 240px;
+  width: 220px;
   height: 100%;
-  /* ✨ Warna kaca emas transparan */
-  background: linear-gradient(
-    to bottom right,
-    rgba(25, 20, 10, 0.55),
-    rgba(60, 50, 25, 0.35)
-  );
-  /* Efek buram kaca */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  
+  background: rgba(18, 19, 22, 0.6);
+  backdrop-filter: blur(8px);
   color: var(--text);
-  padding: 1rem 1.2rem;
-  box-shadow: 4px 0 20px rgba(199,162,90,0.25);
-  border-right: 1px solid rgba(199,162,90,0.25);
-  transition: left 0.5s cubic-bezier(0.25, 1, 0.3, 1);
+  padding: 1rem;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
+  transition: left 0.4s ease;
   z-index: 1002;
+  backdrop-filter: blur(6px);
+
 }
 
 .sidebar.active { left: 0; }
