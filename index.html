@@ -3,19 +3,24 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matsnawi-1</title>
+  <title>Matsnawi — Jilid 1</title>
+
+  <!-- Stylesheet utama -->
   <link rel="stylesheet" href="style.css" />
+
+  <!-- Script utama -->
   <script src="script.js" defer></script>
 </head>
+
 <body>
   <!-- 🌌 Latar belakang bokeh -->
   <canvas id="bokeh-bg"></canvas>
 
-  <!-- Tombol Sidebar -->
-  <button id="menu-btn" class="menu-btn"></button>
+  <!-- Tombol Sidebar (gunakan ikon untuk aksesibilitas) -->
+  <button id="menu-btn" class="menu-btn" aria-label="Buka menu">☰</button>
 
   <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar">
+  <aside id="sidebar" class="sidebar" aria-label="Daftar Isi">
     <h2>📚 Daftar Isi</h2>
     <input type="text" id="searchBox" placeholder="Cari bab..." />
     <ul>
@@ -30,51 +35,51 @@
 
   <!-- Header -->
   <header class="header">
-    
-    <h1> Matsnawi 01</h1>
+    <h1>Matsnawi Jilid 1</h1>
   </header>
 
-  <!-- Konten -->
-<main class="content">
-  <section id="bab1" class="chapter">
-    <h2>Pendahuluan</h2>
+  <!-- Konten Utama -->
+  <main class="content">
+    <!-- BAB 1 -->
+    <section id="bab1" class="chapter">
+      <h2>Bab 1 — Pendahuluan</h2>
 
-    <p>
-      Cinta bukan sesuatu yang dapat dijelaskan, melainkan sesuatu yang hanya dapat dirasakan.
-      <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-      <span class="quote hidden">“Cinta adalah jembatan antara dirimu dan segala sesuatu.” — Rumi</span>
-      <!-- Tombol tiga titik -->
-      <button class="options-btn">⋮</button>
-    </p>
+      <p>
+        Cinta bukan sesuatu yang dapat dijelaskan, melainkan sesuatu yang hanya dapat dirasakan.
+        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
+        <span class="quote hidden">“Cinta adalah jembatan antara dirimu dan segala sesuatu.” — Rumi</span>
+        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
+      </p>
 
-    <p>
-      Dalam cinta, segala yang fana menjadi abadi.
-      <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-      <span class="quote hidden">“Biarkan dirimu tertarik secara diam-diam oleh tarikan cinta yang sesungguhnya.”</span>
-      <!-- Tombol tiga titik -->
-      <button class="options-btn">⋮</button>
-    </p>
-  </section>
+      <p>
+        Dalam cinta, segala yang fana menjadi abadi.
+        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
+        <span class="quote hidden">“Biarkan dirimu tertarik secara diam-diam oleh tarikan cinta yang sesungguhnya.”</span>
+        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
+      </p>
+    </section>
 
-  <section id="bab2" class="chapter">
-    <h2>Bab 2 — Cahaya Jiwa</h2>
-    <p>
-      Jiwa yang mencintai tidak akan pernah gelap.
-      <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-      <span class="quote hidden">“Jadilah cahaya, bukan bayangan. Jadilah jiwa, bukan bentuk.”</span>
-      <!-- Tombol tiga titik -->
-      <button class="options-btn">⋮</button>
-    </p>
-  </section>
+    <!-- BAB 2 -->
+    <section id="bab2" class="chapter">
+      <h2>Bab 2 — Cahaya Jiwa</h2>
+      <p>
+        Jiwa yang mencintai tidak akan pernah gelap.
+        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
+        <span class="quote hidden">“Jadilah cahaya, bukan bayangan. Jadilah jiwa, bukan bentuk.”</span>
+        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
+      </p>
+    </section>
 
-  <section id="bab3" class="chapter">
-    <h2>Bab 3 — Kesunyian & Rindu</h2>
-    <p>
-      Dalam sunyi, cinta berbicara paling jujur.
-      <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-      <span class="quote hidden">“Keheningan adalah bahasa Tuhan, semua yang lain hanyalah terjemahan buruk.”</span>
-      <!-- Tombol tiga titik -->
-      <button class="options-btn">⋮</button>
-    </p>
-  </section>
-</main>
+    <!-- BAB 3 -->
+    <section id="bab3" class="chapter">
+      <h2>Bab 3 — Kesunyian & Rindu</h2>
+      <p>
+        Dalam sunyi, cinta berbicara paling jujur.
+        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
+        <span class="quote hidden">“Keheningan adalah bahasa Tuhan, semua yang lain hanyalah terjemahan buruk.”</span>
+        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
+      </p>
+    </section>
+  </main>
+</body>
+</html>
