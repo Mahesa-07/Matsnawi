@@ -3,83 +3,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matsnawi — Jilid 1</title>
-
-  <!-- Stylesheet utama -->
+  <title>Biografi Rumi — Matsnawi Jilid 1</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Script utama -->
   <script src="script.js" defer></script>
 </head>
-
 <body>
-  <!-- 🌌 Latar belakang bokeh -->
-  <canvas id="bokeh-bg"></canvas>
+  <!-- 🔹 Header -->
+  <header class="header">
+    <h1 class="title">📖 Jalaluddin Rumi</h1>
 
-  <!-- Tombol Sidebar (gunakan ikon untuk aksesibilitas) -->
-  <button id="menu-btn" class="menu-btn" aria-label="Buka menu">☰</button>
+    <!-- 🌗 Tombol mode gelap/terang -->
+    <button id="themeToggle" class="theme-btn" aria-label="Ganti tema">🌙</button>
+  </header>
 
-  <!-- Sidebar -->
-  <aside id="sidebar" class="sidebar" aria-label="Daftar Isi">
-    <h2>📚 Daftar Isi</h2>
-    <input type="text" id="searchBox" placeholder="Cari bab..." />
+  <!-- 🔹 Tombol Menu Sidebar -->
+  <button id="menu-btn" class="menu-btn" aria-label="Buka Daftar Isi">☰</button>
+
+  <!-- 🔹 Sidebar Daftar Isi -->
+  <aside id="sidebar" class="sidebar">
+    <h3>Daftar Isi</h3>
     <ul>
-      <li><a href="#bab1">Pendahuluan</a></li>
-      <li><a href="#bab2">Suling Bambu</a></li>
-      <li><a href="#bab3">Kisah Raja Jatuh Cinta</a></li>
+      <li><a href="bab1.html">Bab 1 — Pendahuluan</a></li>
+      <li><a href="bab2.html">Bab 2 — Di Antara Sunyi</a></li>
+      <li><a href="bab3.html">Bab 3 — Cinta Ilahi</a></li>
     </ul>
   </aside>
 
-  <!-- Overlay -->
+  <!-- 🔹 Overlay -->
   <div id="overlay" class="overlay"></div>
 
-  <!-- Header -->
-  <header class="header">
-    <h1>Matsnawi Jilid 1</h1>
-  </header>
-
-  <!-- Konten Utama -->
+  <!-- 🔹 Konten Utama -->
   <main class="content">
-    <!-- BAB 1 -->
-    <section id="bab1" class="chapter">
-      <h2>Bab 1 — Pendahuluan</h2>
-
-      <p>
-        Cinta bukan sesuatu yang dapat dijelaskan, melainkan sesuatu yang hanya dapat dirasakan.
-        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-        <span class="quote hidden">“Cinta adalah jembatan antara dirimu dan segala sesuatu.” — Rumi</span>
-        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
-      </p>
-
-      <p>
-        Dalam cinta, segala yang fana menjadi abadi.
-        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-        <span class="quote hidden">“Biarkan dirimu tertarik secara diam-diam oleh tarikan cinta yang sesungguhnya.”</span>
-        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
-      </p>
-    </section>
-
-    <!-- BAB 2 -->
-    <section id="bab2" class="chapter">
-      <h2>Bab 2 — Cahaya Jiwa</h2>
-      <p>
-        Jiwa yang mencintai tidak akan pernah gelap.
-        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-        <span class="quote hidden">“Jadilah cahaya, bukan bayangan. Jadilah jiwa, bukan bentuk.”</span>
-        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
-      </p>
-    </section>
-
-    <!-- BAB 3 -->
-    <section id="bab3" class="chapter">
-      <h2>Bab 3 — Kesunyian & Rindu</h2>
-      <p>
-        Dalam sunyi, cinta berbicara paling jujur.
-        <button class="toggle-quote">💫 Tampilkan Kutipan</button>
-        <span class="quote hidden">“Keheningan adalah bahasa Tuhan, semua yang lain hanyalah terjemahan buruk.”</span>
-        <button class="options-btn" aria-label="Opsi paragraf">⋮</button>
-      </p>
-    </section>
+    <article class="chapter active">
+      <h2>Biografi Singkat</h2>
+      <p>Jalaluddin Muhammad Rumi (1207–1273) adalah penyair dan sufi besar dari Persia. Ia dikenal melalui karya monumentalnya, <em>Masnawi</em>, yang menjadi salah satu mahakarya spiritual terbesar sepanjang masa.</p>
+      <p>Kehidupan Rumi dipenuhi dengan pencarian cinta Ilahi. Pertemuannya dengan Syams Tabrizi mengubah arah hidupnya — dari pengajar biasa menjadi penyair mistik.</p>
+      <p>Rumi mengajarkan bahwa cinta adalah jalan menuju kebenaran. Melalui Matsnawi, ia menuntun hati manusia agar menemukan keindahan di balik setiap peristiwa.</p>
+      <div class="nav-bottom">
+        <a href="bab1.html" class="btn btn-next">Mulai Membaca ⟩</a>
+      </div>
+    </article>
   </main>
 </body>
 </html>
