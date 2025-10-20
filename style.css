@@ -29,6 +29,28 @@ header, main, aside, button {
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   animation: slideDown 0.8s ease;
 }
+
+/*tombol baris*/
+p {
+  position: relative;
+}
+
+.options-btn {
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.options-btn:hover {
+  transform: scale(1.2);
+  color: #fff;
+}
 .menu-btn {
   position: fixed;
   bottom: 1.5rem;               /* 🔹 jarak dari bawah */
