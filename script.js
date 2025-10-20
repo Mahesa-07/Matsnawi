@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+// === Sidebar Toggle ===
 const sidebar = document.getElementById('sidebar');
 const openBtn = document.querySelector('.nav-toggle');
 const closeBtn = document.getElementById('closeBtn');
@@ -33,7 +34,7 @@ closeBtn.addEventListener('click', () => {
   sidebar.classList.remove('show');
 });
 
-// Tutup otomatis setelah klik tautan
+// Tutup otomatis setelah klik link
 document.querySelectorAll('.sidebar-links a').forEach(link => {
   link.addEventListener('click', () => {
     sidebar.classList.remove('show');
