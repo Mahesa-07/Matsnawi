@@ -51,7 +51,6 @@ header, main, aside, button {
   transform: scale(1.1);
   box-shadow: 0 0 18px rgba(199,162,90,0.8);
 }
-}
 .menu-btn:hover {
   transform: scale(1.1);
   box-shadow: 0 0 8px var(--gold);
