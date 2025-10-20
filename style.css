@@ -4,6 +4,8 @@
   --gold: #c7a25a;
   --panel: #181a1f;
 }
+
+/* ===== BODY ===== */
 body {
   margin: 0;
   font-family: 'Noto Sans', sans-serif;
@@ -12,15 +14,21 @@ body {
   overflow-x: hidden;
   position: relative;
 }
+
+/* ===== LATAR BELAKANG (EFEK BOKEH) ===== */
 #bokeh-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
 }
-header, main, aside, {
+
+/* ❌ Dulu ada koma salah di sini — sudah diperbaiki */
+header, main, aside {
   position: relative;
   z-index: 2;
 }
+
+/* ===== HEADER ===== */
 .header {
   text-align: center;
   background: linear-gradient(to right, #c7a25a, #e3c891);
@@ -30,7 +38,7 @@ header, main, aside, {
   animation: slideDown 0.8s ease;
 }
 
-/* Tombol tiga titik di pojok kanan atas paragraf */
+/* ===== TOMBOL TIGA TITIK DI PARAGRAF ===== */
 p {
   position: relative;
 }
@@ -52,28 +60,31 @@ p {
   color: #fff;
 }
 
-/* (Opsional) Biar muncul saat disentuh saja */
+/* (Opsional) muncul saat hover */
 p .options-btn {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
+
 p:hover .options-btn {
   opacity: 0.5;
 }
+
+/* ===== TOMBOL MENU MENGAPUNG ===== */
 .menu-btn {
   position: fixed;
-  bottom: 1.5rem;               /* 🔹 jarak dari bawah */
-  right: 1rem;                  /* 🔹 jarak dari kanan */
+  bottom: 1.5rem;
+  right: 1rem;
   background: var(--gold);
   border: 2px solid var(--gold);
   color: #fff;
   font-size: 1.4rem;
-  border-radius: 50%;           /* bentuk bulat */
+  border-radius: 50%;
   padding: 6px 10px;
   cursor: pointer;
   z-index: 1100;
   box-shadow: 0 0 10px rgba(199,162,90,0.4);
-  animation: pulseGlow 3s ease-in-out infinite; /* ✨ efek berpendar lembut */
+  animation: pulseGlow 3s ease-in-out infinite;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -83,7 +94,7 @@ p:hover .options-btn {
   box-shadow: 0 0 8px var(--gold);
 }
 
-/*Bagian sideBar samping*/
+/* ===== SIDEBAR ===== */
 .sidebar {
   position: fixed;
   top: 0;
@@ -91,18 +102,17 @@ p:hover .options-btn {
   width: 220px;
   height: 100%;
   background: rgba(18, 19, 22, 0.6);
-  backdrop-filter: blur(8px);
   color: var(--text);
   padding: 1rem;
   box-shadow: 2px 0 10px rgba(0,0,0,0.5);
   transition: left 0.4s ease;
   z-index: 1002;
   backdrop-filter: blur(6px);
-
 }
 
 .sidebar.active { left: 0; }
 .sidebar h2 { color: var(--gold); }
+
 .sidebar input {
   width: 100%;
   padding: 6px;
@@ -112,8 +122,15 @@ p:hover .options-btn {
   background: #23252a;
   color: var(--text);
 }
-.sidebar ul { list-style: none; padding: 0; margin: 0; }
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
 .sidebar li { margin: 10px 0; }
+
 .sidebar a {
   color: var(--text);
   text-decoration: none;
@@ -122,10 +139,13 @@ p:hover .options-btn {
   border-left: 3px solid transparent;
   transition: background 0.3s, border-color 0.3s;
 }
+
 .sidebar a:hover {
   background: rgba(199,162,90,0.15);
   border-left: 3px solid var(--gold);
 }
+
+/* ===== OVERLAY ===== */
 .overlay {
   position: fixed;
   inset: 0;
@@ -135,15 +155,20 @@ p:hover .options-btn {
   transition: opacity 0.4s ease;
   z-index: 1000;
 }
+
 .overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* ===== KONTEN UTAMA ===== */
 .content {
   padding: 2rem 1rem;
   line-height: 1.7;
   animation: fadeIn 1s ease;
 }
+
+/* ===== CHAPTER ===== */
 .chapter {
   margin-bottom: 3rem;
   background: rgba(255,255,255,0.03);
@@ -152,11 +177,14 @@ p:hover .options-btn {
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   animation: fadeUp 0.6s ease;
 }
+
 .chapter h2 {
   color: var(--gold);
   margin-bottom: 1rem;
   text-shadow: 0 0 6px rgba(199,162,90,0.3);
 }
+
+/* ===== TOMBOL KUTIPAN ===== */
 .toggle-quote {
   background: var(--gold);
   border: none;
@@ -168,10 +196,13 @@ p:hover .options-btn {
   font-size: 0.9rem;
   transition: transform 0.2s ease, box-shadow 0.2s;
 }
+
 .toggle-quote:hover {
   transform: scale(1.1);
   box-shadow: 0 0 6px var(--gold);
 }
+
+/* ===== KUTIPAN ===== */
 .quote {
   display: block;
   background: rgba(199,162,90,0.1);
@@ -182,7 +213,29 @@ p:hover .options-btn {
   border-radius: 4px;
   animation: fadeIn 0.6s ease;
 }
-.hidden { display: none; }
-@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.hidden {
+  display: none;
+}
+
+/* ===== ANIMASI ===== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideDown {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* (Tambahan opsional untuk efek tombol menu) */
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px rgba(199,162,90,0.4); }
+  50% { box-shadow: 0 0 20px rgba(199,162,90,0.8); }
+}
