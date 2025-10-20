@@ -126,3 +126,93 @@ body {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+/* ========== SIDEBAR (DAFTAR ISI) ========== */
+.nav-toggle {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: var(--gold);
+  color: white;
+  border: none;
+  font-size: 1.3rem;
+  padding: 0.5rem 0.8rem;
+  border-radius: 8px;
+  z-index: 1100;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: -260px; /* posisi awal tersembunyi */
+  width: 240px;
+  height: 100%;
+  background: #f9f4e2;
+  box-shadow: 2px 0 8px rgba(0,0,0,0.2);
+  transition: left 0.4s ease;
+  z-index: 1050;
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar.show {
+  left: 0; /* muncul dari kiri */
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  border-bottom: 1px solid var(--gold);
+}
+
+.sidebar-header h3 {
+  color: #3b2f2f;
+  margin: 0.5rem 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  cursor: pointer;
+  color: var(--gold);
+}
+
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.sidebar-links li {
+  margin: 0.6rem 0;
+}
+
+.sidebar-links a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  display: block;
+  transition: background 0.3s;
+  border-left: 4px solid transparent;
+}
+
+.sidebar-links a:hover,
+.sidebar-links a.active {
+  background: rgba(199,162,90,0.15);
+  border-left: 4px solid var(--gold);
+  font-weight: bold;
+}
+
+/* agar konten tidak tertutup tombol */
+@media (min-width: 768px) {
+  .nav-toggle {
+    top: 1.2rem;
+    left: 1.2rem;
+  }
+}
