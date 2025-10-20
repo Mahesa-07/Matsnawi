@@ -22,7 +22,7 @@ body {
   z-index: 0;
 }
 
-/* ❌ Dulu ada koma salah di sini — sudah diperbaiki */
+/* Header */
 header, main, aside {
   position: relative;
   z-index: 2;
