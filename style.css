@@ -1,241 +1,148 @@
 :root {
+  --bg: #fdf6e3;
+  --text: #3b2f2f;
+  --gold: #c7a25a;
+}
+
+/* 🌙 Tema Gelap */
+body.dark {
   --bg: #0f1113;
   --text: #e5decf;
   --gold: #c7a25a;
-  --panel: #181a1f;
-}
-
-/* ===== BODY ===== */
-body {
-  margin: 0;
-  font-family: 'Noto Sans', sans-serif;
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
-  position: relative;
 }
 
-/* ===== LATAR BELAKANG (EFEK BOKEH) ===== */
-#bokeh-bg {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
+/* ==== Umum ==== */
+html, body {
+  height: auto;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans', sans-serif;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  transition: background 0.5s ease, color 0.5s ease;
 }
 
-/* Header */
-header, main, aside {
-  position: relative;
-  z-index: 2;
-}
-
-/* ===== HEADER ===== */
 .header {
-  text-align: center;
   background: linear-gradient(to right, #c7a25a, #e3c891);
-  color: #1a1a1a;
+  color: #1b1b1b;
+  text-align: center;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  animation: slideDown 0.8s ease;
+  border-bottom: 2px solid #bfa45a;
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
-/* ===== TOMBOL TIGA TITIK DI PARAGRAF ===== */
-p {
-  position: relative;
+.title {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
-.options-btn {
+/* 🌗 Tombol Ganti Tema */
+.theme-btn {
   position: absolute;
-  top: 6px;
-  right: 6px;
-  background: transparent;
-  border: none;
-  color: var(--gold);
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
-}
-
-.options-btn:hover {
-  transform: scale(1.2);
-  color: #fff;
-}
-
-/* (Opsional) muncul saat hover */
-p .options-btn {
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-p:hover .options-btn {
-  opacity: 0.5;
-}
-
-/* ===== TOMBOL MENU MENGAPUNG ===== */
-.menu-btn {
-  position: fixed;
-  bottom: 1.5rem;
+  top: 1rem;
   right: 1rem;
   background: var(--gold);
-  border: 2px solid var(--gold);
   color: #fff;
-  font-size: 1.4rem;
+  border: none;
   border-radius: 50%;
-  padding: 6px 10px;
+  width: 36px;
+  height: 36px;
+  font-size: 1rem;
   cursor: pointer;
-  z-index: 1100;
-  box-shadow: 0 0 10px rgba(199,162,90,0.4);
-  animation: pulseGlow 3s ease-in-out infinite;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease;
+}
+.theme-btn:hover {
+  transform: rotate(20deg);
 }
 
-/* Efek saat disentuh */
-.menu-btn:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 8px var(--gold);
+.content {
+  padding: 1.5rem;
+  line-height: 1.7;
+  animation: fadeIn 1s ease;
 }
 
-/* ===== SIDEBAR ===== */
+/* Tombol Navigasi Bawah */
+.nav-bottom {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.btn {
+  background: var(--gold);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+}
+.btn:hover {
+  background: #b18a44;
+}
+
+/* Sidebar & Overlay */
 .sidebar {
   position: fixed;
   top: 0;
-  left: -260px;
+  left: -250px;
   width: 220px;
   height: 100%;
-  background: rgba(18, 19, 22, 0.6);
+  background: rgba(15, 17, 19, 0.95);
   color: var(--text);
   padding: 1rem;
-  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
-  transition: left 0.4s ease;
-  z-index: 1002;
-  backdrop-filter: blur(6px);
+  transition: left 0.3s ease;
+  z-index: 200;
+  overflow-y: auto;
 }
-
 .sidebar.active { left: 0; }
-.sidebar h2 { color: var(--gold); }
-
-.sidebar input {
-  width: 100%;
-  padding: 6px;
-  margin: 0.5rem 0 1rem;
-  border: none;
-  border-radius: 6px;
-  background: #23252a;
-  color: var(--text);
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.sidebar li { margin: 10px 0; }
-
 .sidebar a {
   color: var(--text);
   text-decoration: none;
-  padding: 6px 10px;
   display: block;
-  border-left: 3px solid transparent;
-  transition: background 0.3s, border-color 0.3s;
+  padding: 0.5rem 0;
+  transition: color 0.3s;
 }
+.sidebar a:hover { color: var(--gold); }
 
-.sidebar a:hover {
-  background: rgba(199,162,90,0.15);
-  border-left: 3px solid var(--gold);
-}
-
-/* ===== OVERLAY ===== */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.5);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.4s ease;
-  z-index: 1000;
+  transition: opacity 0.3s;
+  z-index: 150;
 }
-
 .overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
 
-/* ===== KONTEN UTAMA ===== */
-.content {
-  padding: 2rem 1rem;
-  line-height: 1.7;
-  animation: fadeIn 1s ease;
-}
-
-/* ===== CHAPTER ===== */
-.chapter {
-  margin-bottom: 3rem;
-  background: rgba(255,255,255,0.03);
-  border-radius: 10px;
-  padding: 1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  animation: fadeUp 0.6s ease;
-}
-
-.chapter h2 {
-  color: var(--gold);
-  margin-bottom: 1rem;
-  text-shadow: 0 0 6px rgba(199,162,90,0.3);
-}
-
-/* ===== TOMBOL KUTIPAN ===== */
-.toggle-quote {
+/* Tombol Menu Sidebar */
+.menu-btn {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1rem;
   background: var(--gold);
-  border: none;
   color: #fff;
-  padding: 3px 6px;
-  border-radius: 4px;
-  margin-left: 8px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: transform 0.2s ease, box-shadow 0.2s;
+  z-index: 300;
+  transition: transform 0.3s;
 }
+.menu-btn:hover { transform: scale(1.1); }
 
-.toggle-quote:hover {
-  transform: scale(1.1);
-  box-shadow: 0 0 6px var(--gold);
-}
-
-/* ===== KUTIPAN ===== */
-.quote {
-  display: block;
-  background: rgba(199,162,90,0.1);
-  border-left: 3px solid var(--gold);
-  margin: 0.6rem 0;
-  padding: 0.5rem 0.8rem;
-  font-style: italic;
-  border-radius: 4px;
-  animation: fadeIn 0.6s ease;
-}
-
-.hidden {
-  display: none;
-}
-
-/* ===== ANIMASI ===== */
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-@keyframes slideDown {
-  from { transform: translateY(-20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(20px); }
+  from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
-}
-
-/* (Tambahan opsional untuk efek tombol menu) */
-@keyframes pulseGlow {
-  0%, 100% { box-shadow: 0 0 10px rgba(199,162,90,0.4); }
-  50% { box-shadow: 0 0 20px rgba(199,162,90,0.8); }
 }
