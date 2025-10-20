@@ -18,3 +18,22 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+// Toggle navigasi untuk mobile
+const toggle = document.querySelector('.nav-toggle');
+const links = document.querySelector('.nav-links');
+
+if (toggle) {
+  toggle.addEventListener('click', () => {
+    links.classList.toggle('show');
+  });
+}
+
+// Scroll halus ke elemen saat klik tautan internal
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
