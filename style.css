@@ -1,3 +1,62 @@
+:root {
+  --bg: #0f1113;
+  --text: #e5decf;
+  --gold: #c7a25a;
+  --panel: #181a1f;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 🌌 Canvas bokeh */
+#bokeh-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+}
+
+/* Elemen di atas latar */
+header, main, aside, button {
+  position: relative;
+  z-index: 2;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  background: linear-gradient(to right, #c7a25a, #e3c891);
+  color: #1a1a1a;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  animation: slideDown 0.8s ease;
+}
+
+/* Tombol Menu */
+.menu-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  background: var(--gold);
+  border: none;
+  color: #fff;
+  font-size: 1.4rem;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+  z-index: 1100;
+  transition: transform 0.3s ease, box-shadow 0.3s;
+}
+.menu-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 8px var(--gold);
+}
+
 /* Sidebar */
 .sidebar {
   position: fixed;
@@ -5,47 +64,105 @@
   left: -260px;
   width: 240px;
   height: 100%;
-  background: #121316;
-  color: #fff;
-  padding: 1.5rem;
-  box-shadow: 3px 0 12px rgba(0,0,0,0.4);
+  background: var(--panel);
+  color: var(--text);
+  padding: 1rem;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.5);
   transition: left 0.4s ease;
   z-index: 1002;
+  backdrop-filter: blur(6px);
 }
-.sidebar.active {
-  left: 0;
-}
-
-/* Tombol menu */
-.menu-btn {
-  position: fixed;
-  top: 1rem;
-  left: 1rem;
-  z-index: 1100;
-  background: var(--gold);
-  color: #fff;
+.sidebar.active { left: 0; }
+.sidebar h2 { color: var(--gold); }
+.sidebar input {
+  width: 100%;
+  padding: 6px;
+  margin: 0.5rem 0 1rem;
   border: none;
-  font-size: 1.2rem;
-  padding: 8px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: opacity 0.3s ease, background 0.3s ease;
+  border-radius: 6px;
+  background: #23252a;
+  color: var(--text);
 }
-.menu-btn:hover {
-  background: #b18a44;
+.sidebar ul { list-style: none; padding: 0; margin: 0; }
+.sidebar li { margin: 10px 0; }
+.sidebar a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 6px 10px;
+  display: block;
+  border-left: 3px solid transparent;
+  transition: background 0.3s, border-color 0.3s;
+}
+.sidebar a:hover {
+  background: rgba(199,162,90,0.15);
+  border-left: 3px solid var(--gold);
 }
 
-/* Overlay (halus fade) */
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0,0,0,0.4);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.4s ease;
   z-index: 1000;
 }
 .overlay.show {
   opacity: 1;
   pointer-events: auto;
 }
+
+/* Konten */
+.content {
+  padding: 2rem 1rem;
+  line-height: 1.7;
+  animation: fadeIn 1s ease;
+}
+.chapter {
+  margin-bottom: 3rem;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  animation: fadeUp 0.6s ease;
+}
+.chapter h2 {
+  color: var(--gold);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 6px rgba(199,162,90,0.3);
+}
+
+/* Tombol Kutipan */
+.toggle-quote {
+  background: var(--gold);
+  border: none;
+  color: #fff;
+  padding: 3px 6px;
+  border-radius: 4px;
+  margin-left: 8px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, box-shadow 0.2s;
+}
+.toggle-quote:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px var(--gold);
+}
+
+.quote {
+  display: block;
+  background: rgba(199,162,90,0.1);
+  border-left: 3px solid var(--gold);
+  margin: 0.6rem 0;
+  padding: 0.5rem 0.8rem;
+  font-style: italic;
+  border-radius: 4px;
+  animation: fadeIn 0.6s ease;
+}
+.hidden { display: none; }
+
+/* Animasi */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideDown { from { transform: translateY(-20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
