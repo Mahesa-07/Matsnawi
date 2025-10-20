@@ -16,19 +16,20 @@
   <button id="menuBtn" class="menu-btn">☰</button>
 
   <!-- 🔸 Sidebar Daftar Isi -->
-  <nav class="sidebar" id="sidebar">
-    <div class="sidebar-header">
-      <h3>📚 Daftar Isi</h3>
-      <button class="close-btn" id="closeBtn" aria-label="Tutup daftar isi">✕</button>
-    </div>
-    <ul class="sidebar-links">
-      <li><a href="index.html" class="active">Biografi</a></li>
-      <li><a href="bab1.html">Bab 1 — Pendahuluan</a></li>
-      <li><a href="bab2.html">Bab 2 — Di Antara Sunyi</a></li>
-      <li><a href="bab3.html">Bab 3 — Cinta Ilahi</a></li>
-    </ul>
-  </nav>
+  <aside id="sidebar" class="sidebar">
+  <h3>Daftar Isi</h3>
+  <ul>
+    <li><a href="bab1.html">Bab 1 — Pendahuluan</a></li>
+    <li><a href="bab2.html">Bab 2 — Di Antara Sunyi</a></li>
+    <li><a href="bab3.html">Bab 3 — Cinta Ilahi</a></li>
+  </ul>
+</aside>
 
+<!-- Overlay untuk latar belakang -->
+<div id="overlay" class="overlay"></div>
+
+
+<!--isi halaman konten-->
   <main class="content">
     <article class="chapter active">
       <h2>Biografi Singkat</h2>
