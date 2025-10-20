@@ -31,20 +31,26 @@ header, main, aside, button {
 }
 .menu-btn {
   position: fixed;
-  bottom: 5 rem;
-  right: 1rem;
+  bottom: 1.5rem;               /* 🔹 jarak dari bawah */
+  right: 1rem;                  /* 🔹 jarak dari kanan */
   background: var(--gold);
   border: 2px solid var(--gold);
   color: #fff;
   font-size: 1.4rem;
-  border-radius: 50%;
+  border-radius: 50%;           /* bentuk bulat */
   padding: 6px 10px;
   cursor: pointer;
   z-index: 1100;
-  transition: transform 0.3s ease, box-shadow 0.3s;
-box-shadow: 0 0 10px rgba(199,162,90,0.4);
-  animation: pulseGlow 3s ease-in-out infinite;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(199,162,90,0.4);
+  animation: pulseGlow 3s ease-in-out infinite; /* ✨ efek berpendar lembut */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efek saat disentuh */
+.menu-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 18px rgba(199,162,90,0.8);
+}
 }
 .menu-btn:hover {
   transform: scale(1.1);
