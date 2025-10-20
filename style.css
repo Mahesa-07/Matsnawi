@@ -17,7 +17,7 @@ body {
   inset: 0;
   z-index: 0;
 }
-header, main, aside, button {
+header, main, aside, {
   position: relative;
   z-index: 2;
 }
@@ -30,7 +30,7 @@ header, main, aside, button {
   animation: slideDown 0.8s ease;
 }
 
-/*tombol baris*/
+/* Tombol tiga titik di pojok paragraf */
 p {
   position: relative;
 }
@@ -45,6 +45,11 @@ p {
   font-size: 1.2rem;
   cursor: pointer;
   transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.options-btn:hover {
+  transform: scale(1.2);
+  color: #fff;
 }
 
 .options-btn:hover {
