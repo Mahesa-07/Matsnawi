@@ -32,7 +32,7 @@ header, main, aside, button {
 .menu-btn {
   position: fixed;
   bottom: 1rem;
-  left: 1rem;
+  right: 1rem;
   background: var(--gold);
   border: none;
   color: #fff;
