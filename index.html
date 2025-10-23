@@ -1,48 +1,97 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Biografi Rumi — Matsnawi Jilid 1</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Matsnawi — Jilid 1</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- 🔹 Header -->
-  <header class="header">
-    <h1 class="title">📖 Jalaluddin Rumi</h1>
+  <!-- ⏳ Layar pemuatan -->
+  <div id="loading" class="loading">
+    <div class="loader-text">Menyiapkan Matsnawi...</div>
+  </div>
 
-    <!-- 🌗 Tombol mode gelap/terang -->
-    <button id="themeToggle" class="theme-btn" aria-label="Ganti tema">🌙</button>
+  <!-- 🌌 Kanvas efek bokeh -->
+  <canvas id="bokeh-bg" aria-hidden="true"></canvas>
+
+  <!-- 🌿 Header -->
+  <header class="header">
+    <h1 id="title">Matsnawi Jilid 1</h1>
+    <div class="header-controls">
+      <input id="headerSearch" type="search" placeholder="🔍 Cari kata..." aria-label="Cari kata di teks">
+      <button id="bookmarkToggle" title="Lihat Bookmark">🔖</button>
+      <button id="themeToggle" title="Ganti tema">🌙</button>
+    </div>
+
+    <!-- Panel daftar bookmark -->
+    <div id="bookmarkPanel" class="bookmark-panel hidden">
+      <h3>📖 Kalimat Ditandai</h3>
+      <ul id="bookmarkList"></ul>
+    </div>
   </header>
 
-  <!-- 🔹 Tombol Menu Sidebar -->
-  <button id="menu-btn" class="menu-btn" aria-label="Buka Daftar Isi">☰</button>
+  <!-- 📜 Tombol daftar isi -->
+  <button id="menu-btn" class="menu-btn" aria-label="Buka daftar isi">☰</button>
 
-  <!-- 🔹 Sidebar Daftar Isi -->
-  <aside id="sidebar" class="sidebar">
-    <h3>Daftar Isi</h3>
-    <ul>
-      <li><a href="bab1.html">Bab 1 — Pendahuluan</a></li>
-      <li><a href="bab2.html">Bab 2 — Di Antara Sunyi</a></li>
-      <li><a href="bab3.html">Bab 3 — Cinta Ilahi</a></li>
+  <!-- 📖 Sidebar daftar isi -->
+  <aside id="sidebar" class="sidebar" aria-label="Daftar Isi">
+    <h2>Daftar Isi</h2>
+    <input id="sidebarSearch" placeholder="Cari bab...">
+    <ul id="toc">
+      <li><a href="index.html">Tentang Rumi</a></li>
+      <li><a href="bab1.html">Pendahuluan</a></li>
+      <li><a href="bab2.html">Bab 3</a></li>
     </ul>
   </aside>
 
-  <!-- 🔹 Overlay -->
+  <!-- 🌫️ Overlay -->
   <div id="overlay" class="overlay"></div>
 
-  <!-- 🔹 Konten Utama -->
-  <main class="content">
-    <article class="chapter active">
-      <h2>Biografi Singkat</h2>
-      <p>Jalaluddin Muhammad Rumi (1207–1273) adalah penyair dan sufi besar dari Persia. Ia dikenal melalui karya monumentalnya, <em>Masnawi</em>, yang menjadi salah satu mahakarya spiritual terbesar sepanjang masa.</p>
-      <p>Kehidupan Rumi dipenuhi dengan pencarian cinta Ilahi. Pertemuannya dengan Syams Tabrizi mengubah arah hidupnya — dari pengajar biasa menjadi penyair mistik.</p>
-      <p>Rumi mengajarkan bahwa cinta adalah jalan menuju kebenaran. Melalui Matsnawi, ia menuntun hati manusia agar menemukan keindahan di balik setiap peristiwa.</p>
-      <div class="nav-bottom">
-        <a href="bab1.html" class="btn btn-next">Mulai Membaca ⟩</a>
-      </div>
-    </article>
+  <!-- 📘 Konten utama -->
+  <main id="content" class="content" role="main">
+    <section id="bab1" class="chapter active">
+          <h2>Pendahuluan</h2>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Dengan Nama Allah Yang Maha Pengasih, Maha Penyayang.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Inilah Kitab Matsnawi, yang merupakan akar dari akar dari akar-akar Agama dalam hal (fungsinya) menyingkap misteri pencapaian (kepada Kebenaran) dan kepastian (yakin); dan yang merupakan ilmu Tuhan
+yang teragung, jalan (agama) Tuhan yang termulia, dan bukti Tuhan yang termanifestasi.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;&quot;<em><span class="tm12">Perumpamaan cahaya-Nya adalah seperti sebuah misykat (ceruk) yang di dalamnya ada pelita&#8230;</span></em>&#8221; bersinar dengan sinar yang lebih terang dari fajar.
+Ia adalah Surga Hati, yang memiliki mata air dan ranting-ranting, salah satunya adalah mata air yang disebut Salsab&#299;l di kalangan para pejalan di Jalan ini; dan dalam pandangan para pemilik maqam (tingkatan spiritual)
+dan karunia (Ilahi), ia (Matsnawi) adalah <em><span class="tm12">maqam</span></em> yang terbaik dan tempat peristirahatan (spiritual) yang paling agung.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Di dalamnya orang-orang saleh makan dan minum, dan dengannya para (jiwa) merdeka bergembira dan bersukacita; dan bagaikan Sungai Nil Mesir, ia adalah minuman yang menyenangkan bagi mereka yang bersabar
+dalam ketekunan, tetapi merupakan kesedihan bagi kaum Firaun dan orang-orang kafir, sebagaimana firman Allah, &quot;Dia membiarkan banyak orang tersesat karenanya, dan Dia membiarkan banyak orang mendapat petunjuk karenanya&quot;.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Ia adalah penawar bagi dada (yang sakit), pembersih duka, penafsir (penerang) Al-Quran, dan (sumber) limpahan karunia (Ilahi), serta (sarana) pembersih watak (yang kotor); (ditulis) oleh tangan-tangan
+para juru tulis saleh nan mulia yang melarang (dengan firman) Tidak ada yang menyentuhnya kecuali orang-orang yang disucikan. Kebatilan tidak mendekatinya, baik dari depan maupun dari belakang, karena Allah mengawasinya dan
+menjaganya, dan Dia adalah sebaik-baik Penjaga dan Dia adalah yang paling penyayang dari semua yang menunjukkan kasih sayang. Dan ia memiliki gelar-gelar kehormatan lain yang telah dianugerahkan Allah kepadanya.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Kami telah membatasi diri pada sedikit hal (yang telah disebutkan), sebab yang sedikit itu merupakan penunjuk bagi yang banyak; seteguk air menjadi cermin bagi (kualitas) seluruh telaga, dan segenggam
+gandum menjadi tanda bagi (isi) lantai pengirikan yang luas (lumbung besar).<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Berkatalah hamba yang lemah, yang sangat membutuhkan rahmat Allah Yang Maha Tinggi, Muhammad bin Muhammad bin al-&#7716;usein dari kota Balkh&#8212;semoga Allah menerima persembahan ini darinya&#8212;:<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8220;Aku telah berupaya dengan segenap daya untuk memanjangkan Nazham dalam bentuk syair berpasangan (Matsnawi), yang memuat kisah-kisah ajaib, ucapan-ucapan langka, nasihat-nasihat yang luhur, dan isyarat-isyarat
+yang berharga&#8212;juga memuat jalan para zahid (ahli asketisme) serta taman rohani para ahli ibadah&#8212;semuanya singkat dalam ungkapan, namun luas dalam makna.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">(Karya ini kususun) atas permintaan tuanku, penopang dan sandaranku, yang menempati kedudukan ruh di dalam tubuhku, dan yang merupakan perbendaharaan bagi hariku kini dan esokku kelak, yaitu Sang Syekh&#8212;teladan
+bagi para Arif yang mengenal Allah, pemimpin bagi mereka yang memiliki petunjuk dan keyakinan, penolong bagi umat manusia, penjaga terpercaya atas hati dan nurani mereka, amanah yang dititipkan Allah di antara makhluk-makhluk-Nya,
+Dan dialah pilihan Tuhan di antara makhluk-Nya, perwujudan dari perintah-perintah-Nya kepada Nabi-Nya, serta wadah bagi rahasia-rahasia Ilahi yang dianugerahkan kepada sang kekasih pilihan. Dialah kunci bagi perbendaharaan
+langit tertinggi (&#8216;arasy al-a&#39;la), pemegang amanah atas kekayaan yang tersimpan di bumi; ayah dari segala kebajikan, Pedang Kebenaran dan Agama (Husam al-&#7716;aqq wa al-Din), &#7716;asan bin Mu&#7717;ammad bin
+al-&#7716;asan, yang dikenal dengan nama Ibnu Akhi Turk&#8212;Abu Yazid pada zamannya, Junayd pada masanya&#8212;putra yang benar dari ayah dan kakek yang sama-sama benar. Semoga Allah berkenan atas dirinya dan atas mereka
+semua!<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Ia berasal dari Urmiyah, bersilsilah kepada sang Syekh yang dimuliakan karena pernah berkata: &#8220;Pada petang hari aku seorang Kurdi, dan pada pagi hari aku menjadi seorang Arab.&#8221; Semoga Allah
+ menyucikan jiwanya dan jiwa para penerusnya! Sungguh indah sang leluhur, dan sungguh mulia sang penerus.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Dia berasal dari nasab yang telah diselimuti oleh sinar mentari, dan dari kemasyhuran keturunan di hadapannya bintang-bintang meredupkan cahayanya. Halaman keluarga mereka senantiasa menjadi kiblat
+Keberuntungan, tempat berpalingnya putra-putra para penguasa rohani; dan menjadi Ka&#8216;bah Harapan, yang dikelilingi oleh rombongan para pemohon karunia. Semoga keadaan itu tak pernah pudar, selama masih terbit bintang
+di langit dan matahari terbit di ufuknya, agar tetap menjadi benteng bagi mereka yang saleh&#8212;jiwa-jiwa rohani, langitiah, melampaui langit, dan diterangi oleh cahaya makrifat.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">(Bagi) mereka yang diam namun melihat, yang ghaib namun hadir; para raja yang berbalut pakaian lusuh; para bangsawan di antara bangsa-bangsa; pemilik keutamaan dan kemuliaan; serta bintang-bintang yang
+menyingkapkan tanda-tanda Ketuhanan. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Amin, Wahai Tuhan semesta Alam!<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Dan ini adalah doa yang takkan ditolak, sebab ia mencakup dalam keberkahannya seluruh lapisan ciptaan. Maha Suci Allah , Tuhan sekalian alam; dan semoga Allah melimpahkan salawat kepada sebaik-baik makhluk-Nya,
+Muhammad &#65018;, beserta keluarga beliau yang mulia dan suci.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
+    </section>
   </main>
+
+  <!-- 🌾 Footer -->
+  <footer class="footer">
+    🌿 <em>“Setiap yang jauh dari asalnya akan selalu merindukan waktu pulang.”</em>
+  </footer>
 </body>
 </html>
