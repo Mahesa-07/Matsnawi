@@ -1,148 +1,390 @@
+/* 🌙 Tema Gelap Elegan – versi stabil mobile */
+/* ---------------------------------------------------- */
 :root {
-  --bg: #fdf6e3;
-  --text: #3b2f2f;
+  --bg-dark: #0f1113;
+  --panel-dark: rgba(23,25,28,0.95);
+  --text-dark: #efe8da;
   --gold: #c7a25a;
+  --muted-dark: #a19c90;
+  --accent-dim: rgba(199,162,90,0.12);
+
+  --bg-light: #f7f5f2;
+  --panel-light: #ffffffcc;
+  --text-light: #1b1b1b;
+  --muted-light: #555;
+
+  --transition: 0.3s ease;
+  font-family: 'Noto Sans', sans-serif;
 }
 
-/* 🌙 Tema Gelap */
-body.dark {
-  --bg: #0f1113;
-  --text: #e5decf;
-  --gold: #c7a25a;
-  background: var(--bg);
-  color: var(--text);
-}
-
-/* ==== Umum ==== */
+/* ---------------------------------------------------- */
+/* STRUKTUR DASAR */
 html, body {
-  height: auto;
-  min-height: 100%;
   margin: 0;
   padding: 0;
-  background-color: var(--bg);
-  color: var(--text);
-  font-family: 'Noto Sans', sans-serif;
-  overflow-y: auto;
-  scroll-behavior: smooth;
-  transition: background 0.5s ease, color 0.5s ease;
+  height: 100%;
+  overflow-x: hidden;
+  position: relative;
 }
 
-.header {
-  background: linear-gradient(to right, #c7a25a, #e3c891);
-  color: #1b1b1b;
-  text-align: center;
-  padding: 1rem;
-  border-bottom: 2px solid #bfa45a;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+/* 🌌 Background tetap diam */
+body {
+  color: var(--text-dark);
+  -webkit-font-smoothing: antialiased;
+  transition: background var(--transition), color var(--transition);
+  background: rgba(15,17,19,0.7) url("img/bg-night.jpg") no-repeat center center;
+  background-size: cover;
 }
 
-.title {
-  margin: 0;
-  font-size: 1.5rem;
+/* Trik agar background benar-benar tetap */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: inherit;
+  z-index: -1;
+  background-attachment: scroll;
+  background-size: cover;
 }
 
-/* 🌗 Tombol Ganti Tema */
-.theme-btn {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  background: var(--gold);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 36px;
-  height: 36px;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: transform 0.3s ease;
+/* Tema terang */
+body.light {
+  background: rgba(247,245,242,0.10) url("img/bg-dawn.jpg") no-repeat center center;
+  background-size: cover;
+  color: var(--text-light);
 }
-.theme-btn:hover {
-  transform: rotate(20deg);
+body.light::before {
+  background: inherit;
 }
 
-.content {
-  padding: 1.5rem;
-  line-height: 1.7;
-  animation: fadeIn 1s ease;
-}
-
-/* Tombol Navigasi Bawah */
-.nav-bottom {
+/* ---------------------------------------------------- */
+/* LOADING */
+.loading {
+  position: fixed;
+  inset: 0;
   display: flex;
-  justify-content: space-between;
-  margin-top: 2rem;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(120deg, rgba(0,0,0,0.6), rgba(0,0,0,0.4));
+  z-index: 2000;
+  transition: opacity .6s ease;
 }
+.loading.hide { opacity: 0; pointer-events: none; }
+.loader-text { color: var(--gold); font-weight: 600; }
 
-.btn {
-  background: var(--gold);
-  color: #fff;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  text-decoration: none;
-  transition: 0.3s;
-}
-.btn:hover {
-  background: #b18a44;
-}
-
-/* Sidebar & Overlay */
-.sidebar {
+/* ---------------------------------------------------- */
+/* HEADER */
+.header {
   position: fixed;
   top: 0;
-  left: -250px;
-  width: 220px;
-  height: 100%;
-  background: rgba(15, 17, 19, 0.95);
-  color: var(--text);
-  padding: 1rem;
-  transition: left 0.3s ease;
-  z-index: 200;
-  overflow-y: auto;
+  left: 0;
+  right: 0;
+  z-index: 120;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: linear-gradient(90deg, rgba(199,162,90,0.06), rgba(199,162,90,0.02));
+  backdrop-filter: blur(4px);
 }
-.sidebar.active { left: 0; }
-.sidebar a {
-  color: var(--text);
-  text-decoration: none;
-  display: block;
-  padding: 0.5rem 0;
-  transition: color 0.3s;
+.header h1 {
+  margin: 0;
+  font-size: 1.05rem;
+  color: var(--gold);
 }
-.sidebar a:hover { color: var(--gold); }
+.header-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.header-controls input {
+  padding: 8px 0px;
+  border-radius: 8px;
+  border: none;
+  background: var(--panel-dark);
+  color: var(--text-dark);
+  min-width: 120px;
+  transition: all .2s ease;
+}
+body.light .header-controls input {
+  background: var(--panel-light);
+  color: var(--text-light);
+}
+.header-controls button {
+  background: transparent;
+  border: none;
+  color: var(--text-dark);
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.header-controls button:active { transform: scale(1.2); }
+body.light .header-controls button { color: var(--text-light); }
 
+/* ---------------------------------------------------- */
+/* SIDEBAR */
+.sidebar {
+  position: fixed;
+  left: -300px;
+  top: 0;
+  width: 260px;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(20,22,25,0.72), rgba(20,22,25,0.55));
+  color: var(--text-dark);
+  padding: 18px;
+  transition: left .36s ease, opacity .36s ease;
+  z-index: 130;
+  box-shadow: 4px 0 20px rgba(0,0,0,0.45);
+  opacity: 0;
+}
+.sidebar.active { left: 0; opacity: 1; }
+.sidebar ul { list-style: none; padding: 0; margin: 12px 0 0; }
+.sidebar a {
+  color: inherit;
+  text-decoration: none;
+  padding: 6px 4px;
+  display: block;
+  border-radius: 6px;
+}
+.sidebar a:hover { background: var(--accent-dim); }
+
+/* Overlay */
 .overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.45);
+  z-index: 125;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s;
-  z-index: 150;
+  transition: opacity .3s;
 }
-.overlay.show {
-  opacity: 1;
-  pointer-events: auto;
+.overlay.show { opacity: 1; pointer-events: auto; }
+
+/* ---------------------------------------------------- */
+/* KONTEN */
+.content {
+  position: relative;
+  z-index: 10;
+  padding: 80px 14px 100px;
+  max-width: 800px;
+  margin: 0 auto;
+  transition: opacity .36s ease;
 }
 
-/* Tombol Menu Sidebar */
+/* ---------------------------------------------------- */
+/* CHAPTER */
+.chapter {
+  margin-bottom: 18px;
+  background: rgba(0,0,0,0.40);
+  /* 🌙 Gradasi emas lembut */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  /* 🔲 Sedikit transparansi hitam agar lembut di mode gelap */
+  background-color: rgba(0,0,0,0.40);
+
+  /* 🎨 Detail lembut */
+  border: 1px solid rgba(199,162,90,0.55);
+  border-radius: 0 0 14px 14px;
+  padding: 14px;
+  border-radius: 10px;
+}
+body.light .chapter { background: rgba(0,0,0,0.03); }
+.chapter h2 { color: var(--gold); margin: 0 0 8px; }
+.chapter p { line-height: 1.5; position: relative; }
+
+/* Tombol opsional */
+.options-btn {
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+.chapter p:hover .options-btn { opacity: 1; }
+
+/* Tooltip */
+.par-tooltip {
+  position: fixed;
+  min-width: 200px;
+  background: var(--panel-dark);
+  color: var(--text-dark);
+  padding: 10px;
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.55);
+  z-index: 9999;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: all .18s ease;
+}
+body.light .par-tooltip { background: var(--panel-light); color: var(--text-light); }
+.par-tooltip.show { opacity: 1; transform: translateY(0); }
+
+/* ---------------------------------------------------- */
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 18px;
+  color: var(--muted-dark);
+  font-size: .9rem;
+}
+body.light .footer { color: var(--muted-light); }
+
+/* ---------------------------------------------------- */
+/* TOMBOL MENU */
 .menu-btn {
   position: fixed;
-  bottom: 1.5rem;
-  right: 1rem;
+  bottom: 18px;
+  left: 12px;
+  z-index: 140;
   background: var(--gold);
-  color: #fff;
-  font-size: 1.4rem;
+  color: #111;
   border: none;
-  border-radius: 50%;
-  padding: 10px;
+  border-radius: 10px;
+  padding: 8px 10px;
+  font-size: 1rem;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.4);
   cursor: pointer;
-  z-index: 300;
-  transition: transform 0.3s;
 }
-.menu-btn:hover { transform: scale(1.1); }
 
+/* ---------------------------------------------------- */
+/* MENU OPSI (Catatan & Bookmark) */
+.options-menu {
+  position: absolute;
+  right: 6px;
+  bottom: 28px;
+  background: var(--panel-dark);
+  border: 1px solid var(--gold);
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.4);
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  z-index: 400;
+  animation: fadeIn .25s ease;
+}
+body.light .options-menu { background: var(--panel-light); }
+
+.options-menu button {
+  background: transparent;
+  border: none;
+  color: var(--gold);
+  padding: 8px 14px;
+  text-align: left;
+  font-size: 0.9em;
+  cursor: pointer;
+  width: 100%;
+}
+.options-menu button:hover { background: rgba(255,255,255,0.08); }
+
+/* ---------------------------------------------------- */
+/* PANEL BOOKMARK */
+.bookmark-panel {
+  position: fixed;
+  top: 60px;
+  right: 14px;
+  width: 280px;
+  max-height: 60vh;
+  overflow-y: auto;
+  background: var(--panel-dark);
+  color: var(--text-dark);
+  border: 1px solid var(--gold);
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.5);
+  backdrop-filter: blur(6px);
+  z-index: 150;
+  transition: opacity .3s ease;
+}
+body.light .bookmark-panel {
+  background: var(--panel-light);
+  color: var(--text-light);
+}
+.bookmark-panel.hidden { display: none; }
+.bookmark-panel h3 {
+  color: var(--gold);
+  margin-top: 0;
+  font-size: 1rem;
+}
+.bookmark-panel ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.bookmark-panel li {
+  padding: 6px 8px;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  background: rgba(255,255,255,0.03);
+  cursor: pointer;
+  transition: background .2s ease;
+}
+.bookmark-panel li:hover { background: var(--accent-dim); }
+
+.bookmarked {
+  background: rgba(199,162,90,0.18);
+  border: 0px solid var(--gold);
+  border-radius: 5px;
+  padding: 2px 5px;
+  transition: all .3s ease;
+}
+
+/* ---------------------------------------------------- */
+/* CATATAN */
+.note-popup {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  animation: fadeIn .3s ease;
+}
+.note-box {
+  background: var(--panel-dark);
+  color: var(--text-dark);
+  padding: 18px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+  max-width: 320px;
+  text-align: center;
+  line-height: 1.5;
+  backdrop-filter: blur(8px);
+}
+body.light .note-box { background: var(--panel-light); color: var(--text-light); }
+.note-box button {
+  margin-top: 12px;
+  background: var(--gold);
+  color: #111;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: background .25s ease;
+}
+.note-box button:hover { background: #e0c57a; }
+
+/* ---------------------------------------------------- */
+/* ANIMASI */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* ---------------------------------------------------- */
+/* MOBILE OPTIMIZED */
+@media (max-width:600px){
+  body { font-size: 15px; line-height: 1.3; padding-bottom: 60px; }
+  .header { padding: 10px 12px; }
+  .header-controls input { min-width: 100px; }
+  .chapter { padding: 12px; }
+  .menu-btn { padding: 8px; font-size: .95rem; bottom: 14px; left: 10px; }
+  .sidebar { width: 220px; }
 }
