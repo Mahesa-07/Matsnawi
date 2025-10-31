@@ -1,222 +1,745 @@
-// ==============================================
-// 🌿 Matsnawi Digital — versi lengkap & stabil
-// ==============================================
+// -*- coding: utf-8 -*-
+// 🔹 Variabel global
+let currentBab = 1;
+const totalBab = 16; // ubah sesuai jumlah file JSON kamu
+let baits = [];
+let currentPage = 1;
+let baitsPerPage = 5; // atau ambil dari dropdown kamu
 
-document.addEventListener('DOMContentLoaded', ()=>{
+let showTranslation = true;
+let sidebarAnimating = false;
+let baitOffset = 0; // 🌙 untuk menyimpan nomor awal dari file sebelumnya
 
-  const menuBtn = document.getElementById('menu-btn');
-  const sidebar = document.getElementById('sidebar');
-  const overlay = document.getElementById('overlay');
-  const sidebarSearch = document.getElementById('sidebarSearch');
-  const headerSearch = document.getElementById('headerSearch');
-  const themeToggle = document.getElementById('themeToggle');
-  const loading = document.getElementById('loading');
-  const content = document.getElementById('content');
-  const bookmarkToggle = document.getElementById('bookmarkToggle');
-  const bookmarkPanel = document.getElementById('bookmarkPanel');
-  const bookmarkList = document.getElementById('bookmarkList');
+const baitContainer = document.getElementById("baitContainer");
+const baitList = document.getElementById("baitList");
+const langSwitch = document.getElementById("langSwitch");
+const themeToggle = document.getElementById("themeToggle");
+const baitPerPageSelect = document.getElementById("baitPerPage");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const searchInput = document.getElementById("searchInput");
+const menuToggle = document.getElementById("menuToggle");
+const sidebar = document.getElementById("sidebar");
+const fileNav = document.getElementById("file-nav");
+const controls = document.querySelector(".controls");
 
-  let savedBookmarks = JSON.parse(localStorage.getItem('bookmarks') || '[]');
+/* =========================
+   SIDEBAR OPEN / CLOSE
+========================= */
+function openSidebar() {
+  if (sidebarAnimating) return;
+  sidebarAnimating = true;
+  sidebar.classList.add("show");
+  document.body.classList.add("sidebar-open");
+  menuToggle.textContent = "✖️";
+  setTimeout(() => (sidebarAnimating = false), 400);
+}
 
-  // ⏳ Loading hilang lembut
-  function hideLoading(){
-    loading.classList.add('hide');
-    setTimeout(()=>loading.remove(),700);
+function closeSidebar() {
+  if (sidebarAnimating) return;
+  sidebarAnimating = true;
+  sidebar.classList.remove("show");
+  document.body.classList.remove("sidebar-open");
+  menuToggle.textContent = "☰";
+  setTimeout(() => (sidebarAnimating = false), 400);
+}
+
+menuToggle.onclick = (e) => {
+  e.stopPropagation();
+  sidebar.classList.contains("show") ? closeSidebar() : openSidebar();
+};
+
+document.addEventListener("click", (e) => {
+  const target = e.target;
+  if (target instanceof Node && !sidebar.contains(target) && !menuToggle.contains(target)) {
+    closeSidebar();
   }
+});
 
-  // 📜 Sidebar
-  menuBtn.addEventListener('click', ()=>{
-    sidebar.classList.toggle('active');
-    overlay.classList.toggle('show');
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && sidebar.classList.contains("show")) closeSidebar();
+});
+
+/* =========================
+   LOAD FILES
+========================= */
+async function loadBaitsFromIndex() {
+  try {
+    const res = await fetch("./assets/data/index.json");
+    const index = await res.json();
+    renderFileNav(index.files);
+    if (index.files.length > 0) await loadBaitsFile(index.files[0].file);
+    return true;
+  } catch (err) {
+    baitContainer.innerHTML = `<p style="text-align:center;color:var(--accent)">⚠️ Gagal memuat data bait.</p>`;
+    console.error(err);
+    return false;
+  }
+}
+
+function renderFileNav(files) {
+  fileNav.innerHTML = "";
+  files.forEach((f) => {
+    const btn = document.createElement("button");
+    btn.textContent = f.title;
+    btn.title = f.description || "";
+    btn.onclick = async () => {
+      document.querySelectorAll(".file-nav button").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      await loadBaitsFile(f.file);
+      closeSidebar();
+    };
+    fileNav.appendChild(btn);
   });
-  overlay.addEventListener('click', ()=>{
-    sidebar.classList.remove('active');
-    overlay.classList.remove('show');
+  // 🌙 Tambah tombol reset & ekspor edit lokal
+const resetBtn = document.createElement("button");
+  resetBtn.textContent = "🗑️ Reset Edit Lokal";
+  resetBtn.classList.add("reset-local-btn");
+  resetBtn.title = "Hapus semua perubahan lokal";
+  resetBtn.onclick = clearLocalEdits;
+  fileNav.appendChild(resetBtn);
+
+  const exportBtn = document.createElement("button");
+  exportBtn.textContent = "💾 Unduh Editan Saya";
+  exportBtn.classList.add("export-local-btn");
+  exportBtn.title = "Unduh semua hasil edit ke file JSON";
+  exportBtn.onclick = exportLocalEdits;
+  fileNav.appendChild(exportBtn);
+}
+
+async function loadBaitsFile(filename) {
+  try {
+    // Temukan file index-nya dari index.json
+    const resIndex = await fetch("./assets/data/index.json");
+    const index = await resIndex.json();
+    const currentFileIndex = index.files.findIndex(f => f.file === filename);
+
+    // 🌙 Hitung offset berdasarkan jumlah bait di file-file sebelumnya
+    let offset = 0;
+    for (let j = 0; j < currentFileIndex; j++) {
+      const prevRes = await fetch(index.files[j].file);
+      const prevBaits = await prevRes.json();
+      offset += prevBaits.length;
+    }
+    baitOffset = offset; // simpan untuk render berikutnya
+
+    // 🔹 Muat file yang diminta
+    const res = await fetch(filename);
+    if (!res.ok) throw new Error(`File tidak ditemukan: ${filename}`);
+    baits = await res.json();
+    applyLocalEdits();
+    currentPage = 1;
+    renderSidebar();
+    renderBaits();
+  } catch (err) {
+    baitContainer.innerHTML = `<p style="text-align:center;color:var(--accent)">⚠️ Gagal memuat file <b>${filename}</b>.</p>`;
+    console.error("Kesalahan muat file:", err);
+  }
+}
+
+/* =========================
+   🔄 SINKRONISASI EDIT LOCAL
+========================= */
+function applyLocalEdits() {
+  const saved = JSON.parse(localStorage.getItem("baitsEdited")) || [];
+  saved.forEach((edited) => {
+    const index = baits.findIndex((b) => b.id === edited.id);
+    if (index !== -1) Object.assign(baits[index], edited);
   });
+}
 
-  // 🔍 Cari bab di sidebar
-  sidebarSearch.addEventListener('input', e=>{
-    const q = e.target.value.toLowerCase();
-    document.querySelectorAll('#toc li').forEach(li=>{
-      li.style.display = li.textContent.toLowerCase().includes(q) ? 'block' : 'none';
-    });
-  });
+function saveLocalEdit(bait) {
+  let saved = JSON.parse(localStorage.getItem("baitsEdited")) || [];
+  const index = saved.findIndex((b) => b.id === bait.id);
+  if (index !== -1) saved[index] = bait; else saved.push(bait);
+  localStorage.setItem("baitsEdited", JSON.stringify(saved));
+}
 
-  // 🌌 Efek bokeh lembut
-  (function(){
-    const canvas = document.getElementById('bokeh-bg');
-    if(!canvas) return;
-    const ctx = canvas.getContext('2d');
-    let w,h, particles=[];
-    function resize(){
-      w=canvas.width=innerWidth; h=canvas.height=innerHeight;
-      particles=[];
-      const count = innerWidth<700 ? 30 : 60;
-      for(let i=0;i<count;i++){
-        particles.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*8+2,dx:(Math.random()-0.5)*0.25,dy:(Math.random()-0.5)*0.25,alpha:Math.random()*0.4});
-      }
-    }
-    resize(); window.addEventListener('resize',()=>setTimeout(resize,120));
-    function draw(){
-      ctx.clearRect(0,0,w,h);
-      for(const p of particles){
-        const g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r*3);
-        g.addColorStop(0,`rgba(199,162,90,${p.alpha})`);
-        g.addColorStop(1,'transparent');
-        ctx.fillStyle=g;
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r*3,0,Math.PI*2); ctx.fill();
-        p.x+=p.dx; p.y+=p.dy;
-        if(p.x<0||p.x>w)p.dx*=-1;
-        if(p.y<0||p.y>h)p.dy*=-1;
-      }
-      requestAnimationFrame(draw);
-    }
-    draw();
-  })();
+function clearLocalEdits() {
+  localStorage.removeItem("baitsEdited");
+  showToast("🗑️ Semua edit lokal dihapus!");
+  renderBaits();
+}
 
-  // ✨ Pencarian teks di konten
-  headerSearch.addEventListener('input', debounce(e=>{
-    const q=e.target.value.trim();
-    clearHighlights();
-    if(!q) return;
-    const re=new RegExp(escapeRegExp(q),'gi');
-    document.querySelectorAll('.content p').forEach(p=>{
-      const txt=p.textContent;
-      p.innerHTML=txt.replace(re,m=>`<mark class="hl">${m}</mark>`)+'<button class="options-btn">⋮</button>';
-    });
-  },200));
+function exportLocalEdits() {
+  const saved = JSON.parse(localStorage.getItem("baitsEdited")) || [];
+  if (saved.length === 0) return showToast("⚠️ Belum ada editan tersimpan!");
+  const blob = new Blob([JSON.stringify(saved, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "editan-matsnawi.json";
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast("💾 File editan diunduh!");
+}
+/* =========================
+   RENDER SIDEBAR & BAIT
+========================= */
+function renderSidebar() {
+  baitList.innerHTML = baits.map(
+    (bait) => `<li class="bait-item" onclick="showBait(${bait.id})"><b>${bait.id}.</b> ${bait.indo.slice(0, 20)}...</li>`
+  ).join("");
+}
+function renderBaits() {
+  const start = (currentPage - 1) * baitsPerPage;
+  const visible = baits.slice(start, start + baitsPerPage);
+  baitContainer.style.opacity = 0;
 
-  // 💫 Menu opsi: Catatan & Bookmark
-  document.addEventListener('click', e => {
-    const btn = e.target.closest('.options-btn');
-    const menu = e.target.closest('.options-menu');
+  setTimeout(() => {
+    baitContainer.innerHTML = visible.map((b, i) => {
+      const baitNumber = baitOffset + start + i + 1; // ✅ penomoran berkelanjutan
+      const marker = baitNumber % 5 === 0 ? `<div class="bait-marker">﴾${baitNumber}﴿</div>` : "";
+      const titlePart = b.title ? `<h3 class="bait-title">${b.title}</h3>` : "";
 
-    // Tutup menu jika klik di luar
-    if (!btn && !menu) {
-      document.querySelectorAll('.options-menu').forEach(m => m.remove());
-      return;
-    }
+      // ⬇️ Deskripsi disembunyikan default (class hidden)
+      const descPart = b.description
+        ? `<p class="bait-desc hidden">${b.description}</p>`
+        : "";
 
-    // Klik tombol ⋮ → buka menu
-    if (btn) {
-      const p = btn.closest('p');
-      if (!p) return;
-      document.querySelectorAll('.options-menu').forEach(m => m.remove());
-      const div = document.createElement('div');
-      div.className = 'options-menu';
-      div.innerHTML = `
-        <button class="show-note">Catatan</button>
-        <button class="bookmark">Tandai Kalimat</button>
-      `;
-      p.appendChild(div);
-      return;
-    }
-
-    // Klik di dalam menu
-    if (menu) {
-      const p = menu.closest('p');
-
-      // ✨ Popup Catatan elegan
-      if (e.target.classList.contains('show-note')) {
-        const note = p.dataset.note || 'Tidak ada catatan.';
-        menu.remove();
-
-        const popup = document.createElement('div');
-        popup.className = 'note-popup';
-        popup.innerHTML = `
-          <div class="note-box">
-            <div style="margin-bottom:8px;">${note}</div>
-            <button class="close-note">Tutup</button>
+      return `
+        <div class="bait${b.title || b.description ? " with-title" : ""}" data-id="${b.id}">
+          ${titlePart}
+          <div class="text">${showTranslation ? b.indo : b.persia}</div>
+          ${descPart}
+          <div class="bait-actions">
+            ${b.description ? `
+              <button class="toggle-desc" data-id="${b.id}" title="Tampilkan deskripsi">
+                <svg class="icon"><use href="#icon-eye"></use></svg>
+              </button>
+            ` : ""}
+            <button class="bookmark-btn" data-id="${b.id}" title="Bookmark">
+              <svg class="icon"><use href="#icon-bookmark"></use></svg>
+            </button>
+            <button class="edit-btn" data-id="${b.id}" title="Edit">
+              <svg class="icon"><use href="#icon-edit"></use></svg>
+            </button>
+            <button class="open-detail" data-id="${b.id}" title="Lihat Bait Penuh">
+              <svg class="icon"><use href="#icon-open"></use></svg>
+            </button>
           </div>
-        `;
-        document.body.appendChild(popup);
+          ${marker}
+        </div>`;
+    }).join("");
 
-        popup.querySelector('.close-note').addEventListener('click', ()=>{
-          popup.classList.add('fade');
-          setTimeout(()=>popup.remove(),250);
-        });
-      }
+    baitContainer.style.opacity = 1;
+    initBookmarkButtons();
+    initEditButtons();
+    initDetailButtons();
 
-      // 🔖 Tandai Kalimat
-      if (e.target.classList.contains('bookmark')) {
-        p.classList.toggle('bookmarked');
-        menu.remove();
-        const text = p.textContent.trim();
-        if (p.classList.contains('bookmarked')) {
-          savedBookmarks.push(text);
-        } else {
-          savedBookmarks = savedBookmarks.filter(t => t !== text);
-        }
-        refreshBookmarkPanel();
-        localStorage.setItem('bookmarks', JSON.stringify(savedBookmarks));
+    // 🟣 Event toggle deskripsi
+    baitContainer.querySelectorAll(".toggle-desc").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const bait = btn.closest(".bait");
+        const desc = bait.querySelector(".bait-desc");
+        if (!desc) return;
 
-        const msg = document.createElement('span');
-        msg.textContent = p.classList.contains('bookmarked') ? '📖 Ditandai' : '❌ Dihapus';
-        msg.style.position = 'absolute';
-        msg.style.right = '8px';
-        msg.style.bottom = '-6px';
-        msg.style.color = 'var(--gold)';
-        msg.style.fontSize = '.85em';
-        msg.style.opacity = '0';
-        p.appendChild(msg);
-        setTimeout(() => { msg.style.transition = 'opacity .4s'; msg.style.opacity = '1'; }, 10);
-        setTimeout(() => msg.remove(), 1200);
-      }
-    }
+        const hidden = desc.classList.toggle("hidden");
+        const use = btn.querySelector("use");
+        use.setAttribute("href", hidden ? "#icon-eye" : "#icon-eye-off");
+        btn.setAttribute("title", hidden ? "Tampilkan deskripsi" : "Sembunyikan deskripsi");
+      });
+    });
+
+    controls.style.display = "flex";
+  }, 150);
+}
+/* =========================
+   DETAIL BAIT + PETUNJUK
+========================= */
+function showBait(id) {
+  const bait = baits.find((b) => b.id === id);
+  if (!bait) return;
+
+  if (controls) controls.style.display = "none";
+
+  const hasTitle = bait.title && bait.title.trim() !== "";
+  const hasDesc = bait.description && bait.description.trim() !== "";
+
+  // 🌙 Judul berisi nomor bait
+  const titlePart = hasTitle
+    ? `<h3 class="bait-title">﴾${bait.id}﴿ ${bait.title}</h3>`
+    : `<h3 class="bait-title">﴾${bait.id}﴿</h3>`;
+
+  const hasShownHint = localStorage.getItem("shownSwipeHint") === "true";
+  const hintPart = hasShownHint
+    ? ""
+    : `<div class="swipe-hint">
+         <span>Geser ⬅️➡️ atau tekan panah kiri / kanan untuk berpindah bait</span>
+       </div>`;
+
+  // 💫 Susunan baru (judul → teks → hint → deskripsi)
+  baitContainer.innerHTML = `
+    <div class="bait-detail">
+      <button class="close-detail">⬅️ Kembali</button>
+      ${titlePart}
+      <div class="bait-text">
+        <p class="persia">${bait.persia}</p>
+        <p class="indo">${bait.indo}</p>
+      </div>
+      ${hintPart}
+      ${hasDesc ? `<div class="bait-desc-bottom">${bait.description}</div>` : ""}
+    </div>
+  `;
+
+  if (!hasShownHint) localStorage.setItem("shownSwipeHint", "true");
+
+  const closeBtn = document.querySelector(".close-detail");
+  closeBtn.addEventListener("click", () => {
+    renderBaits();
+    if (controls) controls.style.display = "";
   });
 
-  // 🌿 Sistem Bookmark Panel
-  function refreshBookmarkPanel() {
-    bookmarkList.innerHTML = savedBookmarks.length
-      ? savedBookmarks.map((b,i)=>`<li data-index="${i}">${b}</li>`).join('')
-      : '<li><em>Belum ada kalimat ditandai</em></li>';
+  initSwipeNavigation(id);
+  initKeyboardNavigation(id);
+}
+
+
+/* =========================
+   SWIPE & KEYBOARD NAVIGASI
+========================= */
+let touchStartX = 0;
+let touchEndX = 0;
+const swipeThreshold = 50;
+
+function initSwipeNavigation(id) {
+  const detail = document.querySelector(".bait-detail");
+  if (!detail) return;
+  detail.ontouchstart = (e) => (touchStartX = e.changedTouches[0].screenX);
+  detail.ontouchend = (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe(id);
+  };
+}
+
+function handleSwipe(currentId) {
+  const diff = touchEndX - touchStartX;
+  if (Math.abs(diff) < swipeThreshold) return;
+  const detail = document.querySelector(".bait-detail");
+  if (!detail) return;
+
+  if (diff > 0) {
+    const prev = baits.find((b) => b.id === currentId - 1);
+    if (prev) {
+      detail.classList.add("swipe-right");
+      setTimeout(() => showBait(prev.id), 200);
+    }
+  } else {
+    const next = baits.find((b) => b.id === currentId + 1);
+    if (next) {
+      detail.classList.add("swipe-left");
+      setTimeout(() => showBait(next.id), 200);
+    }
+  }
+}
+
+function initKeyboardNavigation(currentId) {
+  document.onkeydown = (e) => {
+    const detail = document.querySelector(".bait-detail");
+    if (!detail) return;
+    const key = e.key;
+
+    if (key === "ArrowLeft") {
+      const prev = baits.find((b) => b.id === currentId - 1);
+      if (prev) {
+        detail.classList.add("swipe-right");
+        setTimeout(() => showBait(prev.id), 200);
+      }
+    } else if (key === "ArrowRight") {
+      const next = baits.find((b) => b.id === currentId + 1);
+      if (next) {
+        detail.classList.add("swipe-left");
+        setTimeout(() => showBait(next.id), 200);
+      }
+    } else if (key === "Escape") {
+      renderBaits();
+      if (controls) controls.style.display = "";
+    }
+  };
+}
+
+/* =========================
+   🔍 PENCARIAN
+========================= */
+searchInput?.addEventListener("input", () => {
+  const query = (searchInput.value || "").toLowerCase().trim();
+  if (!query) {
+    renderBaits();
+    return;
   }
 
-  bookmarkToggle.addEventListener('click', ()=>{
-    bookmarkPanel.classList.toggle('hidden');
-    refreshBookmarkPanel();
-  });
+  const filtered = baits.filter(
+    (b) =>
+      (b.persia || "").toLowerCase().includes(query) ||
+      (b.indo || "").toLowerCase().includes(query)
+  );
 
-  bookmarkList.addEventListener('click', e=>{
-    if(e.target.tagName === 'LI' && e.target.dataset.index){
-      const text = e.target.textContent.trim();
-      const p = Array.from(document.querySelectorAll('p')).find(el=>el.textContent.trim().includes(text));
-      if(p){
-        p.scrollIntoView({behavior:'smooth', block:'center'});
-        p.animate([{background:'rgba(199,162,90,0.25)'},{background:'transparent'}],{duration:1200});
-      }
+  baitContainer.innerHTML = filtered
+    .map(
+      (b) => `
+        <div class="bait" data-id="${b.id}">
+          <div class="text">${showTranslation ? b.indo : b.persia}</div>
+          <div class="bait-actions">
+            <button class="bookmark-btn" data-id="${b.id}" title="Bookmark">
+              <svg class="icon"><use href="#icon-bookmark"></use></svg>
+            </button>
+            <button class="edit-btn" data-id="${b.id}" title="Edit">
+              <svg class="icon"><use href="#icon-edit"></use></svg>
+            </button>
+            <button class="open-detail" data-id="${b.id}" title="Lihat Detail">
+              <svg class="icon"><use href="#icon-open"></use></svg>
+            </button>
+          </div>
+        </div>`
+    )
+    .join("");
+    const newDetail = baitContainer.querySelector(".bait-detail");
+setTimeout(() => newDetail.classList.add("show"), 20);
+
+  initBookmarkButtons();
+  initEditButtons();
+  initDetailButtons();
+});
+/* =========================
+   ✨ PENYOROTAN TEKS (HIGHLIGHT)
+========================= */
+function highlightSearch(term) {
+  const baitDivs = document.querySelectorAll(".bait .text");
+  baitDivs.forEach(div => {
+    const originalText = div.textContent;
+    if (!term) {
+      div.innerHTML = originalText;
+      return;
     }
+    const regex = new RegExp(`(${term})`, "gi");
+    div.innerHTML = originalText.replace(regex, `<mark class="highlight">$1</mark>`);
   });
+}
 
-  // 🌗 Tema gelap / terang
-  themeToggle.addEventListener('click',()=>{
-    document.body.classList.toggle('light');
-    themeToggle.textContent=document.body.classList.contains('light')?'☀️':'🌙';
-  });
+// Tambahkan listener tambahan agar highlight tetap aktif saat ketik cepat
+searchInput?.addEventListener("input", () => {
+  const term = (searchInput.value || "").trim().toLowerCase();
+  highlightSearch(term);
+});
+/* =========================
+   🔖 BOOKMARK SYSTEM
+========================= */
+// === ELEMENT DASAR ===
+const bookmarkPanel = document.getElementById("bookmark-panel");
+const overlay = document.getElementById("bookmark-overlay");
+const bookmarkToggle = document.getElementById("bookmark-toggle");
+const bookmarkList = document.getElementById("bookmark-list");
 
-  // 🌙 Transisi antar bab
-  document.querySelectorAll('a[href^="#"]').forEach(a=>{
-    a.addEventListener('click',e=>{
-      const href=a.getAttribute('href');
-      if(href.startsWith('#')){
-        e.preventDefault();
-        const target=document.querySelector(href);
-        if(!target)return;
-        content.style.opacity=0;
-        setTimeout(()=>{
-          window.location.hash=href;
-          content.style.opacity=1;
-          target.scrollIntoView({behavior:'smooth',block:'start'});
-        },250);
-      }
+// === INISIALISASI BOOKMARK ===
+function initBookmarkButtons() {
+  document.querySelectorAll(".bookmark-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      const text = btn.closest(".bait").querySelector(".text").innerText;
+      saveBookmark(id, text);
     });
   });
+}
 
-  // 🧩 Fungsi bantu
-  function escapeRegExp(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');}
-  function debounce(fn,ms){let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>fn(...a),ms);};}
-  function clearHighlights(){document.querySelectorAll('mark.hl').forEach(m=>m.outerHTML=m.innerHTML);}
+function saveBookmark(id, text) {
+  let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+  if (!bookmarks.some((b) => b.id == id)) {
+    bookmarks.push({ id, text });
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    showToast("✅ Bookmark disimpan!");
+  } else {
+    showToast("⚠️ Sudah ada!");
+  }
+}
 
-  // 🌿 Jalankan loading fade-out
-  setTimeout(hideLoading,600);
+// === TAMPILKAN BOOKMARK ===
+function tampilkanBookmark() {
+  let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+
+  // Filter data valid
+  bookmarks = bookmarks.filter(b => b && b.text && b.text !== "undefined");
+
+  localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+
+  // Render tiap item sebagai .bookmark-item terpisah
+  bookmarkList.innerHTML =
+    bookmarks.length === 0
+      ? "<p>Belum ada bookmark.</p>"
+      : bookmarks.map(b => `
+          <div class="bookmark-item">
+            <span class="bookmark-text">${b.text}</span>
+            <button class="remove-bookmark" data-id="${b.id}" title="Hapus Bookmark">✖</button>
+          </div>
+        `).join("");
+
+// 🟣 Setel ulang listener tombol hapus untuk tiap item
+  document.querySelectorAll(".remove-bookmark").forEach(btn => {
+    btn.addEventListener("click", e => {
+      e.stopPropagation();
+      const id = btn.dataset.id;
+      bookmarkToRemove = btn.closest(".bookmark-item");
+      bookmarkIdToRemove = id;
+      confirmDialog.classList.add("active");
+    });
+  });
+}
+
+// === PANEL BOOKMARK TOGGLE ===
+bookmarkToggle.addEventListener("click", (e) => {
+  e.stopPropagation();
+  const isShown = bookmarkPanel.classList.toggle("show");
+  overlay.classList.toggle("show", isShown);
+  if (isShown) tampilkanBookmark();
+});
+
+overlay.addEventListener("click", () => {
+  bookmarkPanel.classList.remove("show");
+  overlay.classList.remove("show");
+});
+
+// === DIALOG KONFIRMASI ===
+const confirmDialog = document.getElementById("confirm-dialog");
+const cancelRemove = document.getElementById("cancelRemove");
+const confirmRemove = document.getElementById("confirmRemove");
+
+let bookmarkIdToRemove = null;
+
+function showConfirmDialog(id) {
+  bookmarkIdToRemove = id;
+  confirmDialog.classList.add("active");
+}
+
+// Tombol “Tidak”
+cancelRemove.addEventListener("click", () => {
+  confirmDialog.classList.remove("active");
+  bookmarkIdToRemove = null;
+});
+
+// Tombol “Hapus”
+confirmRemove.addEventListener("click", () => {
+  if (bookmarkIdToRemove) {
+    let bookmarks = JSON.parse(localStorage.getItem("bookmarks")) || [];
+    bookmarks = bookmarks.filter(b => b && b.id != bookmarkIdToRemove);
+    localStorage.setItem("bookmarks", JSON.stringify(bookmarks));
+    tampilkanBookmark();
+    showToast("❌ Dihapus");
+  }
+  confirmDialog.classList.remove("active");
+  bookmarkIdToRemove = null;
+});
+
+/* =========================
+   ✏️ EDIT PANEL
+========================= */
+const editPanel = document.getElementById("edit-panel");
+const editPersia = document.getElementById("edit-persia");
+const editIndo = document.getElementById("edit-indo");
+const saveEditBtn = document.getElementById("saveEditBtn");
+const cancelEditBtn = document.getElementById("cancelEditBtn");
+let currentEditId = null;
+
+function initEditButtons() {
+  document.querySelectorAll(".edit-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = parseInt(btn.dataset.id);
+      const bait = baits.find((b) => b.id === id);
+      if (!bait) return;
+      currentEditId = id;
+      editPersia.value = bait.persia || "";
+      editIndo.value = bait.indo || "";
+      editPanel.classList.add("show");
+    });
+  });
+}
+
+saveEditBtn.addEventListener("click", () => {
+  if (!currentEditId) return;
+  const newPersia = editPersia.value.trim();
+  const newIndo = editIndo.value.trim();
+
+  const bait = baits.find((b) => b.id === currentEditId);
+  if (bait) {
+    bait.persia = newPersia;
+    bait.indo = newIndo;
+    saveLocalEdit({ id: bait.id, persia: newPersia, indo: newIndo });
+
+    const baitDiv = document.querySelector(`.bait[data-id="${bait.id}"]`);
+    if (baitDiv) {
+      const textEl = baitDiv.querySelector(".text");
+      if (textEl) textEl.textContent = showTranslation ? newIndo : newPersia;
+    }
+
+    showToast("✅ Disimpan (lokal tersimpan)!");
+  }
+
+  closeEditPanel();
+});
+
+cancelEditBtn.addEventListener("click", closeEditPanel);
+function closeEditPanel() {
+  editPanel.classList.remove("show");
+  currentEditId = null;
+}
+
+// 🔹 Fungsi memuat bab tertentu
+async function loadBab(babIndex) {
+  try {
+    const res = await fetch(`./assets/data/bab${babIndex}.json`);
+    if (!res.ok) throw new Error(`Gagal memuat Bab ${babIndex}`);
+    baits = await res.json(); // langsung array
+    currentPage = 1;
+    renderBaits();
+    showToast(`📖 Bab ${babIndex} dimuat`);
+  } catch (err) {
+    console.error(err);
+    showToast("❌ Tidak bisa memuat bab " + babIndex);
+  }
+}
+
+
+/* =========================
+   🔍 LIHAT BAIT PENUH (MODAL)
+========================= */
+function initDetailButtons() {
+  document.querySelectorAll(".open-detail").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = parseInt(btn.dataset.id, 10);
+      const bait = baits.find((b) => b.id === id);
+      if (bait) showBaitModal(bait);
+    });
+  });
+}
+function showBaitModal(bait) {
+  let modal = document.getElementById("baitModal");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "baitModal";
+    modal.className = "bait-modal";
+    modal.innerHTML = `
+      <div class="bait-modal-content">
+        <span class="close-modal">×</span>
+        <h3 class="bait-title"></h3>
+        <p class="persian"></p>
+        <p class="translation"></p>
+        <p class="bait-desc"></p>
+      </div>`;
+    document.body.appendChild(modal);
+  }
+
+  const modalTitle = modal.querySelector(".bait-title");
+  const modalPersian = modal.querySelector(".persian");
+  const modalTranslation = modal.querySelector(".translation");
+  const modalDesc = modal.querySelector(".bait-desc");
+  const closeBtn = modal.querySelector(".close-modal");
+
+  modalTitle.textContent = bait.title || `Bait ${bait.id}`;
+  modalPersian.textContent = bait.persia || "";
+  modalTranslation.textContent = bait.indo || "";
+  modalDesc.textContent = bait.description || bait.desc || "";
+  modal.style.display = "flex";
+  document.body.style.overflow = "hidden";
+
+  setTimeout(() => modal.classList.add("show"), 10);
+
+  closeBtn.onclick = () => closeBaitModal(modal);
+  modal.onclick = (e) => {
+    if (e.target === modal) closeBaitModal(modal);
+  };
+}
+
+function closeBaitModal(modal) {
+  modal.classList.remove("show");
+  setTimeout(() => {
+    modal.style.display = "none";
+    document.body.style.overflow = "";
+  }, 250);
+}
+
+
+/* =========================
+   TOAST NOTIF
+========================= */
+function showToast(msg) {
+  const toast = document.createElement("div");
+  toast.className = "toast-message";
+  toast.innerHTML = msg;
+  document.body.appendChild(toast);
+
+  // Tampilkan perlahan
+  requestAnimationFrame(() => toast.classList.add("show"));
+
+  // Hilangkan otomatis
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.remove(), 600);
+  }, 2300);
+}
+
+/* =========================
+   NAVIGASI & KONTROL
+========================= */
+baitPerPageSelect.onchange = () => {
+  baitsPerPage = parseInt(baitPerPageSelect.value);
+  currentPage = 1;
+  renderBaits();
+};
+
+// 🔹 Tombol navigasi
+prevBtn.onclick = async () => {
+  if (currentPage > 1) {
+    currentPage--;
+    renderBaits();
+  } else if (currentBab > 1) {
+    currentBab--;
+    await loadBab(currentBab);
+  } else {
+    showToast("📘 Sudah di bab pertama");
+  }
+};
+
+nextBtn.onclick = async () => {
+  if (currentPage * baitsPerPage < baits.length) {
+    currentPage++;
+    renderBaits();
+  } else if (currentBab < totalBab) {
+    currentBab++;
+    await loadBab(currentBab);
+  } else {
+    showToast("📖 Sudah di bab terakhir");
+  }
+};
+
+// 🔹 Panggil pertama kali
+loadBab(currentBab);
+
+langSwitch.onclick = () => {
+  showTranslation = !showTranslation;
+  langSwitch.textContent = showTranslation ? "🇮🇩" : "🇬🇧";
+  renderBaits();
+};
+
+themeToggle.onclick = () => {
+  document.body.classList.toggle("light");
+  themeToggle.textContent = document.body.classList.contains("light")
+    ? "☀️"
+    : "🌙";
+};
+
+/* =========================
+   INIT UTAMA
+========================= */
+window.addEventListener("DOMContentLoaded", async () => {
+  const loaded = await loadBaitsFromIndex();
+  if (!loaded) return;
+
+  const searchInput = document.getElementById("searchInput");
+  if (!searchInput) {
+    console.warn("❌ searchInput tidak ditemukan di DOM");
+    return;
+  }
+
+  console.log("✅ Matsnawi Digital siap 🌙✨");
+
+  langSwitch.textContent = "🌐";
 });
