@@ -1,0 +1,70 @@
+/* ====🌙 MATSNAWI DIGITAL — BASE STYLES ==== */
+
+/* === Tema Gelap (Default) === */
+:root {
+  --bg: #0e1013;
+  --card-bg: #181b1f;
+  --text: #f2f4f7;
+  --accent: #f6be5b;
+  --muted: #a8aaad;
+  --shadow: rgba(0, 0, 0, 0.5);
+  --radius: 10px;
+  --transition: 0.3s ease;
+  --font-main: "Inter", "Poppins", sans-serif;
+  --desc-color: #ffffffee;
+  --button-hover: #f6be5b;
+  --nextbtn: #f9971391
+
+  /* Ikon mata (deskripsi) */
+  --eye-color: #d4af37;        /* emas lembut di mode gelap */
+  --eye-color-active: #f5f5f5; /* saat aktif (terbuka) */
+}
+
+/* ===☀️ Tema Terang === */
+body.light {
+  --bg: #f7f9f8;
+  --card-bg: #ffffffee;
+  --text: #1a1c1b;
+  --accent: #f6be5b;
+  --muted: #4e5b5a;
+  --shadow: rgba(0, 0, 0, 0.12);
+  --desc-color: #000000e0;
+  --button-hover: #000000e0;
+--nextbtn: #f9971391
+}
+
+/* ===== GLOBAL RESET ===== */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+/* ===== BODY ===== */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* ===== TYPOGRAPHY ===== */
+h1, h2, h3 {
+  color: var(--accent);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ===== UTILITAS ===== */
+.hidden {
+  display: none !important;
+}
+
+.icon {
+  fill: currentColor !important;
+  transition: fill 0.3s ease, color 0.3s ease;
+}
