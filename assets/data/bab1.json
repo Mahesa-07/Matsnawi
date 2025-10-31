@@ -1,99 +1,208 @@
-<!doctype html>
-<html lang="id">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Matsnawi — Jilid 1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-  <script src="script.js" defer></script>
-</head>
-<body>
-  <!-- ⏳ Layar pemuatan -->
-  <div id="loading" class="loading">
-    <div class="loader-text">Menyiapkan Matsnawi...</div>
-  </div>
+[
+  {
+    "id": 1,
+    "title": "Suling Bambu",
+    "persia":"Listen to the reed how it tells a tale, complaining of separations",
+    "indo": "Dengarkanlah suara seruling buluh itu,  bagaimana ia mengisahkan sebuah cerita — merintih tentang perpisahan.",
+    "description": "...."
+  },
+ {
+    "id": 2,
+    "persia": "Saying, “Ever since I was parted from the reed-bed, my lament hath caused man and woman to moan.",
+    "indo": "Katanya, “Sejak aku dipisahkan dari rumpun bambu, ratapanku telah membuat pria dan wanita ikut merintih.”",
+    "description": "....."
+  },
 
-  <!-- 🌌 Kanvas efek bokeh -->
-  <canvas id="bokeh-bg" aria-hidden="true"></canvas>
+{ "id": 3, 
+"persia": "I want a bosom torn by severance, that I may unfold (to such a one) the pain of love-desire.", 
+"indo": "Aku ingin dada yang terkonyak oleh perpisahan, agar aku dapat menyingkap (kepadanya) rahasia dari kepedihan Cinta (Ilahi).",
+"description": ""
+},
 
-  <!-- 🌿 Header -->
-  <header class="header">
-    <h1 id="title">Matsnawi Jilid 1</h1>
-    <div class="header-controls">
-      <input id="headerSearch" type="search" placeholder="🔍 Cari kata..." aria-label="Cari kata di teks">
-      <button id="bookmarkToggle" title="Lihat Bookmark">🔖</button>
-      <button id="themeToggle" title="Ganti tema">🌙</button>
-    </div>
+{ "id": 4, 
+"persia": "Every one who is left far from his source wishes back the time when he was united with it.", 
+"indo": "Setiap entitas yang terpisah jauh dari Sumbernya niscaya merindukan kembali masa ketika ia bersatu dengannya.",
+"description":""
+},
 
-    <!-- Panel daftar bookmark -->
-    <div id="bookmarkPanel" class="bookmark-panel hidden">
-      <h3>📖 Kalimat Ditandai</h3>
-      <ul id="bookmarkList"></ul>
-    </div>
-  </header>
+{ "id": 5, 
+"persia": "In every company I uttered my wailful notes, I consorted with the unhappy and with them that rejoice.", 
+"indo": "Di setiap majelis (perkumpulan), aku melantunkan nada-nada sedihku; aku bergaul dengan mereka yang berduka maupun mereka yang bersuka cita.",
+"description":""
+  
+},
 
-  <!-- 📜 Tombol daftar isi -->
-  <button id="menu-btn" class="menu-btn" aria-label="Buka daftar isi">☰</button>
+{ "id": 6, 
+"persia": "Every one became my friend from his own opinion; none sought out my secrets from within me.", 
+"indo": "Setiap orang menjadi temanku berdasarkan prasangkanya sendiri; tak seorang pun mencari rahasiaku (sirr) dari dalam diriku.",
+  "description":""
+},
 
-  <!-- 📖 Sidebar daftar isi -->
-  <aside id="sidebar" class="sidebar" aria-label="Daftar Isi">
-    <h2>Daftar Isi</h2>
-    <input id="sidebarSearch" placeholder="Cari bab...">
-    <ul id="toc">
-      <li><a href="index.html">Tentang Rumi</a></li>
-      <li><a href="Pendahuluan.html">Pendahuluan</a></li>
-      <li><a href="bab1.html">Bab 1</a></li>
-    </ul>
-  </aside>
+{ "id": 7, 
+"persia": " .......", 
+"indo": "Rahasiaku tidaklah jauh dari keluhanku, tetapi telinga dan mata kekurangan Cahaya (Nūr) (yang dengannya rahasia itu harus dipahami).",
+"description":""
+},
 
-  <!-- 🌫️ Overlay -->
-  <div id="overlay" class="overlay"></div>
+{ "id": 8, 
+"persia": " .......", 
+"indo": "Tubuh tidak terselubung dari jiwa, pun jiwa dari tubuh; namun tidak ada yang diizinkan untuk melihat jiwa.", 
+  "description":""
+},
 
-  <!-- 📘 Konten utama -->
-  <main id="content" class="content" role="main">
-    <section id="bab1" class="chapter active">
-<h1>Seruling Bambu</h1>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Dengarkanlah suling bambu, bagaimana ia mengisahkan cerita, mengeluhkan perpisahan. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Katanya, &#39;Semenjak aku dipisahkan dari rumpun bambu, ratapanku telah membuat pria dan wanita meratap.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Aku ingin dada yang terkonyak oleh perpisahan, agar aku dapat menyingkap (kepadanya) rahasia dari kepedihan Cinta (Ilahi). <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Setiap entitas yang terpisah jauh dari Sumbernya niscaya merindukan kembali masa ketika ia bersatu dengannya.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Di setiap majelis (perkumpulan), aku melantunkan nada-nada sedihku; aku bergaul dengan mereka yang berduka maupun mereka yang bersuka cita.&#64830;05&#64831;<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Setiap orang menjadi temanku berdasarkan prasangkanya sendiri; tak seorang pun mencari rahasiaku (<em><span
- class="tm12">sirr</span></em>) dari dalam diriku. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Rahasiaku tidaklah jauh dari keluhanku, tetapi telinga dan mata kekurangan Cahaya (N&#363;r) (yang dengannya rahasia itu harus dipahami). <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Tubuh tidak terselubung dari jiwa, pun jiwa dari tubuh; namun tidak ada yang diizinkan untuk melihat jiwa.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Bunyi seruling buluh ini adalah api, ia bukan sekadar angin: barang siapa yang tidak memiliki api ini (Cinta Ilahi), semoga ia sirna (Fana).<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Inilah api Cinta yang ada di dalam seruling bambu, inilah gairah Cinta yang ada di dalam anggur.&#64830;10&#64831;<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Seruling adalah kawan sejati bagi setiap orang yang terpisah dari sang kekasih; lantunan nadanya menusuk hati kami. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Siapa yang pernah melihat racun dan penawar sekaligus, layaknya Seruling? Siapa yang pernah melihat simpatisan dan pecinta yang merindu, layaknya Seruling? <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Seruling mengisahkan Jalan Spiritual (&#7788;ar&#299;qah) yang penuh darah dan meriwayatkan cerita tentang gairah Majn&#363;n. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Hanya bagi yang tidak mengerti pemahaman ini disampaikan: Lidah tidak memiliki pelanggan kecuali telinga. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Dalam kesengsaraan kami, hari-hari (kehidupan) menjadi tidak menentu: hari-hari kami berjalan bergandengan dengan duka yang membakar.&#64830;15&#64831; <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Jika hari-hari kami berlalu, biarlah ia berlalu!&#8212;itu bukanlah perkara penting. Adakah selain Engkau, sebab tiada yang suci selain Diri-Mu! <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Siapa pun yang bukan ikan, akan kenyang dengan air-Nya; siapa pun yang tidak memiliki makanan sehari-hari, harinya akan terasa panjang. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Tiada seorang pun yang mentah mengerti keadaan seseorang yang telah matang: oleh karena itu, kata-kata saya harus singkat. Selamat tinggal! <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Oh Anakku, hancurkan rantai-Mu dan bebaslah! Berapa lama kamu akan menjadi budak emas dan perak (harta duniawi)? <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Jika engkau tuangkan lautan ke dalam kendi, seberapa banyak yang dapat ditampungnya? (Hanya) persediaan untuk satu hari.&#64830;20&#64831; <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Kendi&#8212;yaitu mata orang yang tamak&#8212;tidak akan pernah terisi penuh; cangkang tiram tidak akan terisi mutiara hingga ia menjadi puas (qana&#8217;ah). <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Hanya dia yang jubahnya telah robek oleh Cinta yang kuat telah dimurnikan dari ketamakan dan segala cela. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Salam, wahai Cinta yang membawa kita keberuntungan baik&#8212;Engkau yang adalah tabib bagi segala penyakit kita, <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Obat penawar kesombongan dan kecongkakan kita, Plato dan Galen kita! <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Melalui Cinta tubuh duniawi membumbung ke langit: gunung mulai menari dan menjadi lincah.&#64830;25&#64831; <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Cinta mengilhami Gunung Sinai, wahai sang pecinta; (sehingga) Sinai termabukkan dan Musa-a.s jatuh pingsan. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Jika aku bergabung dengan bibir seseorang yang sesuai denganku, aku juga seperti seruling, akan menceritakan semua yang mungkin diceritakan; <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">(Tetapi) siapa pun yang berpisah dari pembicaraan bahasanya menjadi bisu, meskipun dia memiliki ratusan lagu. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Ketika mawar itu hilang dan taman itu memudar, engkau tidak akan mendengar lagi cerita Bulbul. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Sang Kekasih adalah Segalanya dan Pencinta Hanyalah Sebuah hijab; Sang Kekasih adalah Yang Hidup dan Sang Pencinta Adalah Sesuatu yang Mati.&#64830;30&#64831; <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Apabila Cinta tak lagi memiliki kepedulian (perhatian) atasnya, maka ia tertinggal bagaikan burung tanpa sayap. &#8212;Celakalah! <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Bagaimana mungkin aku memiliki kesadaran (atas apa pun) di hadapan atau di belakangku, jika Cahaya Sang Kekasih tidak berada di depan dan di belakangku?<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Cinta menghendaki agar Kalimat ini (Kalam Ilahi) dimanifestasikan: jika cermin tidak memantulkan, bagaimana mungkin hal itu terjadi? <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Apakah kamu tahu mengapa cermin (jiwamu) tidak memantulkan apa-apa? &#8212; itu karena debu tidak dibersihkan dari wajahnya.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-    </section>
-  </main>
-  <!-- 🌾 Footer -->
-  <footer class="footer">
-    🌿 <em>“Setiap yang jauh dari asalnya akan selalu merindukan waktu pulang.”</em>
-  </footer>
-</body>
-</html>
+{ "id": 9, 
+"persia": " .......", 
+"indo": "Bunyi seruling buluh ini adalah api, ia bukan sekadar angin: barang siapa yang tidak memiliki api ini (Cinta Ilahi), semoga ia sirna (Fana).",
+  "description":""
+},
+
+{ "id": 10, 
+"persia": " .......", 
+"indo": "Inilah api Cinta yang ada di dalam seruling bambu, inilah gairah Cinta yang ada di dalam anggur.",
+"description":""  
+},
+
+{ "id": 11, 
+"persia": " .......", 
+"indo": "Seruling adalah kawan sejati bagi setiap orang yang terpisah dari sang kekasih; lantunan nadanya menusuk hati kami.",
+"description":""
+},
+
+{ "id": 12, 
+"persia": " .......", 
+"indo": "Siapa yang pernah melihat racun dan penawar sekaligus, layaknya Seruling? Siapa yang pernah melihat simpatisan dan pecinta yang merindu, layaknya Seruling?",
+  "description":""
+},
+
+{ "id": 13, 
+"persia": " .......", 
+"indo": "Seruling mengisahkan Jalan Spiritual (Ṭarīqah) yang penuh darah dan meriwayatkan cerita tentang gairah Majnūn,",
+"description":""
+},
+
+{ "id": 14, 
+"persia": " .......", 
+"indo": "Hanya bagi yang tidak mengerti pemahaman ini disampaikan: Lidah tidak memiliki pelanggan kecuali telinga.",
+"description":""
+},
+
+{ "id": 15, 
+"persia": " .......", 
+"indo": "Dalam kesengsaraan kami, hari-hari (kehidupan) menjadi tidak menentu: hari-hari kami berjalan bergandengan dengan duka yang membakar.", 
+"description":""
+},
+
+{ "id": 16, 
+"persia": " .......", 
+"indo": "Jika hari-hari kami berlalu, biarlah ia berlalu!—itu bukanlah perkara penting. Adakah selain Engkau, sebab tiada yang suci selain Diri-Mu!", 
+"description":""
+},
+
+{ "id": 17, 
+"persia": " .......", 
+"indo": "Siapa pun yang bukan ikan, akan kenyang dengan air-Nya; siapa pun yang tidak memiliki makanan sehari-hari, harinya akan terasa panjang.",
+  "description":""
+},
+
+{ "id": 18, 
+"persia": " .......", 
+"indo": "Tiada seorang pun yang mentah mengerti keadaan seseorang yang telah matang: oleh karena itu, kata-kata saya harus singkat. Selamat tinggal!",
+"description":""
+ },
+ 
+{ "id": 19, 
+"persia": " .......", 
+"indo": "Oh Anakku, hancurkan rantai-Mu dan bebaslah! Berapa lama kamu akan menjadi budak emas dan perak (harta duniawi)?",
+  "description":""
+},
+
+{ "id": 20, 
+"persia": " .......", 
+"indo": "Jika engkau tuangkan lautan ke dalam kendi, seberapa banyak yang dapat ditampungnya? (Hanya) persediaan untuk satu hari.",
+  "description":""
+},
+
+{ "id": 21, 
+"persia": " .......", 
+"indo": "Kendi—yaitu mata orang yang tamak—tidak akan pernah terisi penuh; cangkang tiram tidak akan terisi mutiara hingga ia menjadi puas (qana’ah).",
+"description":""
+},
+
+{ "id": 22, 
+"persia": " .......", 
+"indo": "Hanya dia yang jubahnya telah robek oleh Cinta yang kuat telah dimurnikan dari ketamakan dan segala cela.",
+"description":""
+},
+
+{ "id": 23, 
+"persia": " .......", 
+"indo": "Salam, wahai Cinta yang membawa kita keberuntungan baik—Engkau yang adalah tabib bagi segala penyakit kita,",
+"description":""
+},
+{ "id": 24, 
+"persia": " .......", 
+"indo": "Obat penawar kesombongan dan kecongkakan kita, Plato dan Galen kita!",
+  "description":""
+},
+
+{ "id": 25, 
+"persia": " .......", 
+"indo": "Melalui Cinta tubuh duniawi membumbung ke langit: gunung mulai menari dan menjadi lincah.",
+  "description":""
+},
+
+{ "id": 26, 
+"persia": " .......", 
+"indo": "Cinta mengilhami Gunung Sinai, wahai sang pecinta; (sehingga) Sinai termabukkan dan Musa-a.s jatuh pingsan.",
+"description":""
+},
+
+{ "id": 27, 
+"persia": " .......", 
+"indo": "Jika aku bergabung dengan bibir seseorang yang sesuai denganku, aku juga seperti seruling, akan menceritakan semua yang mungkin diceritakan;",
+"description":""
+},
+
+{ "id": 28, 
+"persia": " .......", 
+"indo": "(Tetapi) siapa pun yang berpisah dari pembicaraan bahasanya menjadi bisu, meskipun dia memiliki ratusan lagu.",
+"description":""
+},
+
+{ "id": 29, 
+"persia": " .......", 
+"indo": "Ketika mawar itu hilang dan taman itu memudar, engkau tidak akan mendengar lagi cerita Bulbul.",
+"description":""
+},
+
+{ "id": 30, 
+"persia": " .......", 
+"indo": "Sang Kekasih adalah Segalanya dan Pencinta Hanyalah Sebuah hijab; Sang Kekasih adalah Yang Hidup dan Sang Pencinta Adalah Sesuatu yang Mati.",
+"description":""
+},
+
+{ "id": 31, 
+"persia": " .......", 
+"indo": "Apabila Cinta tak lagi memiliki kepedulian (perhatian) atasnya, maka ia tertinggal bagaikan burung tanpa sayap. —Celakalah!",
+"description":""
+},
+
+{ "id": 32, 
+"persia": " .......", 
+"indo": "Bagaimana mungkin aku memiliki kesadaran (atas apa pun) di hadapan atau di belakangku, jika Cahaya Sang Kekasih tidak berada di depan dan di belakangku?",
+  "description":""
+},
+
+{ "id": 33, 
+"persia": " .......", 
+"indo": "Cinta menghendaki agar Kalimat ini (Kalam Ilahi) dimanifestasikan: jika cermin tidak memantulkan, bagaimana mungkin hal itu terjadi?",
+"description":""
+},
+
+{ "id": 34, 
+"persia": " .......", 
+"indo": "Apakah kamu tahu mengapa cermin (jiwamu) tidak memantulkan apa-apa? — itu karena debu tidak dibersihkan dari wajahnya.",
+"description":""
+}
+]
+
