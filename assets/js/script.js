@@ -84,10 +84,21 @@ function renderFileNav(files) {
     btn.textContent = f.title;
     btn.title = f.description || "";
     btn.onclick = async () => {
-      document.querySelectorAll(".file-nav button").forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      await loadBaitsFile(f.file);
-      closeSidebar();
+  document.querySelectorAll(".file-nav button").forEach((b) => b.classList.remove("active"));
+  btn.classList.add("active");
+
+  // 🌙 Jika file bernama babX.json → panggil loadBab()
+  const babMatch = f.file.match(/bab(\d+)\.json$/);
+  if (babMatch) {
+    currentBab = parseInt(babMatch[1]);
+    await loadBab(currentBab);
+  } else {
+    // Jika bukan file bab, tetap gunakan sistem index.json
+    await loadBaitsFile(f.file);
+  }
+
+  closeSidebar();
+};
     };
     fileNav.appendChild(btn);
   });
