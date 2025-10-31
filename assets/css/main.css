@@ -1,0 +1,52 @@
+/* =========================================================
+🌙 MATSNAWI DIGITAL — MAIN IMPORT FILE
+Menyatukan semua modul CSS agar tetap harmonis.
+========================================================= */
+
+/* 🌑 Dasar & Variabel */
+@import url('./base.css');
+
+/* 🧭 Tata Letak Umum */
+@import url('./layout.css');
+
+/* 💎 Komponen, Tombol, Panel, dan Elemen UI */
+@import url('./components.css');
+
+/* 🌬 Animasi & Transisi */
+@import url('./animations.css');
+
+/* 📱 Responsif untuk Tablet & Mobile */
+@import url('./responsive.css');
+
+/* =========================================================
+✨ Catatan:
+File ini adalah titik pusat. Cukup hubungkan hanya main.css
+di HTML-mu agar seluruh gaya termuat secara sempurna.
+========================================================= */
+/* Toast notification */
+.toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: rgba(30, 30, 30, 0.9);
+  color: var(--accent);
+  padding: 0.6rem 1.2rem;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  z-index: 2000;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+/* Highlight untuk hasil pencarian */
+mark.hl {
+  background-color: var(--accent);
+  color: #000;
+  padding: 0 2px;
+  border-radius: 3px;
+}

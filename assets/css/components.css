@@ -1,0 +1,566 @@
+/* =========================================================
+   🎛️ TOMBOL UMUM
+   ========================================================= */
+button {
+  background: none;
+  border: none;
+  color: var(--text);
+  padding: 0.45rem 0.7rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all var(--transition);
+}
+
+button:hover {
+  background: #171b1f;
+  color: var(--bg);
+  transform: translateY(-1px);
+}
+
+/* Tombol menu */
+.menu-btn {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: var(--accent);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.menu-btn:hover {
+  transform: scale(1.15);
+}
+
+/* =========================================================
+   🔔 TOAST MESSAGE
+   ========================================================= */
+.toast-message {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.95);
+  background: linear-gradient(135deg, var(--accent), #d8b56a);
+  color: var(--bg);
+  padding: 0.7rem 1.3rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  z-index: 5000;
+  font-weight: 500;
+  transition: opacity 0.5s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.toast-message.show {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
+}
+
+body.light .toast-message {
+  background: linear-gradient(135deg, #222, #555);
+  color: #fff;
+}
+
+/* =========================================================
+   📜 DAFTAR BAIT
+   ========================================================= */
+.bait-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.bait {
+  background: var(--card-bg);
+  border: 1px solid /* === Tombol Tema & Ikon === */
+#themeToggle {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: color var(--transition), transform var(--transition);
+}
+
+#themeToggle:hover {
+  color: var(--button-hover);
+  transform: scale(1.1);
+}
+
+/* Supaya semua ikon SVG ikut tema */
+svg, .icon {
+  fill: var(--accent);
+  stroke: var(--accent);
+  transition: fill var(--transition), stroke var(--transition);
+}
+
+body.light svg,
+body.light .icon {
+  fill: var(--accent);
+  stroke: var(--accent);
+};
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 4px 10px var(--shadow);
+  position: relative;
+  transition: all var(--transition);
+}
+
+.bait:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px var(--shadow);
+}
+
+.bait .text {
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   🎨 TOMBOL AKSI BAIT
+   ========================================================= */
+.bait-actions {
+  display: flex;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  margin-top: 0.6rem;
+}
+
+/* Tombol umum dalam bait */
+.bait-actions button {
+  background: none;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0.45rem;
+  font-size: 1rem;
+  transition: all 0.25s ease;
+  color: var(--accent);
+}
+
+.bait-actions button:hover {
+  transform: scale(1.15);
+}
+
+.bait-actions .icon {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+  transition: color 0.3s ease, transform 0.25s ease;
+}
+
+/* Mode terang */
+body.light .bait-actions button {
+  color: #333;
+}
+body.light .bait-actions button:hover {
+  color: var(--accent);
+  text-shadow: none;
+}
+
+/* =========================================================
+   📖 DETAIL BAIT
+   ========================================================= */
+.bait-detail {
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 4px 14px var(--shadow);
+}
+
+.bait-detail h3 {
+  color: var(--accent);
+}
+
+.bait-detail .persia {
+  font-style: italic;
+  color: var(--text);
+}
+
+.bait-detail .indo {
+  margin-top: 0.5rem;
+  color: var(--muted);
+}
+
+.close-detail {
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ⏩ KONTROL HALAMAN
+   ========================================================= */
+.controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: center;
+  padding: 1rem;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.page-size {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* =========================================================
+   ✏️ PANEL EDIT
+   ========================================================= */
+.edit-panel {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  width: 90%;
+  max-width: 420px;
+  padding: 0.1rem;
+  background: var(--card-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 25px var(--shadow);
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.3s ease;
+  z-index: 3000;
+}
+
+.edit-panel.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+  pointer-events: all;
+}
+
+.edit-panel textarea {
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 0.6rem;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+  padding: 0.5rem;
+  resize: vertical;
+}
+
+.edit-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+}
+
+#saveEditBtn {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+#cancelEditBtn {
+  border: 1px solid var(--accent);
+  color: var(--accent);
+}
+
+/* =========================================================
+   🔖 BOOKMARK PANEL
+   ========================================================= */
+#bookmark-panel {
+  position: fixed;
+  top: -100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem 1.2rem;
+  background: var(--card-bg);
+  box-shadow: 0 6px 25px var(--shadow);
+  border-radius: 0 0 var(--radius) var(--radius);
+  transition: top 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 2500;
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent) transparent;
+}
+
+#bookmark-panel.show {
+  top: 0;
+}
+
+#bookmark-panel h3 {
+  text-align: center;
+  color: var(--accent);
+  margin: 0.2rem 0 0.6rem;
+  font-weight: 600;
+}
+
+#bookmark-list p {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 0.5rem 0.7rem;
+  margin: 0.4rem 0;
+  position: relative;
+  color: var(--text);
+  transition: background 0.3s ease;
+}
+
+#bookmark-list p:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.remove-bookmark {
+  position: absolute;
+  right: -6px;
+  top: -10px;
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.25s ease, color 0.3s ease;
+}
+
+.remove-bookmark:hover {
+  transform: scale(1.25);
+  color: var(--text);
+}
+
+/* Scrollbar bookmark */
+#bookmark-panel::-webkit-scrollbar {
+  width: 6px;
+}
+#bookmark-panel::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 3px;
+}
+
+/* Bookmark toggle */
+#bookmark-toggle {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  border-radius: 50%;
+  width: 52px;
+  height: 52px;
+  font-size: 1.4rem;
+  box-shadow: 0 4px 20px var(--shadow);
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  z-index: 3000;
+}
+
+#bookmark-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Overlay */
+#bookmark-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s;
+  z-index: 2000;
+}
+
+#bookmark-overlay.show {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* =========================================================
+   ✨ HIGHLIGHT PENCARIAN
+   ========================================================= */
+mark.highlight {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0 1px;
+  border-radius: 1px;
+  box-shadow: 0 0 6px var(--accent);
+  animation: fadePulse 1s ease-in-out;
+}
+
+/* =========================================================
+   🪞 MODAL BAIT
+   ========================================================= */
+.bait-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 3000;
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.bait-modal.show {
+  opacity: 1;
+  display: flex;
+}
+
+.bait-modal-content {
+  background: var(--card-bg);
+  color: var(--text);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  box-shadow: 0 0 12px var(--shadow);
+  max-width: 520px;
+  width: 90%;
+  border: 1px solid var(--accent);
+  transform: scale(0.95);
+  transition: transform 0.25s ease;
+}
+
+.bait-modal.show .bait-modal-content {
+  transform: scale(1);
+}
+
+.bait-modal .close-modal {
+  float: right;
+  cursor: pointer;
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+
+.bait-modal .persian {
+  direction: rtl;
+  text-align: left;
+  font-size: 1rem;
+  margin-top: 1rem;
+  font-family: "noto-sans", san;
+}
+
+.bait-modal .translation {
+  margin-top: 0.6rem;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+/* 🟣 Dialog Konfirmasi Hapus bookmark*/
+.confirm-dialog {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* pastikan di atas panel bookmark */
+}
+
+.confirm-dialog.active {
+  display: flex;
+}
+
+.confirm-dialog-content {
+  background: var(--panel-bg, #111);
+  color: var(--text, #f5f5f5);
+  padding: 1.2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  text-align: center;
+  border: 1px solid var(--accent, gold);
+  max-width: 80%;
+}
+
+.confirm-actions {
+  margin-top: 0.8rem;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.confirm-actions button {
+  padding: 0.45rem 1rem;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.3s ease;
+}
+
+#cancelRemove {
+  background: #444;
+  color: #fff;
+}
+
+#confirmRemove {
+  background: var(--accent, #d4af37);
+  color: #111;
+}
+
+.confirm-actions button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.bookmark-item {
+  position: relative;
+  padding: 0.5rem 1.2rem 0.5rem 0.8rem;
+  margin: 0.4rem 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: var(--text);
+}
+
+.bookmark-item .bookmark-text {
+  flex: 1;
+  line-height: 1.4;
+  font-size: 0.95rem;
+}
+.remove-bookmark {
+  background: transparent;
+  border: none;
+  color: var(--accent);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, color 0.3s ease;
+}
+
+.remove-bookmark:hover {
+  transform: scale(1.2);
+  color: #f55;
+}
+.nav-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.nav-buttons button {
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: 0 0 5px transparent;
+}
+
+.nav-buttons button:hover {
+  background: var(--accent);
+  color: var(--bg);
+  box-shadow: 0 0 10px var(--accent);
+  transform: translateY(-2px);
+}
