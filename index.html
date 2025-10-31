@@ -1,97 +1,120 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Matsnawi — Jilid 1</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./style.css">
-  <script src="script.js" defer></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matsnawi Jilid 1</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+
+  <!-- 🔹 SVG Sprite Icons -->
+  <svg style="display:none;">
+    <symbol id="icon-bookmark" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M6 2h12v18l-6-4-6 4V2z"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M3 21l3-1 11-11a2.5 2.5 0 0 0 0-3.5L15.5 2.5a2.5 2.5 0 0 0-3.5 0L1 13v7z"/>
+    </symbol>
+    <symbol id="icon-open" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M4 19h16V5H4v14zm8-11l4 4-4 4"/>
+    </symbol>
+    <symbol id="icon-eye" viewBox="0 0 24 24">
+      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zm0 12.5a5 5 0 1 1 0-10 5 5 0 0 1 0 10z"/>
+    </symbol>
+    <symbol id="icon-eye-off" viewBox="0 0 24 24">
+      <path d="M12 7a5 5 0 0 1 4.9 4h2.1c-.46-2.89-2.97-5-7-5a8.99 8.99 0 0 0-4.53 1.21L9 9.85A5 5 0 0 1 12 7zm9.19 9.19-1.41 1.41-2.25-2.25A9.969 9.969 0 0 1 12 19c-5 0-9.27-3.11-11-7.5a11.88 11.88 0 0 1 3.08-4.26L2.81 5.81 4.22 4.4l16.97 16.97zM12 17a5 5 0 0 1-4.9-4H5a8.932 8.932 0 0 0 2.05 3.9L6.4 17.6A8.938 8.938 0 0 0 12 19c2.21 0 4.21-.79 5.79-2.1l-1.59-1.59A4.978 4.978 0 0 1 12 17z"/>
+    </symbol>
+  </svg>
 </head>
+
 <body>
-  <!-- ⏳ Layar pemuatan -->
-  <div id="loading" class="loading">
-    <div class="loader-text">Menyiapkan Matsnawi...</div>
-  </div>
-
-  <!-- 🌌 Kanvas efek bokeh -->
-  <canvas id="bokeh-bg" aria-hidden="true"></canvas>
-
-  <!-- 🌿 Header -->
-  <header class="header">
-    <h1 id="title">Matsnawi Jilid 1</h1>
-    <div class="header-controls">
-      <input id="headerSearch" type="search" placeholder="🔍 Cari kata..." aria-label="Cari kata di teks">
-      <button id="bookmarkToggle" title="Lihat Bookmark">🔖</button>
-      <button id="themeToggle" title="Ganti tema">🌙</button>
+  <!-- HEADER -->
+  <header>
+    <div class="left-header">
+      <button id="menuToggle" class="menu-btn" aria-label="Buka Sidebar">☰</button>
+      <h1>Matsnawi Jilid 1</h1>
     </div>
 
-    <!-- Panel daftar bookmark -->
-    <div id="bookmarkPanel" class="bookmark-panel hidden">
-      <h3>📖 Kalimat Ditandai</h3>
-      <ul id="bookmarkList"></ul>
+    <div class="header-center">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Cari bait (Indonesia atau Persia)..."
+        aria-label="Cari Bait"
+      />
+    </div>
+
+    <div class="header-actions">
+      <button id="bookmark-toggle" class="icon-btn" title="Lihat Bookmark">
+        <svg width="24" height="24"><use href="#icon-bookmark"></use></svg>
+      </button>
+      <button id="langSwitch" title="Ganti Bahasa">🌐</button>
+      <button id="themeToggle" title="Ganti Tema">🌙</button>
     </div>
   </header>
 
-  <!-- 📜 Tombol daftar isi -->
-  <button id="menu-btn" class="menu-btn" aria-label="Buka daftar isi">☰</button>
-
-  <!-- 📖 Sidebar daftar isi -->
-  <aside id="sidebar" class="sidebar" aria-label="Daftar Isi">
-    <h2>Daftar Isi</h2>
-    <input id="sidebarSearch" placeholder="Cari bab...">
-    <ul id="toc">
-      <li><a href="index.html">Tentang Rumi</a></li>
-      <li><a href="bab1.html">Pendahuluan</a></li>
-      <li><a href="bab2.html">Bab 3</a></li>
-    </ul>
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div id="file-nav" class="file-nav"></div>
+    <ul id="baitList" class="bait-list"></ul>
   </aside>
 
-  <!-- 🌫️ Overlay -->
-  <div id="overlay" class="overlay"></div>
+  <!-- KONTEN UTAMA -->
+  <main id="content">
+    <div id="baitContainer" class="bait-container"></div>
 
-  <!-- 📘 Konten utama -->
-  <main id="content" class="content" role="main">
-    <section id="bab1" class="chapter active">
-          <h2>Pendahuluan</h2>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Dengan Nama Allah Yang Maha Pengasih, Maha Penyayang.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Inilah Kitab Matsnawi, yang merupakan akar dari akar dari akar-akar Agama dalam hal (fungsinya) menyingkap misteri pencapaian (kepada Kebenaran) dan kepastian (yakin); dan yang merupakan ilmu Tuhan
-yang teragung, jalan (agama) Tuhan yang termulia, dan bukti Tuhan yang termanifestasi.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;&quot;<em><span class="tm12">Perumpamaan cahaya-Nya adalah seperti sebuah misykat (ceruk) yang di dalamnya ada pelita&#8230;</span></em>&#8221; bersinar dengan sinar yang lebih terang dari fajar.
-Ia adalah Surga Hati, yang memiliki mata air dan ranting-ranting, salah satunya adalah mata air yang disebut Salsab&#299;l di kalangan para pejalan di Jalan ini; dan dalam pandangan para pemilik maqam (tingkatan spiritual)
-dan karunia (Ilahi), ia (Matsnawi) adalah <em><span class="tm12">maqam</span></em> yang terbaik dan tempat peristirahatan (spiritual) yang paling agung.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Di dalamnya orang-orang saleh makan dan minum, dan dengannya para (jiwa) merdeka bergembira dan bersukacita; dan bagaikan Sungai Nil Mesir, ia adalah minuman yang menyenangkan bagi mereka yang bersabar
-dalam ketekunan, tetapi merupakan kesedihan bagi kaum Firaun dan orang-orang kafir, sebagaimana firman Allah, &quot;Dia membiarkan banyak orang tersesat karenanya, dan Dia membiarkan banyak orang mendapat petunjuk karenanya&quot;.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Ia adalah penawar bagi dada (yang sakit), pembersih duka, penafsir (penerang) Al-Quran, dan (sumber) limpahan karunia (Ilahi), serta (sarana) pembersih watak (yang kotor); (ditulis) oleh tangan-tangan
-para juru tulis saleh nan mulia yang melarang (dengan firman) Tidak ada yang menyentuhnya kecuali orang-orang yang disucikan. Kebatilan tidak mendekatinya, baik dari depan maupun dari belakang, karena Allah mengawasinya dan
-menjaganya, dan Dia adalah sebaik-baik Penjaga dan Dia adalah yang paling penyayang dari semua yang menunjukkan kasih sayang. Dan ia memiliki gelar-gelar kehormatan lain yang telah dianugerahkan Allah kepadanya.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Kami telah membatasi diri pada sedikit hal (yang telah disebutkan), sebab yang sedikit itu merupakan penunjuk bagi yang banyak; seteguk air menjadi cermin bagi (kualitas) seluruh telaga, dan segenggam
-gandum menjadi tanda bagi (isi) lantai pengirikan yang luas (lumbung besar).<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Berkatalah hamba yang lemah, yang sangat membutuhkan rahmat Allah Yang Maha Tinggi, Muhammad bin Muhammad bin al-&#7716;usein dari kota Balkh&#8212;semoga Allah menerima persembahan ini darinya&#8212;:<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8220;Aku telah berupaya dengan segenap daya untuk memanjangkan Nazham dalam bentuk syair berpasangan (Matsnawi), yang memuat kisah-kisah ajaib, ucapan-ucapan langka, nasihat-nasihat yang luhur, dan isyarat-isyarat
-yang berharga&#8212;juga memuat jalan para zahid (ahli asketisme) serta taman rohani para ahli ibadah&#8212;semuanya singkat dalam ungkapan, namun luas dalam makna.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">(Karya ini kususun) atas permintaan tuanku, penopang dan sandaranku, yang menempati kedudukan ruh di dalam tubuhku, dan yang merupakan perbendaharaan bagi hariku kini dan esokku kelak, yaitu Sang Syekh&#8212;teladan
-bagi para Arif yang mengenal Allah, pemimpin bagi mereka yang memiliki petunjuk dan keyakinan, penolong bagi umat manusia, penjaga terpercaya atas hati dan nurani mereka, amanah yang dititipkan Allah di antara makhluk-makhluk-Nya,
-Dan dialah pilihan Tuhan di antara makhluk-Nya, perwujudan dari perintah-perintah-Nya kepada Nabi-Nya, serta wadah bagi rahasia-rahasia Ilahi yang dianugerahkan kepada sang kekasih pilihan. Dialah kunci bagi perbendaharaan
-langit tertinggi (&#8216;arasy al-a&#39;la), pemegang amanah atas kekayaan yang tersimpan di bumi; ayah dari segala kebajikan, Pedang Kebenaran dan Agama (Husam al-&#7716;aqq wa al-Din), &#7716;asan bin Mu&#7717;ammad bin
-al-&#7716;asan, yang dikenal dengan nama Ibnu Akhi Turk&#8212;Abu Yazid pada zamannya, Junayd pada masanya&#8212;putra yang benar dari ayah dan kakek yang sama-sama benar. Semoga Allah berkenan atas dirinya dan atas mereka
-semua!<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Ia berasal dari Urmiyah, bersilsilah kepada sang Syekh yang dimuliakan karena pernah berkata: &#8220;Pada petang hari aku seorang Kurdi, dan pada pagi hari aku menjadi seorang Arab.&#8221; Semoga Allah
- menyucikan jiwanya dan jiwa para penerusnya! Sungguh indah sang leluhur, dan sungguh mulia sang penerus.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">&#8203;Dia berasal dari nasab yang telah diselimuti oleh sinar mentari, dan dari kemasyhuran keturunan di hadapannya bintang-bintang meredupkan cahayanya. Halaman keluarga mereka senantiasa menjadi kiblat
-Keberuntungan, tempat berpalingnya putra-putra para penguasa rohani; dan menjadi Ka&#8216;bah Harapan, yang dikelilingi oleh rombongan para pemohon karunia. Semoga keadaan itu tak pernah pudar, selama masih terbit bintang
-di langit dan matahari terbit di ufuknya, agar tetap menjadi benteng bagi mereka yang saleh&#8212;jiwa-jiwa rohani, langitiah, melampaui langit, dan diterangi oleh cahaya makrifat.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">(Bagi) mereka yang diam namun melihat, yang ghaib namun hadir; para raja yang berbalut pakaian lusuh; para bangsawan di antara bangsa-bangsa; pemilik keutamaan dan kemuliaan; serta bintang-bintang yang
-menyingkapkan tanda-tanda Ketuhanan. <button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Amin, Wahai Tuhan semesta Alam!<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-<p data-note="“Dengarlah seruling buluh ini, bagaimana ia mengisahkan perpisahan.”">Dan ini adalah doa yang takkan ditolak, sebab ia mencakup dalam keberkahannya seluruh lapisan ciptaan. Maha Suci Allah , Tuhan sekalian alam; dan semoga Allah melimpahkan salawat kepada sebaik-baik makhluk-Nya,
-Muhammad &#65018;, beserta keluarga beliau yang mulia dan suci.<button class="options-btn" aria-label="Opsi">⋮</button> </p>
-    </section>
+    <div class="controls">
+      <div class="nav-buttons">
+        <button id="prevBtn">⟨⟨ Sebelumnya</button>
+        <button id="nextBtn">Selanjutnya ⟩⟩</button>
+      </div>
+
+      <div class="page-size">
+        <label for="baitPerPage">Tampilkan:</label>
+        <select id="baitPerPage">
+          <option value="5">5</option>
+          <option value="10">10</option>
+          <option value="20">20</option>
+        </select>
+        <span>bait</span>
+      </div>
+    </div>
   </main>
 
-  <!-- 🌾 Footer -->
-  <footer class="footer">
-    🌿 <em>“Setiap yang jauh dari asalnya akan selalu merindukan waktu pulang.”</em>
-  </footer>
+  <!-- PANEL EDIT -->
+  <div id="edit-panel" class="edit-panel" aria-hidden="true">
+    <h3>Edit Bait</h3>
+    <label for="edit-persia">Teks Inggris:</label>
+    <textarea id="edit-persia"></textarea>
+
+    <label for="edit-indo">Tafsir Indonesia:</label>
+    <textarea id="edit-indo"></textarea>
+
+    <div class="edit-actions">
+      <button id="saveEditBtn">Simpan</button>
+      <button id="cancelEditBtn">Batal</button>
+    </div>
+  </div>
+
+  <!-- PANEL BOOKMARK -->
+  <div id="bookmark-panel" class="bookmark-panel" aria-hidden="true">
+    <h3>Daftar Bookmark</h3>
+    <div id="bookmark-list"></div>
+  </div>
+
+  <div id="bookmark-overlay"></div>
+  <!-- DIALOG HAPUS BOOKMARK -->
+<div id="confirm-dialog" class="confirm-dialog" aria-hidden="true">
+  <div class="confirm-box">
+    <p>Hapus bookmark ini?</p>
+    <div class="confirm-actions">
+      <button id="cancelRemove" class="btn-cancel">Tidak</button>
+      <button id="confirmRemove" class="btn-confirm">Hapus</button>
+    </div>
+  </div>
+</div>
+  <script src="./assets/js/script.js"></script>
 </body>
 </html>
