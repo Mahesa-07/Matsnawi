@@ -1,11 +1,9 @@
-// -*- coding: utf-8 -*-
-// 🌙 Matsnawi Digital — versi scroll penuh (tanpa pagination)
+// 🌙 Matsnawi Digital — Scroll penuh, Auto-load Bab 1, Sidebar aktif
 
 // =========================
 // VARIABEL GLOBAL
 // =========================
 let currentBab = 1;
-const totalBab = 16;
 let baits = [];
 let showTranslation = true;
 let baitOffset = 0;
@@ -55,6 +53,7 @@ async function loadBaitsFromIndex() {
   try {
     const res = await fetch("./assets/data/index.json");
     const index = await res.json();
+
     renderSidebarFromIndex(index.files);
 
     // ✅ Auto-load bab pertama
@@ -80,6 +79,7 @@ async function renderSidebarFromIndex(files) {
   for (const f of files) {
     const babMatch = f.file.match(/bab(\d+)\.json$/);
     const babIndex = babMatch ? parseInt(babMatch[1]) : null;
+
     const babItem = document.createElement("div");
     babItem.className = "sidebar-bab";
     babItem.innerHTML = `<div class="bab-title" data-bab="${babIndex}">📘 ${f.title}</div>`;
@@ -158,6 +158,7 @@ async function loadBab(babIndex) {
     const res = await fetch(`./assets/data/bab${babIndex}.json`);
     if (!res.ok) throw new Error(`Gagal memuat Bab ${babIndex}`);
 
+    // Hitung offset nomor bait
     const resIndex = await fetch("./assets/data/index.json");
     const index = await resIndex.json();
     const currentFileIndex = index.files.findIndex((f) => f.file === `bab${babIndex}.json`);
@@ -285,5 +286,5 @@ window.addEventListener("DOMContentLoaded", async () => {
     themeToggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
   });
 
-  console.log("✅ Matsnawi Digital aktif dalam mode scroll penuh 🌙📜");
+  console.log("✅ Matsnawi aktif: scroll penuh + auto-load Bab 1");
 });
