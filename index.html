@@ -30,9 +30,10 @@
 </head>
 
 <body>
-  <!-- HEADER -->
+  <!-- 🔹 HEADER -->
   <header>
     <div class="left-header">
+      <!-- Tombol menu cukup satu saja -->
       <button id="menuToggle" class="menu-btn" aria-label="Buka Sidebar">☰</button>
       <h1>Matsnawi Jilid 1</h1>
     </div>
@@ -55,18 +56,16 @@
     </div>
   </header>
 
- <!-- === SIDEBAR === -->
-<aside id="sidebar" class="sidebar">
-  <div class="sidebar-header">
-    <h2>Matsnawi</h2>
-  </div>
-  <div id="baitList" class="sidebar-list"></div>
-</aside>
+  <!-- 📚 SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h2>Daftar Bab</h2>
+    </div>
+    <!-- Daftar Bab & Bait diisi otomatis oleh JS -->
+    <div id="baitList" class="sidebar-list"></div>
+  </aside>
 
-<!-- Tombol buka/tutup sidebar -->
-<button id="menuToggle" class="menu-toggle">☰</button>
-
-  <!-- KONTEN UTAMA -->
+  <!-- 🌾 KONTEN UTAMA -->
   <main id="content">
     <div id="baitContainer" class="bait-container"></div>
 
@@ -88,13 +87,13 @@
     </div>
   </main>
 
-  <!-- PANEL EDIT -->
+  <!-- 🖋️ PANEL EDIT -->
   <div id="edit-panel" class="edit-panel" aria-hidden="true">
     <h3>Edit Bait</h3>
-    <label for="edit-persia">Teks Inggris:</label>
+    <label for="edit-persia">Teks Persia:</label>
     <textarea id="edit-persia"></textarea>
 
-    <label for="edit-indo">Tafsir Indonesia:</label>
+    <label for="edit-indo">Terjemahan Indonesia:</label>
     <textarea id="edit-indo"></textarea>
 
     <div class="edit-actions">
@@ -103,23 +102,26 @@
     </div>
   </div>
 
-  <!-- PANEL BOOKMARK -->
+  <!-- 📘 PANEL BOOKMARK -->
   <div id="bookmark-panel" class="bookmark-panel" aria-hidden="true">
     <h3>Daftar Bookmark</h3>
     <div id="bookmark-list"></div>
   </div>
 
   <div id="bookmark-overlay"></div>
-  <!-- DIALOG HAPUS BOOKMARK -->
-<div id="confirm-dialog" class="confirm-dialog" aria-hidden="true">
-  <div class="confirm-box">
-    <p>Hapus bookmark ini?</p>
-    <div class="confirm-actions">
-      <button id="cancelRemove" class="btn-cancel">Tidak</button>
-      <button id="confirmRemove" class="btn-confirm">Hapus</button>
+
+  <!-- 🗑️ DIALOG HAPUS BOOKMARK -->
+  <div id="confirm-dialog" class="confirm-dialog" aria-hidden="true">
+    <div class="confirm-box">
+      <p>Hapus bookmark ini?</p>
+      <div class="confirm-actions">
+        <button id="cancelRemove" class="btn-cancel">Tidak</button>
+        <button id="confirmRemove" class="btn-confirm">Hapus</button>
+      </div>
     </div>
   </div>
-</div>
+
+  <!-- 🔹 SCRIPT -->
   <script src="./assets/js/script.js"></script>
 </body>
 </html>
