@@ -261,8 +261,7 @@ function exportLocalEdits() {
    RENDER BAIT UTAMA
 ========================= */
 function renderBaits() {
-  const start = (currentPage - 1) * baitsPerPage;
-  const visible = baits.slice(start, start + baitsPerPage);
+  const visible = baits; // tampilkan semua bait sekaligus
   baitContainer.style.opacity = 0;
 
   setTimeout(() => {
