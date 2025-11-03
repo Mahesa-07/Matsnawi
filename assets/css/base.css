@@ -1,36 +1,36 @@
-/* ====🌙 MATSNAWI DIGITAL — BASE STYLES ==== */
+/* ====🌙 MATSNAWI DIGITAL — BASE STYLES (MONOKROM) ==== */
 
 /* === Tema Gelap (Default) === */
 :root {
-  --bg: #0e1013;
-  --card-bg: #181b1f;
-  --text: #f2f4f7;
-  --accent: #f6be5b;
-  --muted: #a8aaad;
-  --shadow: rgba(0, 0, 0, 0.5);
+  --bg: #0f0f0f;           /* hitam pekat */
+  --card-bg: #1a1a1a;      /* abu sangat gelap */
+  --text: #e5e5e5;         /* putih lembut */
+  --accent: #cccccc;       /* abu terang untuk aksen */
+  --muted: #8a8a8a;        /* abu netral */
+  --shadow: rgba(0, 0, 0, 0.6);
   --radius: 10px;
   --transition: 0.3s ease;
   --font-main: "Inter", "Poppins", sans-serif;
-  --desc-color: #ffffffee;
-  --button-hover: #f6be5b;
-  --nextbtn: #f9971391
+  --desc-color: #f0f0f0dd; /* putih keabuan */
+  --button-hover: #dcdcdc; /* hover tombol */
+  --nextbtn: #b3b3b3aa;    /* tombol next transparan */
 
   /* Ikon mata (deskripsi) */
-  --eye-color: #d4af37;        /* emas lembut di mode gelap */
-  --eye-color-active: #f5f5f5; /* saat aktif (terbuka) */
+  --eye-color: #bfbfbf;        /* abu lembut */
+  --eye-color-active: #ffffff; /* putih saat aktif */
 }
 
 /* ===☀️ Tema Terang === */
 body.light {
-  --bg: #f7f9f8;
-  --card-bg: #ffffffee;
-  --text: #1a1c1b;
-  --accent: #f6be5b;
-  --muted: #4e5b5a;
-  --shadow: rgba(0, 0, 0, 0.12);
-  --desc-color: #000000e0;
-  --button-hover: #000000e0;
---nextbtn: #f9971391
+  --bg: #f4f4f4;            /* putih keabuan */
+  --card-bg: #ffffff;       /* putih bersih */
+  --text: #1a1a1a;          /* hitam pekat */
+  --accent: #333333;        /* abu gelap untuk aksen */
+  --muted: #666666;         /* abu sedang */
+  --shadow: rgba(0, 0, 0, 0.1);
+  --desc-color: #000000d0;  /* hitam transparan */
+  --button-hover: #000000cc;
+  --nextbtn: #555555aa;     /* tombol next transparan */
 }
 
 /* ===== GLOBAL RESET ===== */
