@@ -56,7 +56,14 @@ async function loadBaitsFromIndex() {
     const res = await fetch("./assets/data/index.json");
     const index = await res.json();
     renderSidebarFromIndex(index.files);
-    await loadBaitsFile(index.files[0].file);
+
+    // ✅ Auto-load bab pertama
+    const firstFile = index.files[0].file;
+    const babMatch = firstFile.match(/bab(\d+)\.json$/);
+    if (babMatch) {
+      const firstBab = parseInt(babMatch[1]);
+      await loadBab(firstBab);
+    }
   } catch (err) {
     baitContainer.innerHTML = `<p style="text-align:center;color:var(--accent)">⚠️ Gagal memuat data bait.</p>`;
     console.error(err);
