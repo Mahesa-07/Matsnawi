@@ -3,17 +3,17 @@
   "files": [
     {
       "file": "./assets/data/bab1.json",
-      "title": "Jilid 1",
+      "title": "Bab 1",
       "description": "Bait 1–34 Suling bambu"
     },
     {
       "file": "./assets/data/bab2.json",
-      "title": "Jilid 2",
+      "title": "Bab 2",
       "description": "Bait 51–100 tentang perjalanan ruhani"
     },
     {
       "file": "./assets/data/bab3.json",
-      "title": "Jilid 3",
+      "title": "Bab 3",
       "description": "Bait 101–150 tentang fana dan baqa"
     }
   ]
