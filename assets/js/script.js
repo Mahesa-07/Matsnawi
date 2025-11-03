@@ -50,22 +50,37 @@ document.addEventListener("keydown", (e) => {
 // LOAD INDEX & FILE DATA
 // =========================
 async function loadBaitsFromIndex() {
+async function loadBab(babIndex) {
   try {
-    const res = await fetch("./assets/data/index.json");
-    const index = await res.json();
+    const res = await fetch(`./assets/data/bab${babIndex}.json`);
+    if (!res.ok) throw new Error(`Gagal memuat Bab ${babIndex}`);
 
-    renderSidebarFromIndex(index.files);
+    // Baca seluruh index.json untuk tahu urutan bab
+    const resIndex = await fetch("./assets/data/index.json");
+    const index = await resIndex.json();
 
-    // ✅ Auto-load bab pertama
-    const firstFile = index.files[0].file;
-    const babMatch = firstFile.match(/bab(\d+)\.json$/);
-    if (babMatch) {
-      const firstBab = parseInt(babMatch[1]);
-      await loadBab(firstBab);
+    // Temukan posisi bab yang sedang dimuat
+    const currentFileIndex = index.files.findIndex((f) => f.file === `bab${babIndex}.json`);
+
+    // 🔹 Hitung jumlah total bait dari bab-bab sebelumnya
+    let offset = 0;
+    for (let j = 0; j < currentFileIndex; j++) {
+      const prevRes = await fetch(`./assets/data/${index.files[j].file}`);
+      const prevBaits = await prevRes.json();
+      offset += prevBaits.length;
     }
+
+    // Simpan offset global agar nomor bait melanjutkan
+    baitOffset = offset;
+    currentBab = babIndex;
+
+    // Muat bait untuk bab ini
+    baits = await res.json();
+    renderBaits();
+    showToast(`📖 Bab ${babIndex} dimuat (mulai nomor ${baitOffset + 1})`);
   } catch (err) {
-    baitContainer.innerHTML = `<p style="text-align:center;color:var(--accent)">⚠️ Gagal memuat data bait.</p>`;
     console.error(err);
+    showToast("❌ Tidak bisa memuat bab " + babIndex);
   }
 }
 
