@@ -142,7 +142,7 @@ body.light .header-center input {
 .sidebar {
   position: fixed;
   top: 52px;
-  left: -270px;
+  left: -300px;
   width: 260px;
   height: calc(100% - 52px);
   background: var(--sidebar-bg);
