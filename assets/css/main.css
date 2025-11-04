@@ -243,9 +243,18 @@ body.sidebar-open main#content {
 📝 BAIT
 ========================================================= */
 .bait-container {
-  max-width: 850px;
+  width: 100%;
+  max-width: 960px; /* lebar maksimum di layar besar */
   margin: 0 auto;
   line-height: 1.7;
+  padding: 0 1rem; /* biar teks gak nempel ke pinggir di layar kecil */
+}
+
+@media (max-width: 600px) {
+  .bait-container {
+    max-width: 100%; /* penuh di layar HP */
+    padding: 0 1rem; /* tetap ada jarak aman kiri-kanan */
+  }
 }
 .bait {
   padding: 0.7rem 0.4rem;
