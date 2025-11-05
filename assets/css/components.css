@@ -73,8 +73,13 @@ body.light .toast-message {
 }
 
 .bait {
-  background: var(--card-bg);
-  border: 1px solid /* === Tombol Tema & Ikon === */
+  background: none !important;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-radius: 0;
+  padding: 0.6rem 0;
+  box-shadow: none !important;
+}
 #themeToggle {
   background: none;
   border: none;
@@ -107,11 +112,10 @@ body.light .icon {
   position: relative;
   transition: all var(--transition);
 }
-
-.bait:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 14px var(--shadow);
+body.light .bait {
+  border-bottom: 1px solid rgba(0,0,0,0.1);
 }
+
 
 .bait .text {
   font-size: 1rem;
