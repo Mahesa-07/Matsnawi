@@ -35,7 +35,7 @@ body.light {
 
 /* ===== GLOBAL RESET ===== */
 * {
-  box-sizing: border-box;
+  box-sizing: none;
   -webkit-tap-highlight-color: transparent;
   margin: 0;
   padding: 0;
