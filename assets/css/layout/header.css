@@ -6,7 +6,7 @@ header {
   align-items: center;
   justify-content: space-between;
   padding: 0.35rem 0.6rem;
-  background: rgba(20, 20, 20, 0.55);
+  background: var(--transparant);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--border);
   position: sticky;
