@@ -7,6 +7,7 @@
   --fade: rgba(255, 255, 255, 0.04);
   --shadow: rgba(0, 0, 0, 0.4);
   --sub-judul:#d4af37;
+  --transparant:rgba(20, 20, 20, 0.55);
 }
 
 body.light {
@@ -18,4 +19,5 @@ body.light {
   --fade: rgba(0, 0, 0, 0.04);
   --shadow: rgba(0, 0, 0, 0.1);
     --sub-judul:#302f2a;
+      --transparant:rgba(215,215,215,0.665);
 }
