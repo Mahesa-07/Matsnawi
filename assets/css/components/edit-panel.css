@@ -2,6 +2,19 @@
 📝 Edit Panel — versi tematik elegan
 ========================= */
 #edit-panel {
+  display: none; /* default: hilang */
+  opacity: 0;
+  pointer-events: none;
+}
+#edit-panel.show {
+  display: block;
+  opacity: 1;
+  pointer-events: all;
+  transform: translate(-50%, -50%) scale(1);
+  animation: fadeInUp 0.4s ease forwards;
+}
+
+#edit-panel {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -37,7 +50,7 @@
 
 /* 🌗 Tema terang */
 body.light #edit-panel {
-  background: rgba(255, 255, 255, 0.75);
+  background: rgba(233,233,233,0.698);
   border: 1px solid rgba(0, 0, 0, 0.08);
   box-shadow: 0 8px 28px rgba(0, 0, 0, 0.2);
   color: #111;
