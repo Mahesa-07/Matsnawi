@@ -42,6 +42,9 @@ const confirmRemove = document.getElementById("confirmRemove");
 // =========================
 // BUILD SIDEBAR (Bab → Subbab → Bait Preview)
 // =========================
+// ==============================
+// 🔹 Bangun Sidebar Bab & Subbab
+// ==============================
 async function buildSidebar() {
   const baitList = document.getElementById("baitList");
   baitList.innerHTML = "";
@@ -57,64 +60,59 @@ async function buildSidebar() {
     const subbabList = document.createElement("ul");
     subbabList.className = "subbab-list hidden";
 
+    // 🔹 Loop subbab dalam bab
     bab.subbabs.forEach((sub, subIndex) => {
       const subItem = document.createElement("li");
       subItem.className = "subbab-item";
       subItem.innerHTML = `
-        <div class="subbab-title" data-file="${sub.file}">${sub.title} <span class="desc">${sub.description || ""}</span>
+        <div class="subbab-title" data-file="${sub.file}">
+          ${sub.title}
+          <span class="desc">${sub.description || ""}</span>
         </div>
         <ul class="bait-sublist hidden"></ul>
       `;
       subbabList.appendChild(subItem);
 
-      // Klik subbab untuk buka daftar bait-nya
       const subTitle = subItem.querySelector(".subbab-title");
       const baitSublist = subItem.querySelector(".bait-sublist");
 
+      // Klik subbab → tampilkan daftar bait (preview)
       subTitle.addEventListener("click", async () => {
         const visible = !baitSublist.classList.contains("hidden");
         document.querySelectorAll(".bait-sublist").forEach((l) => l.classList.add("hidden"));
 
         if (!visible) {
-          await loadSubbabPreview(sub.file, baitSublist);
+          await loadSubbabPreview(sub.file, baitSublist, bab, subIndex, sub);
           baitSublist.classList.remove("hidden");
         } else {
           baitSublist.classList.add("hidden");
         }
       });
 
-      // Klik dua kali subbab langsung load isi
-      // Klik dua kali subbab langsung load isi
-subTitle.addEventListener("dblclick", () => {
-  loadSubbab(sub.file, bab.bab, subIndex, sub.title);
-  closeSidebar();
-});
+      // Klik dua kali → langsung buka subbab utama
+      subTitle.addEventListener("dblclick", () => {
+        loadSubbab(sub.file, bab.bab, subIndex, sub.title);
+        closeSidebar();
+      });
+    });
 
-// 👇 ini blok preview yang benar
-subList.querySelectorAll(".bait-item").forEach((li) => {
-  li.addEventListener("click", async () => {
-    await loadSubbab(sub.file, bab.bab, subIndex, sub.title);
-    scrollToBait(Number(li.dataset.id));
-    closeSidebar();
-  });
-});
-
-    babItem.appendChild(subbabList);
-    baitList.appendChild(babItem);
-
-    // Klik bab → tampilkan subbab
-    babItem.querySelector(".bab-title").addEventListener("click", () => {
+    // Klik bab → tampilkan daftar subbab
+    const babTitle = babItem.querySelector(".bab-title");
+    babTitle.addEventListener("click", () => {
       const visible = !subbabList.classList.contains("hidden");
       document.querySelectorAll(".subbab-list").forEach((l) => l.classList.add("hidden"));
       if (!visible) subbabList.classList.remove("hidden");
     });
+
+    babItem.appendChild(subbabList);
+    baitList.appendChild(babItem);
   });
 }
 
-// =========================
-// Tampilkan daftar bait (preview) di sidebar
-// =========================
-async function loadSubbabPreview(file, subList) {
+// ==============================
+// 🔹 Load daftar bait (preview) di sidebar
+// ==============================
+async function loadSubbabPreview(file, subList, bab, subIndex, sub) {
   try {
     const res = await fetch(file);
     if (!res.ok) throw new Error(`Gagal memuat ${file}`);
@@ -122,7 +120,7 @@ async function loadSubbabPreview(file, subList) {
 
     subList.innerHTML = data
       .map(
-        (b, i) => `
+        (b) => `
           <li class="bait-item" data-id="${b.id}">
             <span class="bait-number">${b.id}.</span>
             <span class="bait-text">${b.indo.slice(0, 25)}...</span>
@@ -130,16 +128,14 @@ async function loadSubbabPreview(file, subList) {
       )
       .join("");
 
+    // Klik bait → buka subbab dan lompat ke bait
     subList.querySelectorAll(".bait-item").forEach((li) => {
-  li.addEventListener("click", async () => {
-
-    // ambil SUBINDEX asli yg sama dengan item ini
-    await loadSubbab(sub.file, bab.bab, subIndex, sub.title);  // ← perbaikan
-
-    scrollToBait(Number(li.dataset.id));
-    closeSidebar();
-  });
-});
+      li.addEventListener("click", async () => {
+        await loadSubbab(sub.file, bab.bab, subIndex, sub.title);
+        scrollToBait(Number(li.dataset.id));
+        closeSidebar();
+      });
+    });
   } catch (err) {
     console.error("loadSubbabPreview error:", err);
     subList.innerHTML = "<li>⚠️ Gagal memuat bait</li>";
@@ -624,6 +620,7 @@ function showToast(msg) {
 // =========================
 // UTAMA / INISIALISASI
 // =========================
+
 document.addEventListener("DOMContentLoaded", async () => {
   // 1) bangun sidebar
   await buildSidebar();
