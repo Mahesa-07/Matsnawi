@@ -119,6 +119,7 @@
   border-left: 1px dashed var(--fade);
   transition: all var(--transition-fast);
   overflow: hidden;
+  font-size: 0.7rem;
 }
 .bait-item {
   padding: 0.3rem 0.5rem;
