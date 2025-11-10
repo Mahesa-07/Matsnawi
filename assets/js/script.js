@@ -622,10 +622,10 @@ function showToast(msg) {
 // =========================
 
 document.addEventListener("DOMContentLoaded", async () => {
-  // 1) bangun sidebar
+  // 1️⃣ Bangun sidebar
   await buildSidebar();
 
-  // 2) auto-load subbab pertama (jika ada)
+  // 2️⃣ Auto-load subbab pertama (jika ada)
   try {
     const res = await fetch("./assets/data/index.json");
     const index = await res.json();
@@ -637,25 +637,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     console.error("init load error:", err);
   }
 
-  // 3) tombol bahasa & tema
+  // 3️⃣ Tombol bahasa & tema
   langSwitch?.addEventListener("click", () => {
     showTranslation = !showTranslation;
     langSwitch.textContent = showTranslation ? "🇮🇩" : "🇬🇧";
-renderBaits();
+    renderBaits(); // ← ini sebelumnya belum diindent & tanda kurungnya salah posisi
   });
+
   themeToggle?.addEventListener("click", () => {
     document.body.classList.toggle("light");
     themeToggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
-  }
-// === Efek klik untuk buka/tutup subbab ===
-document.addEventListener("click", (e) => {
-  if (e.target.classList.contains("subbab-title")) {
-    const sublist = e.target.nextElementSibling;
-    if (sublist && sublist.classList.contains("bait-sublist")) {
-      sublist.classList.toggle("show");
+  }); // ← ini sebelumnya kurang tanda kurung tutup “)” dan “;”
+
+  // 4️⃣ Efek klik untuk buka/tutup subbab (expand/collapse)
+  document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("subbab-title")) {
+      const sublist = e.target.nextElementSibling;
+      if (sublist && sublist.classList.contains("bait-sublist")) {
+        sublist.classList.toggle("show");
+      }
     }
-  }
-});
+  });
 
   console.log("✅ Matsnawi Digital aktif (Bookmark + Edit + Deskripsi)");
 });
