@@ -1,5 +1,5 @@
 /* =========================
-📚 SIDEBAR — Kaca Buram & Navigasi 3 Tingkat
+📚 SIDEBAR — Kaca Buram & Navigasi 3 Tingkat (Modular Matsnawi)
 ========================= */
 .sidebar {
   position: fixed;
@@ -8,16 +8,16 @@
   width: 90%;
   max-width: 360px;
   height: 100%;
-  background: rgba(20, 20, 20, 0.55); /* 🔹 transparan gelap */
+  background: var(--transparant);
   backdrop-filter: blur(16px) saturate(160%);
   -webkit-backdrop-filter: blur(16px) saturate(160%);
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid var(--border);
   transform: translateX(-100%);
-  transition: transform 0.3s ease, backdrop-filter 0.3s ease;
+  transition: transform var(--transition-fast), backdrop-filter var(--transition-fast);
   z-index: 200;
   overflow-y: auto;
   padding-bottom: 3rem;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.45);
+  box-shadow: 4px 0 20px var(--shadow);
 }
 
 /* Saat sidebar dibuka */
@@ -30,11 +30,11 @@
 ========================= */
 .sidebar-header {
   padding: 0.8rem 1rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border);
   font-weight: 500;
   font-size: 0.7rem;
   letter-spacing: 0.4px;
-  color: var(--highlight, #d1b97f);
+  color: var(--sub-judul);
   text-transform: uppercase;
   opacity: 0.88;
   backdrop-filter: blur(8px);
@@ -42,12 +42,14 @@
 }
 
 /* =========================
-📘 BENTUK DASAR BAB, SUBBAB, BAIT
+📘 STRUKTUR BAB / SUBBAB / BAIT
 ========================= */
 
 /* Bab */
 .sidebar-bab {
+  position: relative;
   margin-bottom: 0.6rem;
+  padding-left: 0.4rem;
 }
 
 .bab-title {
@@ -56,82 +58,92 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--sub-judul);
   user-select: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  transition: background 0.25s, color 0.25s;
+  border-bottom: 1px solid var(--fade);
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
-
 .bab-title:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--highlight, #ffd700);
+  background: var(--fade);
+  color: var(--highlight);
 }
-
 .bab-title .arrow {
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   opacity: 0.7;
-  transition: transform 0.3s;
+  transition: transform var(--transition-slow);
 }
 
 /* Subbab */
 .subbab-list {
-  margin-left: 0.4rem;
- border-left: none;
-  padding-left: 0.2rem;
-  transition: all 0.3s ease;
+  margin-left: 0.6rem;
+  padding-left: 0.3rem;
+  border-left: 1.5px solid var(--fade);
+  transition: all var(--transition-fast);
   overflow: hidden;
 }
 
 .subbab-title {
   cursor: pointer;
-  padding: 0.2rem 0.4rem;
-  font-size: 0.9rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.85rem;
   display: flex;
-  justify-content: left;
-  align-items: left;
+  align-items: center;
   color: var(--text);
-  transition: background 0.25s, color 0.25s;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
-
 .subbab-title:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--fade);
   color: var(--accent);
 }
-
-.subbab-title .arrow {
-  font-size: 0.75rem;
-  opacity: 0.6;
+.subbab-title::before {
+  content: "•";
+  color: var(--accent);
+  font-weight: bold;
+  margin-right: 0.5rem;
+  font-size: 1rem;
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+.subbab-title:hover::before {
+  opacity: 1;
+  transform: scale(1.2);
+  transition: all var(--transition-fast);
 }
 
-/* Daftar bait (nomor bait) */
+/* Daftar bait */
 .bait-sublist {
-  margin-left: 0.5rem;
-  font-size: 0.85rem;
-  border-left: 1px solid rgba(255, 255, 255, 0.05);
-  padding-left: 0.5rem;
-  transition: all 0.3s ease;
+  margin-left: 1rem;
+  padding-left: 0.6rem;
+  border-left: 1px dashed var(--fade);
+  transition: all var(--transition-fast);
   overflow: hidden;
 }
-
 .bait-item {
   padding: 0.3rem 0.5rem;
   margin: 0.2rem 0;
   border-radius: 6px;
   cursor: pointer;
-  transition: background 0.25s, color 0.25s;
+  display: flex;
+  align-items: center;
+  transition: background var(--transition-fast), color var(--transition-fast);
 }
-
+.bait-item::before {
+  content: "◦";
+  color: var(--highlight);
+  margin-right: 0.4rem;
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
 .bait-item:hover {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--fade);
   color: var(--accent);
 }
-
-/* =========================
-🌿 Utility class
-========================= */
-.hidden {
-  display: none !important;
+.bait-item:hover::before {
+  opacity: 1;
+  transform: scale(1.3);
+  transition: all var(--transition-fast);
 }
 
 /* =========================
@@ -153,133 +165,17 @@
 ========================= */
 body.light .sidebar {
   background: rgba(255, 255, 255, 0.8);
-  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  border-right: 1px solid var(--border);
   box-shadow: 4px 0 16px rgba(0, 0, 0, 0.1);
 }
-
-body.light .bab-title {
-  color: var(--accent);
-}
-
-body.light .bab-title:hover {
-  background: rgba(0, 0, 0, 0.05);
-}
-
+body.light .bab-title:hover,
 body.light .subbab-title:hover,
 body.light .bait-item:hover {
   background: rgba(0, 0, 0, 0.05);
 }
-/* =========================
-📍 Indikator / Dot untuk Subbab & Bait
-========================= */
-
-/* Titik di kiri Subbab */
-/*.subbab-title::before {
-  content: "•";
-  color: var(--accent);
-  font-weight: bold;
-  display: inline-block;
-  margin-right: 0.5rem;
-  transform: scale(1.2);
-  opacity: 0.8;
-}
-
-/* Titik di kiri Bait */
-.bait-item::before {
-  content: "◦";
-  color: var(--highlight, #d4af37);
-  display: inline-block;
-  margin-right: 0.5rem;
-  opacity: 0.7;
-  font-size: 0.9rem;
-}
-
-/* Rapiin teks agar sejajar dengan dot */
-.subbab-title,
-.bait-item {
-  display: flex;
-  align-items: center;
-}
-.subbab-title:hover::before,
-.bait-item:hover::before {
-  opacity: 1;
-  transform: scale(1.4);
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-/* =========================
-📘 Struktur Sidebar — Garis & Dot Indikator
-========================= */
-
-/* Wrapper daftar Bab */
-.sidebar-bab {
-  position: relative;
-  margin-bottom: 0.6rem;
-  padding-left: 0.4rem;
-}
-
-/* 🔹 Garis vertikal untuk subbab */
-/*.subbab-list {
-  margin-left: 0.8rem;
-  padding-left: 0.6rem;
-  border-left: 1.5px solid rgba(255, 255, 255, 0.08);
-  position: relative;
-}
-
-/* 🔸 Garis vertikal halus untuk daftar bait */
-.bait-sublist {
-  margin-left: 1.2rem;
-  padding-left: 0.6rem;
-  border-left: 1px dashed rgba(255, 255, 255, 0.08);
-  position: relative;
-}
-
-/* Titik sebelum Subbab */
-.subbab-title::before {
-  content: "•";
-  color: var(--accent, #d4af37);
-  font-weight: bold;
-  margin-right: 0.5rem;
-  font-size: 1rem;
-  transform: translateY(-1px);
-  opacity: 0.85;
-}
-
-/* Titik sebelum Bait */
-.bait-item::before {
-  content: "◦";
-  color: var(--highlight, #d4af37);
-  margin-right: 0.4rem;
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
-
-/* Rapiin posisi teks */
-.subbab-title,
-.bait-item {
-  display: flex;
-  align-items: center;
-}
-
-/* Efek hover */
-.subbab-title:hover,
-.bait-item:hover {
-  background: rgba(255, 255, 255, 0.06);
-  color: var(--accent);
-}
-
-.subbab-title:hover::before,
-.bait-item:hover::before {
-  opacity: 1;
-  transform: scale(1.3);
-  transition: all 0.25s ease;
-}
-
-/* 🌗 Tema terang */
-body.light .subbab-list {
-  border-left-color: rgba(0, 0, 0, 0.08);
-}
+body.light .subbab-list,
 body.light .bait-sublist {
-  border-left-color: rgba(0, 0, 0, 0.1);
+  border-left-color: rgba(0, 0, 0, 0.08);
 }
 body.light .subbab-title::before,
 body.light .bait-item::before {
