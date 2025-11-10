@@ -133,7 +133,7 @@
   content: "◦";
   color: var(--highlight);
   margin-right: 0.4rem;
-  font-size: 0.9rem;
+  font-size: 0.7rem;
   opacity: 0.7;
 }
 .bait-item:hover {
