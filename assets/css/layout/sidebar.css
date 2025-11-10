@@ -120,7 +120,7 @@
   border-left: 1.5px dashed var(--fade);
   font-size: 0.7rem;
   overflow: hidden;
-  max-widht: 330px;               /* tersembunyi saat awal */
+  max-height: 0;               /* tersembunyi saat awal */
   opacity: 0;                  /* transparan saat tertutup */
   transform: translateY(-4px); /* sedikit naik agar animasi smooth */
   transition:
