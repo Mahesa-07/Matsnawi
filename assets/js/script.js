@@ -646,7 +646,16 @@ renderBaits();
   themeToggle?.addEventListener("click", () => {
     document.body.classList.toggle("light");
     themeToggle.textContent = document.body.classList.contains("light") ? "☀️" : "🌙";
-  });
+  }
+// === Efek klik untuk buka/tutup subbab ===
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("subbab-title")) {
+    const sublist = e.target.nextElementSibling;
+    if (sublist && sublist.classList.contains("bait-sublist")) {
+      sublist.classList.toggle("show");
+    }
+  }
+});
 
   console.log("✅ Matsnawi Digital aktif (Bookmark + Edit + Deskripsi)");
 });
