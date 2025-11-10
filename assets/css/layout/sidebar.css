@@ -113,13 +113,27 @@
 }
 
 /* Daftar bait */
+/* ✨ Efek animasi buka/tutup daftar bait */
 .bait-sublist {
-  margin-left: 1rem;
+  margin-left: 0.6rem;
   padding-left: 0.6rem;
-  border-left: 1px dashed var(--fade);
-  transition: all var(--transition-fast);
-  overflow: hidden;
+  border-left: 1.5px dashed var(--fade);
   font-size: 0.7rem;
+  overflow: hidden;
+  max-height: 0;               /* tersembunyi saat awal */
+  opacity: 0;                  /* transparan saat tertutup */
+  transform: translateY(-4px); /* sedikit naik agar animasi smooth */
+  transition:
+    max-height 0.35s ease,
+    opacity 0.25s ease,
+    transform 0.35s ease;
+}
+
+/* Saat dibuka (class .show ditambahkan lewat JS) */
+.bait-sublist.show {
+  max-height: 500px;     /* cukup besar agar semua bait muat */
+  opacity: 1;
+  transform: translateY(0);
 }
 .bait-item {
   padding: 0.3rem 0.5rem;
