@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matsnawi Jilid 1</title>
+  <link rel="stylesheet" href="./assets/css/main.css">
+
+  <!-- 🔹 SVG Sprite Icons -->
+  <svg style="display:none;">
+    <symbol id="icon-bookmark" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M6 2h12v18l-6-4-6 4V2z"/>
+    </symbol>
+    <symbol id="icon-edit" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M3 21l3-1 11-11a2.5 2.5 0 0 0 0-3.5L15.5 2.5a2.5 2.5 0 0 0-3.5 0L1 13v7z"/>
+    </symbol>
+    <symbol id="icon-open" viewBox="0 0 24 24">
+      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
+            d="M4 19h16V5H4v14zm8-11l4 4-4 4"/>
+    </symbol>
+  </svg>
+</head>
+
+<body>
+  <!-- HEADER -->
+  <header>
+    <div class="left-header">
+      <button id="menuToggle" class="menu-btn" aria-label="Buka Sidebar">☰</button>
+      <h1>Matsnawi Jilid 1</h1>
+    </div>
+
+    <div class="header-center">
+      <input
+        type="text"
+        id="searchInput"
+        placeholder="🔍 Cari bait (Indonesia atau inggris)..."
+        aria-label="Cari Bait"
+      />
+    </div>
+
+    <div class="header-actions">
+      <button id="bookmark-toggle" class="icon-btn" title="Lihat Bookmark">
+        <svg width="24" height="24"><use href="#icon-bookmark"></use></svg>
+      </button>
+      <button id="langSwitch" title="Ganti Bahasa">🇮🇩</button>
+      <button id="themeToggle" title="Ganti Tema">🌙</button>
+    </div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <h2>Daftar Bab</h2>
+    </div>
+    <div id="baitList" class="sidebar-list"></div>
+  </aside>
+
+  <!-- KONTEN UTAMA -->
+  <main id="content">
+    <div id="baitContainer" class="bait-container"></div>
+  </main>
+
+  <!-- PANEL EDIT -->
+  <div id="edit-overlay"></div>
+  <div id="edit-panel" class="edit-panel" aria-hidden="true">
+    <h3>Edit Bait</h3>
+    <label for="edit-inggris">Teks inggris:</label>
+    <textarea id="edit-inggris"></textarea>
+
+    <label for="edit-indo">Terjemahan Indonesia:</label>
+    <textarea id="edit-indo"></textarea>
+
+    <div class="edit-actions">
+      <button id="saveEditBtn">Simpan</button>
+      <button id="cancelEditBtn">Batal</button>
+    </div>
+  </div>
+
+  <!-- PANEL BOOKMARK -->
+  <div id="bookmark-panel" class="bookmark-panel" aria-hidden="true">
+    <h3>Daftar Bookmark</h3>
+    <div id="bookmark-list"></div>
+  </div>
+
+  <div id="bookmark-overlay"></div>
+
+  <!-- DIALOG KONFIRMASI HAPUS -->
+  <div id="confirm-dialog" class="confirm-dialog" aria-hidden="true">
+    <div class="confirm-box">
+      <p>Hapus bookmark ini?</p>
+      <div class="confirm-actions">
+        <button id="cancelRemove" class="btn-cancel">Tidak</button>
+        <button id="confirmRemove" class="btn-confirm">Hapus</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT -->
+  <script type="module" src="./assets/js/script.js"></script>
+</body>
+</html>
