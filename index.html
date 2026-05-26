@@ -1,40 +1,419 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Matsnawi Jilid 1</title>
-  <link rel="stylesheet" href="./assets/css/main.css">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <!-- 🔹 SVG Sprite Icons -->
-  <svg style="display:none;">
-    <symbol id="icon-bookmark" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
-            d="M6 2h12v18l-6-4-6 4V2z"/>
-    </symbol>
-    <symbol id="icon-edit" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
-            d="M3 21l3-1 11-11a2.5 2.5 0 0 0 0-3.5L15.5 2.5a2.5 2.5 0 0 0-3.5 0L1 13v7z"/>
-    </symbol>
-    <symbol id="icon-open" viewBox="0 0 24 24">
-      <path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"
-            d="M4 19h16V5H4v14zm8-11l4 4-4 4"/>
-    </symbol>
-  </svg>
+<title>Surat Cinta</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+/* GANTI CSS BODY YANG LAMA DENGAN INI */
+
+body{
+
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:30px;
+
+  overflow-x:hidden;
+  overflow-y:auto;
+
+  background:
+    radial-gradient(circle at top,#ffe9f1,#ffd9e7 40%,#f8bfd1);
+
+  font-family:'Cormorant Garamond', serif;
+}
+
+/* TAMBAHKAN INI JUGA */
+
+html{
+  overflow-y:auto;
+  scroll-behavior:smooth;
+}
+
+/* ========================================
+   FLOWERS
+======================================== */
+
+.flower{
+  position:fixed;
+  opacity:.22;
+  filter:drop-shadow(0 8px 20px rgba(255,255,255,.4));
+  pointer-events:none;
+}
+
+.flower svg{
+  width:100%;
+  height:100%;
+}
+
+.flower.top-left{
+  width:260px;
+  top:-50px;
+  left:-40px;
+  transform:rotate(-12deg);
+}
+
+.flower.bottom-right{
+  width:320px;
+  bottom:-80px;
+  right:-70px;
+  transform:rotate(18deg);
+}
+
+.flower.top-right{
+  width:180px;
+  top:20px;
+  right:40px;
+  opacity:.12;
+}
+
+.flower.bottom-left{
+  width:170px;
+  bottom:40px;
+  left:30px;
+  opacity:.12;
+}
+
+/* ========================================
+   LETTER
+======================================== */
+
+.letter{
+
+  position:relative;
+
+  width:min(780px,100%);
+
+  padding:70px 50px;
+
+  border-radius:34px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.82),
+      rgba(255,248,250,.94)
+    );
+
+  border:1px solid rgba(255,255,255,.7);
+
+  box-shadow:
+    0 30px 70px rgba(172,77,110,.22),
+    inset 0 1px 0 rgba(255,255,255,.8);
+
+  backdrop-filter:blur(8px);
+
+  overflow:hidden;
+}
+
+/* soft glow */
+
+.letter::before{
+
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  border-radius:50%;
+
+  background:rgba(255,192,203,.18);
+
+  filter:blur(80px);
+
+  top:-100px;
+  right:-90px;
+}
+
+.corner{
+
+  position:absolute;
+
+  width:110px;
+  height:110px;
+
+  border:1px solid rgba(213,123,151,.22);
+
+}
+
+.corner.top-left{
+  top:18px;
+  left:18px;
+
+  border-right:none;
+  border-bottom:none;
+
+  border-radius:24px 0 0 0;
+}
+
+.corner.bottom-right{
+  bottom:18px;
+  right:18px;
+
+  border-left:none;
+  border-top:none;
+
+  border-radius:0 0 24px 0;
+}
+
+/* ========================================
+   CONTENT
+======================================== */
+
+.label{
+
+  text-align:center;
+
+  letter-spacing:4px;
+
+  text-transform:uppercase;
+
+  color:#c07a93;
+
+  font-size:14px;
+
+  margin-bottom:18px;
+}
+
+.title{
+
+  text-align:center;
+
+  font-family:'Great Vibes', cursive;
+
+  font-size:78px;
+
+  color:#b55d7b;
+
+  margin-bottom:40px;
+}
+
+.content{
+
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+
+  font-size:28px;
+  line-height:1.9;
+
+  color:#7b4b5d;
+}
+
+.content p{
+  text-align:justify;
+}
+
+.divider{
+
+  width:100%;
+  height:1px;
+
+  margin:34px 0;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(190,117,143,.35),
+      transparent
+    );
+}
+
+.signature{
+
+  text-align:right;
+}
+
+.signature small{
+
+  display:block;
+
+  color:#b68497;
+
+  font-size:18px;
+
+  margin-bottom:8px;
+}
+
+.signature h2{
+
+  font-family:'Great Vibes', cursive;
+
+  font-size:52px;
+
+  color:#b85e7e;
+}
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media(max-width:640px){
+
+  .letter{
+    padding:55px 28px;
+    border-radius:28px;
+  }
+
+  .title{
+    font-size:58px;
+  }
+
+  .content{
+    font-size:22px;
+    line-height:1.8;
+  }
+
+  .signature h2{
+    font-size:42px;
+  }
+
+  .flower.top-left{
+    width:180px;
+  }
+
+  .flower.bottom-right{
+    width:220px;
+  }
+
+}
+
+</style>
 </head>
-
 <body>
-  <!-- HEADER -->
-  <header>
-    <div class="left-header">
-      <button id="menuToggle" class="menu-btn" aria-label="Buka Sidebar">☰</button>
-      <h1>Matsnawi Jilid 1</h1>
-    </div>
 
-    <div class="header-center">
-      <input
-        type="text"
-        id="searchInput"
+<!-- FLOWER -->
+<div class="flower top-left">
+
+<svg viewBox="0 0 200 200" fill="none">
+
+<path d="M100 40C120 10 160 20 155 55C190 45 205 85 175 105C205 125 185 165 150 155C155 190 115 195 100 165C85 195 45 190 50 155C15 165 -5 125 25 105C-5 85 10 45 45 55C40 20 80 10 100 40Z" fill="#ff9fbc"/>
+
+<circle cx="100" cy="100" r="26" fill="#ffdce7"/>
+
+</svg>
+
+</div>
+
+<!-- FLOWER -->
+<div class="flower bottom-right">
+
+<svg viewBox="0 0 200 200" fill="none">
+
+<path d="M100 40C120 10 160 20 155 55C190 45 205 85 175 105C205 125 185 165 150 155C155 190 115 195 100 165C85 195 45 190 50 155C15 165 -5 125 25 105C-5 85 10 45 45 55C40 20 80 10 100 40Z" fill="#ff7fa7"/>
+
+<circle cx="100" cy="100" r="26" fill="#ffe6ef"/>
+
+</svg>
+
+</div>
+
+<div class="flower top-right">
+
+<svg viewBox="0 0 200 200" fill="none">
+
+<path d="M100 40C120 10 160 20 155 55C190 45 205 85 175 105C205 125 185 165 150 155C155 190 115 195 100 165C85 195 45 190 50 155C15 165 -5 125 25 105C-5 85 10 45 45 55C40 20 80 10 100 40Z" fill="#ffb3c8"/>
+
+<circle cx="100" cy="100" r="26" fill="#fff"/></svg>
+
+</div>
+
+<div class="flower bottom-left">
+
+<svg viewBox="0 0 200 200" fill="none">
+
+<path d="M100 40C120 10 160 20 155 55C190 45 205 85 175 105C205 125 185 165 150 155C155 190 115 195 100 165C85 195 45 190 50 155C15 165 -5 125 25 105C-5 85 10 45 45 55C40 20 80 10 100 40Z" fill="#ffbfd1"/>
+
+<circle cx="100" cy="100" r="26" fill="#fff"/></svg>
+
+</div>
+
+<!-- LETTER -->
+<div class="letter">
+
+  <div class="corner top-left"></div>
+  <div class="corner bottom-right"></div>
+
+  <div class="label">
+    surat kecil untuk seseorang yang dirindukan
+  </div>
+
+  <h1 class="title">
+    Untukmu
+  </h1>
+
+  <div class="content">
+
+    <p>
+      Ada malam-malam tertentu di mana rindu terasa begitu sunyi.
+      Dan di setiap sunyi itu,
+      namamulah yang diam-diam datang memenuhi pikiranku.
+    </p>
+
+    <p>
+      Aku merindukan caramu hadir,
+      caramu membuat segala hal sederhana terasa indah,
+      bahkan hanya lewat senyuman kecil yang mungkin tak pernah kau sadari begitu berarti bagiku.
+    </p>
+
+    <p>
+      Kadang aku berharap waktu bisa berhenti sebentar saja,
+      agar aku bisa tinggal lebih lama di setiap kenangan tentangmu.
+      Sebab semakin hari,
+      rinduku tumbuh seperti bunga yang diam-diam mekar tanpa suara.
+    </p>
+
+    <p>
+      Jika suatu hari nanti kau bertanya,
+      “Apa yang paling tulus pernah tinggal di hatimu?”
+      Maka jawabannya akan tetap sama:
+      namamu.
+    </p>
+
+    <p>
+      Dan sampai malam ini berakhir,
+      aku masih seseorang yang diam-diam mendoakanmu dari jauh.
+    </p>
+
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="signature">
+
+    <small>
+      dengan penuh kasih dan rindu,
+    </small>
+
+    <h2>
+      seseorang yang mencintaimu
+      <br><p></p>
+      <p> <small>Rio</small></p>
+    </h2>
+
+  </div>
+
+</div>
+
+</body>
+</html>        id="searchInput"
         placeholder="🔍 Cari bait (Indonesia atau inggris)..."
         aria-label="Cari Bait"
       />
